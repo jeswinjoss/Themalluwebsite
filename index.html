@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Mallu | Free Premium Tools</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Background Elements -->
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-layer-group"></i> The Mallu
+        </div>
+        
+        <!-- Desktop Navigation -->
+        <div class="nav-links desktop-nav">
+            <a href="#hero">Home</a>
+            <a href="#tools">Tools</a>
+            <a href="#about">About</a>
+        </div>
+
+        <div class="nav-actions">
+            <button id="theme-toggle" class="btn-icon"><i class="fa-solid fa-sun"></i></button>
+            <!-- Hamburger Menu Icon -->
+            <button id="hamburger" class="btn-icon hamburger"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Slider -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <i class="fa-solid fa-layer-group"></i> The Mallu
+            </div>
+            <button id="closeMenu" class="btn-icon"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="mobile-nav-links">
+            <a href="#hero" class="mobile-link">Home</a>
+            <a href="#tools" class="mobile-link">Tools</a>
+            <a href="#about" class="mobile-link">About</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <header id="hero" class="hero-section">
+        <div class="hero-content">
+            <h1 class="animate-text">Smart Tools for <span class="highlight">Smart People</span></h1>
+            <p>Your all-in-one digital Swiss Army knife. Free, fast, and privacy-focused.</p>
+            
+            <div class="search-container">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="toolSearch" placeholder="Search for a tool (e.g., QR, Password)...">
+            </div>
+        </div>
+    </header>
+
+    <!-- Tools Grid -->
+    <main id="tools" class="container">
+        <div class="section-header">
+            <h2>Most Popular Tools</h2>
+            <div class="category-tags">
+                <span class="tag active" data-cat="all">All</span>
+                <span class="tag" data-cat="dev">Developer</span>
+                <span class="tag" data-cat="content">Content</span>
+                <span class="tag" data-cat="utility">Utility</span>
+            </div>
+        </div>
+
+        <div class="tools-grid" id="toolsGrid">
+            
+            <!-- Tool Card 1: Password Generator -->
+            <div class="tool-card" data-cat="utility" onclick="openModal('passwordModal')">
+                <div class="icon-box color-1">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <h3>Password Gen</h3>
+                <p>Create secure, random passwords instantly.</p>
+            </div>
+
+            <!-- Tool Card 2: QR Generator -->
+            <div class="tool-card" data-cat="utility" onclick="openModal('qrModal')">
+                <div class="icon-box color-2">
+                    <i class="fa-solid fa-qrcode"></i>
+                </div>
+                <h3>QR Code Maker</h3>
+                <p>Convert text or URLs into downloadable QR codes.</p>
+            </div>
+
+            <!-- Tool Card 3: Word Counter -->
+            <div class="tool-card" data-cat="content" onclick="openModal('wordCountModal')">
+                <div class="icon-box color-3">
+                    <i class="fa-solid fa-pen-nib"></i>
+                </div>
+                <h3>Word Counter</h3>
+                <p>Count words, characters, and reading time.</p>
+            </div>
+
+            <!-- Tool Card 4: Color Converter -->
+            <div class="tool-card" data-cat="dev" onclick="openModal('colorModal')">
+                <div class="icon-box color-4">
+                    <i class="fa-solid fa-eye-dropper"></i>
+                </div>
+                <h3>HEX to RGB</h3>
+                <p>Convert color codes seamlessly.</p>
+            </div>
+
+            <!-- Tool Card 5: Internet Speed (Simulated) -->
+            <div class="tool-card" data-cat="utility" onclick="openModal('speedModal')">
+                <div class="icon-box color-5">
+                    <i class="fa-solid fa-gauge-high"></i>
+                </div>
+                <h3>Speed Test</h3>
+                <p>Check your connection latency (Sim).</p>
+            </div>
+
+            <!-- Tool Card 6: Insta EMI Calc (Replaces Quick Tasks) -->
+            <a href="https://instacalc.vercel.app/" target="_blank" class="tool-card" data-cat="utility">
+                <div class="icon-box color-6">
+                    <i class="fa-solid fa-calculator"></i>
+                </div>
+                <h3>Insta EMI Calc</h3>
+                <p>Calculate your loan EMIs instantly.</p>
+            </a>
+
+        </div>
+    </main>
+
+    <!-- MODALS (Tool Interfaces) -->
+
+    <!-- Password Modal -->
+    <div id="passwordModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('passwordModal')">&times;</span>
+            <h2><i class="fa-solid fa-lock"></i> Password Generator</h2>
+            <div class="tool-interface">
+                <div class="result-box">
+                    <span id="passwordResult">YourPasswordHere</span>
+                    <button class="btn-copy" onclick="copyToClipboard('passwordResult')"><i class="fa-regular fa-copy"></i></button>
+                </div>
+                <div class="controls">
+                    <label>Length: <span id="lenValue">12</span></label>
+                    <input type="range" id="passLength" min="6" max="32" value="12" oninput="updatePassLen()">
+                    <div class="checkboxes">
+                        <label><input type="checkbox" id="incNumbers" checked> Numbers</label>
+                        <label><input type="checkbox" id="incSymbols" checked> Symbols</label>
+                    </div>
+                    <button class="btn-primary" onclick="generatePassword()">Generate</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QR Modal -->
+    <div id="qrModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('qrModal')">&times;</span>
+            <h2><i class="fa-solid fa-qrcode"></i> QR Generator</h2>
+            <div class="tool-interface">
+                <input type="text" id="qrInput" class="text-input" placeholder="Enter URL or Text">
+                <button class="btn-primary" onclick="generateQR()">Create QR</button>
+                <div id="qrResult" class="qr-placeholder">
+                    <img src="" alt="QR Code" id="qrImage" style="display:none;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Word Counter Modal -->
+    <div id="wordCountModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('wordCountModal')">&times;</span>
+            <h2><i class="fa-solid fa-pen-nib"></i> Word Counter</h2>
+            <textarea id="wordInput" placeholder="Type or paste your text here..." oninput="countWords()"></textarea>
+            <div class="stats-row">
+                <div class="stat">Words: <span id="wCount">0</span></div>
+                <div class="stat">Chars: <span id="cCount">0</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Color Modal -->
+    <div id="colorModal" class="modal">
+        <div class="modal-content">
+             <span class="close-modal" onclick="closeModal('colorModal')">&times;</span>
+             <h2>HEX to RGB</h2>
+             <div class="tool-interface">
+                 <input type="color" id="colorPicker" oninput="convertColor()" value="#6c63ff">
+                 <input type="text" id="hexInput" class="text-input" value="#6c63ff" oninput="convertColor(true)">
+                 <div class="result-box" style="margin-top:10px;">
+                     <span id="rgbResult">rgb(108, 99, 255)</span>
+                 </div>
+             </div>
+        </div>
+    </div>
+
+    <!-- Speed Modal (Simulated) -->
+    <div id="speedModal" class="modal">
+         <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('speedModal')">&times;</span>
+            <h2>Speed Test</h2>
+            <div class="speed-meter">
+                <div class="needle" id="speedNeedle"></div>
+            </div>
+            <h3 id="speedValue">0 Mbps</h3>
+            <button class="btn-primary" onclick="runSpeedTest()">Start Test</button>
+         </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 The Mallu. Made with <i class="fa-solid fa-heart" style="color:red;"></i> for the web.</p>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
