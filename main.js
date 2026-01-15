@@ -83,40 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Tool Logics ---
 
-    // 1. Password Generator
-    window.generatePassword = () => {
-        const length = document.getElementById('passLength').value;
-        const hasNum = document.getElementById('incNumbers').checked;
-        const hasSym = document.getElementById('incSymbols').checked;
-        
-        const letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        const numbers = '0123456789';
-        const symbols = '!@#$%^&*()_+~`|}{[]:;?><,./-=';
-        
-        let chars = letters;
-        if (hasNum) chars += numbers;
-        if (hasSym) chars += symbols;
-        
-        let pass = '';
-        for (let i = 0; i < length; i++) {
-            pass += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        
-        document.getElementById('passwordResult').innerText = pass;
-    };
-
-    window.updatePassLen = () => {
-        document.getElementById('lenValue').innerText = document.getElementById('passLength').value;
-    };
-
-    window.copyToClipboard = (id) => {
-        const text = document.getElementById(id).innerText;
-        navigator.clipboard.writeText(text).then(() => {
-            alert('Copied to clipboard!');
-        });
-    };
-
-    // 2. QR Generator
+    // 1. QR Generator
     window.generateQR = () => {
         const input = document.getElementById('qrInput').value;
         if(!input) return;
@@ -126,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
         img.style.display = 'block';
     };
 
-    // 3. Word Counter
+    // 2. Word Counter
     window.countWords = () => {
         const text = document.getElementById('wordInput').value;
         const wCount = text.trim() ? text.trim().split(/\s+/).length : 0;
@@ -135,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('cCount').innerText = cCount;
     };
 
-    // 4. Color Converter
+    // 3. Color Converter
     window.convertColor = (isText = false) => {
         let hex;
         if(isText) {
@@ -156,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('rgbResult').innerText = `rgb(${r}, ${g}, ${b})`;
     }
 
-    // 5. Speed Test (Simulation)
+    // 4. Speed Test (Simulation)
     window.runSpeedTest = () => {
         const needle = document.getElementById('speedNeedle');
         const valText = document.getElementById('speedValue');
@@ -175,7 +142,4 @@ document.addEventListener('DOMContentLoaded', () => {
             needle.style.backgroundColor = '#10b981';
         }, 3000);
     };
-
-    // Initial Calls
-    generatePassword(); // Generate a password on load
 });

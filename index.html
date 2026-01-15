@@ -60,7 +60,7 @@
             
             <div class="search-container">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" id="toolSearch" placeholder="Search for a tool (e.g., QR, Password)...">
+                <input type="text" id="toolSearch" placeholder="Search for a tool (e.g., QR, Color)...">
             </div>
         </div>
     </header>
@@ -79,16 +79,7 @@
 
         <div class="tools-grid" id="toolsGrid">
             
-            <!-- Tool Card 1: Password Generator -->
-            <div class="tool-card" data-cat="utility" onclick="openModal('passwordModal')">
-                <div class="icon-box color-1">
-                    <i class="fa-solid fa-lock"></i>
-                </div>
-                <h3>Password Gen</h3>
-                <p>Create secure, random passwords instantly.</p>
-            </div>
-
-            <!-- Tool Card 2: QR Generator -->
+            <!-- Tool Card 1: QR Generator -->
             <div class="tool-card" data-cat="utility" onclick="openModal('qrModal')">
                 <div class="icon-box color-2">
                     <i class="fa-solid fa-qrcode"></i>
@@ -97,7 +88,7 @@
                 <p>Convert text or URLs into downloadable QR codes.</p>
             </div>
 
-            <!-- Tool Card 3: Word Counter -->
+            <!-- Tool Card 2: Word Counter -->
             <div class="tool-card" data-cat="content" onclick="openModal('wordCountModal')">
                 <div class="icon-box color-3">
                     <i class="fa-solid fa-pen-nib"></i>
@@ -106,7 +97,7 @@
                 <p>Count words, characters, and reading time.</p>
             </div>
 
-            <!-- Tool Card 4: Color Converter -->
+            <!-- Tool Card 3: Color Converter -->
             <div class="tool-card" data-cat="dev" onclick="openModal('colorModal')">
                 <div class="icon-box color-4">
                     <i class="fa-solid fa-eye-dropper"></i>
@@ -115,7 +106,7 @@
                 <p>Convert color codes seamlessly.</p>
             </div>
 
-            <!-- Tool Card 5: Internet Speed (Simulated) -->
+            <!-- Tool Card 4: Internet Speed (Simulated) -->
             <div class="tool-card" data-cat="utility" onclick="openModal('speedModal')">
                 <div class="icon-box color-5">
                     <i class="fa-solid fa-gauge-high"></i>
@@ -124,7 +115,7 @@
                 <p>Check your connection latency (Sim).</p>
             </div>
 
-            <!-- Tool Card 6: Insta EMI Calc (Replaces Quick Tasks) -->
+            <!-- Tool Card 5: Insta EMI Calc -->
             <a href="https://instacalc.vercel.app/" target="_blank" class="tool-card" data-cat="utility">
                 <div class="icon-box color-6">
                     <i class="fa-solid fa-calculator"></i>
@@ -137,29 +128,6 @@
     </main>
 
     <!-- MODALS (Tool Interfaces) -->
-
-    <!-- Password Modal -->
-    <div id="passwordModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('passwordModal')">&times;</span>
-            <h2><i class="fa-solid fa-lock"></i> Password Generator</h2>
-            <div class="tool-interface">
-                <div class="result-box">
-                    <span id="passwordResult">YourPasswordHere</span>
-                    <button class="btn-copy" onclick="copyToClipboard('passwordResult')"><i class="fa-regular fa-copy"></i></button>
-                </div>
-                <div class="controls">
-                    <label>Length: <span id="lenValue">12</span></label>
-                    <input type="range" id="passLength" min="6" max="32" value="12" oninput="updatePassLen()">
-                    <div class="checkboxes">
-                        <label><input type="checkbox" id="incNumbers" checked> Numbers</label>
-                        <label><input type="checkbox" id="incSymbols" checked> Symbols</label>
-                    </div>
-                    <button class="btn-primary" onclick="generatePassword()">Generate</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- QR Modal -->
     <div id="qrModal" class="modal">
