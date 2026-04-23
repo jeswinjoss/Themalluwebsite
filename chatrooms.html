@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatrooms | The Mallu Online</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: { 
+                extend: { 
+                    fontFamily: { sans: ['"Space Grotesk"', 'sans-serif'] }, 
+                    boxShadow: { 'brutal': '6px 6px 0px 0px rgba(0,0,0,1)' },
+                    colors: {
+                        brand: {
+                            yellow: '#ffd230',
+                            green: '#2e7d32',
+                            pink: '#ff4d8d',
+                            blue: '#4d9fff',
+                            purple: '#b57aff'
+                        }
+                    }
+                } 
+            }
+        }
+    </script>
+</head>
+<body class="bg-[#fbf8f1] p-4 md:p-10">
+    <div class="max-w-6xl mx-auto">
+        <header class="mb-12 flex justify-between items-center border-b-4 border-black pb-6">
+            <div>
+                <h1 class="text-5xl font-extrabold uppercase tracking-tighter">Live <span class="text-brand-green">Junctions</span></h1>
+                <p class="font-bold text-gray-600 uppercase text-sm mt-2">Pick a room. No login required.</p>
+            </div>
+            <a href="explore.html" class="bg-white border-2 border-black px-6 py-2 font-bold shadow-brutal hover:bg-black hover:text-white transition-all uppercase text-sm">
+                ← Back
+            </a>
+        </header>
+
+        <div id="rooms-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white border-4 border-black p-8 shadow-brutal animate-pulse">
+                <div class="w-12 h-12 bg-gray-200 mb-4"></div>
+                <div class="h-6 bg-gray-200 w-3/4 mb-4"></div>
+                <div class="h-4 bg-gray-200 w-full"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Supabase configuration
+        const SUPABASE_URL = 'https://ycsnoukzbcpolnckzebz.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inljc25vdWt6YmNwb2xuY2t6ZWJ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5NDQyNzksImV4cCI6MjA5MjUyMDI3OX0.QRMdgbxyHh2lMkOlaw4aIVFQndtUnSbf-9jdRppLSv8';
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        // Icon and Color Mapping for specialized rooms
+        const roomStyles = {
+            'Chaya Kada': { icon: 'fa-mug-hot', color: 'bg-brand-yellow' },
+            'Cinema Paradiso': { icon: 'fa-film', color: 'bg-brand-pink' },
+            'Tech Varthakal': { icon: 'fa-mobile-screen', color: 'bg-brand-blue' },
+            'Pravasi Corner': { icon: 'fa-earth-asia', color: 'bg-brand-green' },
+            'Mallu Finance Hub': { icon: 'fa-chart-line', color: 'bg-brand-purple' },
+            'Thrissur Pooram': { icon: 'fa-drum', color: 'bg-orange-400' }
+        };
+
+        async function fetchRooms() {
+            const container = document.getElementById('rooms-container');
+            
+            const { data: rooms, error } = await _supabase
+                .from('chat_rooms')
+                .select('*')
+                .eq('is_group', true)
+                .order('created_at', { ascending: true });
+
+            if (error) {
+                console.error('Error loading rooms:', error);
+                container.innerHTML = `<div class="col-span-full bg-red-100 border-4 border-black p-6 font-bold">Failed to load junctions. Please refresh.</div>`;
+                return;
+            }
+
+            container.innerHTML = ''; 
+
+            rooms.forEach(room => {
+                const style = roomStyles[room.name] || { icon: 'fa-comments', color: 'bg-white' };
+                
+                const roomCard = `
+                    <div class="${style.color} border-4 border-black p-6 shadow-brutal hover:-translate-y-2 transition-transform flex flex-col h-full">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="bg-white border-2 border-black p-3 shadow-brutal">
+                                <i class="fa-solid ${style.icon} text-2xl"></i>
+                            </div>
+                            <span class="bg-white border-2 border-black px-2 py-1 font-bold text-xs uppercase shadow-brutal">
+                                Active
+                            </span>
+                        </div>
+                        
+                        <h3 class="text-2xl font-black uppercase mb-2 tracking-tight">${room.name}</h3>
+                        <p class="font-bold text-sm mb-8 flex-grow">
+                            ${room.description || 'Join the conversation with fellow Malayalis in this public junction.'}
+                        </p>
+                        
+                        <button onclick="enterRoom('${room.id}')" class="w-full bg-black text-white border-2 border-black py-3 font-bold uppercase shadow-brutal hover:bg-white hover:text-black transition-all">
+                            Enter Junction
+                        </button>
+                    </div>
+                `;
+                container.innerHTML += roomCard;
+            });
+        }
+
+        function enterRoom(roomId) {
+            window.location.href = `chat.html?room=${roomId}`;
+        }
+
+        fetchRooms();
+    </script>
+</body>
+</html>
