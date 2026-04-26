@@ -1,338 +1,140 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Mallu Online | Anonymous Malayali Hub</title>
+    <title>Property of Jeswin Jose</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Space Grotesk"', 'sans-serif'],
-                    },
-                    boxShadow: {
-                        'brutal': '6px 6px 0px 0px rgba(0,0,0,1)',
-                        'brutal-hover': '2px 2px 0px 0px rgba(0,0,0,1)',
-                    },
-                    colors: {
-                        brand: {
-                            bg: '#fbf8f1',
-                            yellow: '#ffd230', // Kasavu Gold
-                            blue: '#4d9fff',
-                            pink: '#ff4d8d',
-                            purple: '#b57aff',
-                            green: '#2e7d32' // Kerala Lush Green
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --neon: #00f2ff;
+            --dark: #020202;
+        }
         body {
-            background-color: #fbf8f1;
-            background-image: radial-gradient(#000000 1px, transparent 1px);
-            background-size: 30px 30px;
+            background-color: var(--dark);
+            font-family: 'Outfit', sans-serif;
+            overflow: hidden;
         }
-        
-        .carousel-item {
-            display: none;
-            animation: fade-in-up 0.5s ease-out forwards;
+
+        /* Animated Grain/Noise Overlay */
+        .noise::before {
+            content: "";
+            position: fixed;
+            top: -100%; left: -100%; width: 300%; height: 300%;
+            background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+            opacity: 0.08;
+            pointer-events: none;
+            animation: noise-move 8s steps(10) infinite;
+            z-index: 10;
         }
-        .carousel-item.active {
-            display: block;
+        @keyframes noise-move {
+            0% { transform: translate(0,0); }
+            10% { transform: translate(-5%,-5%); }
+            20% { transform: translate(-10%,5%); }
+            100% { transform: translate(5%,5%); }
         }
-        @keyframes fade-in-up {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        /* Dynamic Spotlight Follower (CSS-only version) */
+        .spotlight {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), rgba(0, 242, 255, 0.08), transparent 40%);
+            z-index: -1;
+        }
+
+        /* Cyber-morphic Card */
+        .cyber-card {
+            background: linear-gradient(145deg, rgba(15, 15, 15, 0.9), rgba(5, 5, 5, 1));
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 80px -20px rgba(0, 242, 255, 0.1);
+            position: relative;
+            backdrop-filter: blur(20px);
+        }
+
+        /* Floating Animation with slight rotation */
+        .float { animation: hover-float 8s ease-in-out infinite; }
+        @keyframes hover-float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(1deg); }
+            66% { transform: translateY(-10px) rotate(-1deg); }
+        }
+
+        .neon-line {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon), transparent);
+            width: 100%;
+            filter: drop-shadow(0 0 5px var(--neon));
+        }
+
+        .btn-cyber {
+            clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .btn-cyber:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2) drop-shadow(0 0 15px var(--neon));
         }
     </style>
 </head>
-<body class="text-black font-sans antialiased overflow-x-hidden">
+<body class="text-white min-h-screen flex items-center justify-center p-6 noise">
+    <div class="spotlight" id="spotlight"></div>
 
-    <nav class="fixed w-full z-50 bg-white border-b-4 border-black">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
-                    <div class="bg-brand-green p-2 border-2 border-black shadow-brutal text-white">
-                        <i class="fa-solid fa-comments text-xl"></i>
-                    </div>
-                    <span class="font-extrabold text-2xl tracking-tight uppercase">The Mallu <span class="text-brand-yellow">Online</span></span>
-                </div>
-                <div class="hidden md:flex space-x-8 font-bold">
-                    <a href="#home" class="hover:text-brand-green transition-colors">Home</a>
-                    <a href="#trending" class="hover:text-brand-pink transition-colors">Trending</a>
-                    <a href="#creator-plus" class="hover:text-brand-purple transition-colors">Advertise</a>
-                </div>
-                <div>
-                    <button onclick="window.location.href='chatrooms.html'" class="bg-brand-yellow border-2 border-black font-bold px-6 py-2 shadow-brutal hover:shadow-brutal-hover hover:-translate-y-1 hover:-translate-x-1 transition-all uppercase">
-                        Chat
-                    </button>
-                </div>
+    <div class="float cyber-card max-w-lg w-full rounded-tr-[5rem] rounded-bl-[5rem] p-10 md:p-16 overflow-hidden">
+        
+        <div class="flex items-center justify-between mb-12">
+            <div class="flex items-center gap-2">
+                <div class="w-3 h-3 bg-[#00f2ff] rounded-full animate-pulse shadow-[0_0_10px_#00f2ff]"></div>
+                <span class="text-[10px] tracking-[0.4em] uppercase font-black text-slate-500">Asset Record #2026-JJ</span>
+            </div>
+            <div class="text-right">
+                <p class="text-[10px] tracking-[0.2em] font-bold text-sky-400">STATUS: PARKED</p>
             </div>
         </div>
-    </nav>
 
-    <section id="home" class="pt-32 pb-20 lg:pt-40 lg:pb-32 min-h-screen flex items-center">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                
-                <div>
-                    <h1 class="text-6xl md:text-8xl font-extrabold uppercase leading-tight mb-6">
-                        Chill. Chat.<br>
-                        <span class="bg-brand-green text-white px-2 border-4 border-black inline-block mt-2 shadow-brutal transform -rotate-2">Cheru.</span>
-                    </h1>
-                    <p class="text-xl font-bold mb-8 max-w-lg">
-                        The ultimate anonymous hub for Malayalis worldwide. <span class="text-brand-pink underline">No Login.</span> No tracking. Just naadan vibes and pure conversation.
-                    </p>
-                    <div class="flex gap-4">
-                        <button onclick="window.location.href='chatrooms.html'" class="bg-black text-white font-bold text-lg px-8 py-4 border-2 border-black shadow-brutal hover:shadow-brutal-hover hover:-translate-y-1 hover:-translate-x-1 transition-all uppercase">
-                            Start Chatting Now
-                        </button>
-                    </div>
-                </div>
+        <div class="relative z-20">
+            <div class="mb-4">
+                <h1 class="text-xs uppercase tracking-[1em] text-white/30 font-light">Digital Property</h1>
+                <h2 id="domain-name" class="text-4xl md:text-5xl font-black italic tracking-tighter mb-4 text-white">
+                    DOMAIN.COM
+                </h2>
+                <div class="neon-line opacity-30"></div>
+            </div>
 
-                <div class="relative bg-white border-4 border-black shadow-brutal p-8 h-full flex flex-col">
-                    <div class="border-b-4 border-black pb-4 mb-4 flex justify-between items-center">
-                        <span class="font-bold text-xl uppercase">Why Go Anonymous?</span>
-                        <div class="flex gap-2">
-                            <div class="w-4 h-4 bg-brand-green border-2 border-black rounded-full"></div>
-                            <div class="w-4 h-4 bg-brand-yellow border-2 border-black rounded-full"></div>
-                            <div class="w-4 h-4 bg-brand-pink border-2 border-black rounded-full"></div>
-                        </div>
-                    </div>
+            <p class="text-slate-400 text-sm leading-loose mb-12 max-w-[280px]">
+                This domain is managed & secured by <span class="text-white border-b-2 border-sky-500">Jeswin Jose</span>. Available for strategic acquisition.
+            </p>
 
-                    <div id="hero-carousel" class="flex-grow flex items-center justify-center text-center">
-                        
-                        <div class="carousel-item active w-full">
-                            <i class="fa-solid fa-user-secret text-6xl text-brand-green mb-4"></i>
-                            <h2 class="text-4xl font-extrabold uppercase mb-2">Zero Login</h2>
-                            <p class="font-semibold text-lg">No OTP, no email, no password. Pick a handle and jump straight into the chaya kada discussions.</p>
-                        </div>
-
-                        <div class="carousel-item w-full">
-                            <i class="fa-solid fa-earth-asia text-6xl text-brand-blue mb-4"></i>
-                            <h2 class="text-4xl font-extrabold uppercase mb-2">Pravasi Friendly</h2>
-                            <p class="font-semibold text-lg">Connecting Malayalis from Thrissur to Toronto. A digital junction for the global Malayali community.</p>
-                        </div>
-
-                        <div class="carousel-item w-full">
-                            <i class="fa-solid fa-bolt text-6xl text-brand-yellow mb-4"></i>
-                            <h2 class="text-4xl font-extrabold uppercase mb-2">Real Talk</h2>
-                            <p class="font-semibold text-lg">Discuss movies, politics, and gadgets without fear. Your digital footprint stops the moment you leave.</p>
-                        </div>
-
-                    </div>
-
-                    <div class="flex justify-center gap-4 mt-auto pt-4">
-                        <button id="prev-btn" class="bg-white border-2 border-black w-10 h-10 flex items-center justify-center font-bold shadow-brutal hover:bg-gray-100 active:translate-y-1 active:translate-x-1 active:shadow-none transition-all">
-                            <i class="fa-solid fa-arrow-left"></i>
-                        </button>
-                        <button id="next-btn" class="bg-brand-green text-white border-2 border-black w-10 h-10 flex items-center justify-center font-bold shadow-brutal hover:bg-green-700 active:translate-y-1 active:translate-x-1 active:shadow-none transition-all">
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
-
+            <div class="space-y-4">
+                <a href="mailto:dev.jeswinjose@gmail.com" class="btn-cyber block w-full py-5 bg-white text-black font-black text-center tracking-widest text-sm hover:bg-[#00f2ff]">
+                    INQUIRE NOW
+                </a>
+                <a href="https://www.jeswinjose.online" class="block w-full py-5 border border-white/10 text-white font-bold text-center tracking-widest text-xs hover:bg-white/5 transition-all">
+                    DEVELOPER PORTFOLIO
+                </a>
             </div>
         </div>
-    </section>
 
-    <section id="trending" class="py-24 border-t-4 border-black bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-12 flex justify-between items-end border-b-4 border-black pb-4">
-                <h2 class="text-4xl md:text-5xl font-extrabold uppercase">Top Junctions</h2>
-                <a href="link.html" class="font-bold text-brand-green underline text-lg hidden sm:block">Explore All Rooms</a>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-brand-yellow border-4 border-black shadow-brutal p-6 flex flex-col h-full transform hover:-translate-y-2 transition-transform">
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="bg-white border-2 border-black p-3 shadow-brutal">
-                            <i class="fa-solid fa-mug-hot text-2xl"></i>
-                        </div>
-                        <span class="bg-white border-2 border-black px-3 py-1 font-bold text-sm shadow-brutal">
-                            🟢 840 Online
-                        </span>
-                    </div>
-                    <h3 class="text-2xl font-extrabold uppercase mb-2">Chaya Kada</h3>
-                    <p class="font-bold mb-6 flex-grow">General talk, local news, and the latest gossip from the neighborhood. Everyone's welcome.</p>
-                    <button onclick="window.location.href='link.html'" class="w-full bg-black text-white border-2 border-black py-3 font-bold uppercase shadow-brutal hover:bg-gray-800">Enter Room</button>
-                </div>
-
-                <div class="bg-brand-pink border-4 border-black shadow-brutal p-6 flex flex-col h-full transform hover:-translate-y-2 transition-transform">
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="bg-white border-2 border-black p-3 shadow-brutal">
-                            <i class="fa-solid fa-film text-2xl"></i>
-                        </div>
-                        <span class="bg-white border-2 border-black px-3 py-1 font-bold text-sm shadow-brutal">
-                            🟢 1.2K Online
-                        </span>
-                    </div>
-                    <h3 class="text-2xl font-extrabold uppercase mb-2">Cinema Paradiso</h3>
-                    <p class="font-bold mb-6 flex-grow">Mollywood reviews, theater responses, and heated debates about the latest superstars.</p>
-                    <button onclick="window.location.href='link.html'" class="w-full bg-white border-2 border-black py-3 font-bold uppercase shadow-brutal hover:bg-gray-100">Enter Room</button>
-                </div>
-
-                <div class="bg-brand-blue border-4 border-black shadow-brutal p-6 flex flex-col h-full transform hover:-translate-y-2 transition-transform">
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="bg-white border-2 border-black p-3 shadow-brutal">
-                            <i class="fa-solid fa-mobile-screen text-2xl"></i>
-                        </div>
-                        <span class="bg-white border-2 border-black px-3 py-1 font-bold text-sm shadow-brutal">
-                            🟢 2.5K Online
-                        </span>
-                    </div>
-                    <h3 class="text-2xl font-extrabold uppercase mb-2">Tech Varthakal</h3>
-                    <p class="font-bold mb-6 flex-grow">Gadget reviews, coding help, and AI news. The spot for all tech-loving Malayalis.</p>
-                    <button onclick="window.location.href='link.html'" class="w-full bg-white border-2 border-black py-3 font-bold uppercase shadow-brutal hover:bg-gray-100">Enter Room</button>
-                </div>
-            </div>
+        <div class="absolute -bottom-10 -right-10 text-9xl font-black text-white/5 select-none pointer-events-none">
+            JJ
         </div>
-    </section>
+    </div>
 
-    <section id="creator-plus" class="py-24 bg-brand-purple border-t-4 border-b-4 border-black overflow-hidden relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-white border-4 border-black shadow-brutal p-8 md:p-16 relative z-10">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                    <div>
-                        <div class="inline-block bg-brand-green text-white font-bold px-4 py-1 uppercase mb-4 transform -rotate-1 border-2 border-black shadow-brutal">
-                            Grow Your Brand
-                        </div>
-                        <h2 class="text-4xl md:text-6xl font-extrabold uppercase leading-tight mb-6">
-                            The Mallu <span class="text-brand-yellow underline decoration-black decoration-8 underline-offset-4">Network</span>
-                        </h2>
-                        <p class="text-xl font-bold mb-8">
-                            Want to reach thousands of active Malayalis? Advertise your business or create a sponsored room with custom branding and management tools.
-                        </p>
-                        
-                        <div class="space-y-4 mb-8">
-                            <div class="flex items-center gap-3">
-                                <i class="fa-solid fa-check-square text-brand-green text-2xl border-2 border-black bg-white"></i>
-                                <span class="font-bold text-lg">Pin your business to the trending list</span>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <i class="fa-solid fa-check-square text-brand-green text-2xl border-2 border-black bg-white"></i>
-                                <span class="font-bold text-lg">Custom branded chat themes</span>
-                            </div>
-                        </div>
-
-                        <button onclick="window.location.href='link.html'" class="bg-brand-yellow text-black border-2 border-black font-extrabold text-xl px-10 py-4 shadow-brutal hover:shadow-brutal-hover hover:-translate-y-1 hover:-translate-x-1 transition-all">
-                            WORK WITH US
-                        </button>
-                    </div>
-
-                    <div class="flex justify-center">
-                        <div class="bg-brand-blue border-4 border-black p-8 shadow-brutal w-full max-w-sm transform rotate-3">
-                            <div class="flex items-center gap-4 border-b-4 border-black pb-4 mb-4">
-                                <div class="w-16 h-16 bg-brand-yellow border-2 border-black rounded-full flex items-center justify-center">
-                                    <i class="fa-solid fa-bullhorn text-2xl"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-extrabold text-xl uppercase">Live Reach</h4>
-                                    <span class="bg-white border-2 border-black px-2 py-0.5 text-xs font-bold uppercase shadow-brutal">Live Stats</span>
-                                </div>
-                            </div>
-                            <div class="space-y-3">
-                                <div class="bg-white border-2 border-black p-3 font-bold text-sm shadow-brutal">User_102: "This phone is a beast!"</div>
-                                <div class="bg-brand-green text-white border-2 border-black p-3 font-bold text-sm shadow-brutal">AD: Get 20% off at Local Store</div>
-                                <div class="bg-brand-yellow border-2 border-black p-3 font-bold text-sm shadow-brutal">Active Users: 12,402</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-black text-white py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 border-b-4 border-white/20 pb-12 mb-8">
-                <div class="col-span-1 md:col-span-2">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="bg-brand-green text-white p-2 border-2 border-white">
-                            <i class="fa-solid fa-comments text-xl"></i>
-                        </div>
-                        <span class="font-extrabold text-3xl tracking-tight uppercase">The Mallu <span class="text-brand-yellow">Online</span></span>
-                    </div>
-                    <p class="font-bold text-gray-400 max-w-md">
-                        The ultimate anonymous experience. No data mining, no logins, just real Malayali conversations.
-                    </p>
-                </div>
-                <div>
-                    <h4 class="font-extrabold text-xl uppercase mb-6 text-brand-blue">Links</h4>
-                    <ul class="space-y-4 font-bold text-gray-300">
-                        <li><a href="link.html" class="hover:text-white hover:underline">Trending Rooms</a></li>
-                        <li><a href="link.html" class="hover:text-white hover:underline">Safety Policy</a></li>
-                        <li><a href="link.html" class="hover:text-white hover:underline">Advertise</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-extrabold text-xl uppercase mb-6 text-brand-pink">Support</h4>
-                    <ul class="space-y-4 font-bold text-gray-300">
-                        <li><a href="link.html" class="hover:text-white hover:underline">Community Rules</a></li>
-                        <li><a href="link.html" class="hover:text-white hover:underline">Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-                <p class="font-bold text-gray-500 uppercase">© 2026 The Mallu Online</p>
-                <div class="flex space-x-6">
-                    <a href="link.html" class="text-white hover:text-brand-green transform hover:scale-125 transition-transform"><i class="fa-brands fa-whatsapp text-3xl"></i></a>
-                    <a href="link.html" class="text-white hover:text-brand-blue transform hover:scale-125 transition-transform"><i class="fa-brands fa-instagram text-3xl"></i></a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <div class="fixed bottom-8 text-[9px] tracking-[0.5em] text-white/20 uppercase">
+        Jeswin Jose initiatives • Thrissur, Kerala
+    </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const items = document.querySelectorAll('.carousel-item');
-            const nextBtn = document.getElementById('next-btn');
-            const prevBtn = document.getElementById('prev-btn');
-            let currentIndex = 0;
-            let timer;
+        // Update Domain Name
+        document.getElementById('domain-name').innerText = window.location.hostname.toUpperCase() || "themallu.online";
 
-            function showItem(index) {
-                items.forEach(item => item.classList.remove('active'));
-                items[index].classList.add('active');
-            }
-
-            function nextItem() {
-                currentIndex = (currentIndex + 1) % items.length;
-                showItem(currentIndex);
-            }
-
-            function prevItem() {
-                currentIndex = (currentIndex - 1 + items.length) % items.length;
-                showItem(currentIndex);
-            }
-
-            function startTimer() {
-                timer = setInterval(nextItem, 5000);
-            }
-
-            function resetTimer() {
-                clearInterval(timer);
-                startTimer();
-            }
-
-            nextBtn.addEventListener('click', () => {
-                nextItem();
-                resetTimer();
-            });
-
-            prevBtn.addEventListener('click', () => {
-                prevItem();
-                resetTimer();
-            });
-
-            startTimer();
+        // Mouse Spotlight Effect
+        window.addEventListener('mousemove', e => {
+            const spotlight = document.getElementById('spotlight');
+            const x = (e.clientX / window.innerWidth) * 100;
+            const y = (e.clientY / window.innerHeight) * 100;
+            spotlight.style.setProperty('--x', x + '%');
+            spotlight.style.setProperty('--y', y + '%');
         });
     </script>
 </body>
