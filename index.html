@@ -104,6 +104,7 @@
             color: var(--text-muted);
             font-weight: 400;
         }
+
         /* --- NAVBAR & SEARCH --- */
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
@@ -177,13 +178,33 @@
         .star-rating { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 10px; margin-bottom: 1rem; }
         .star-rating input { display: none; }
         .star-rating label { font-size: 2.5rem; color: #444; cursor: pointer; transition: color 0.2s; }
-        /* CSS Magic for hover and select stars */
         .star-rating input:checked ~ label,
         .star-rating label:hover,
         .star-rating label:hover ~ label { color: var(--star-color); }
 
         .review-input { width: 100%; height: 120px; background: #111; border: 1px solid #333; color: white; padding: 1rem; border-radius: 8px; font-family: 'Inter', sans-serif; resize: none; margin-bottom: 1rem; }
         .review-input:focus { outline: 1px solid var(--accent-red); }
+
+        /* --- FORCED LOGIN POPUP --- */
+        .auth-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(8px);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
+        }
+        .auth-overlay.active { opacity: 1; pointer-events: all; }
+        .auth-modal {
+            background: var(--bg-card); padding: 3rem; border-radius: 12px;
+            text-align: center; border-top: 4px solid var(--accent-red);
+            max-width: 400px; width: 90%; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        }
+        .btn-google {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            width: 100%; background: white; color: #333; border: none; padding: 0.8rem;
+            border-radius: 4px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: 0.2s; margin-top: 1.5rem;
+        }
+        .btn-google:hover { background: #eee; }
+        .btn-google img { width: 20px; }
 
         @media (max-width: 900px) { 
             .container { flex-direction: column; } 
@@ -208,6 +229,17 @@
         <div class="loader-text">Loading the experience</div>
     </div>
 
+    <div id="forced-login-overlay" class="auth-overlay">
+        <div class="auth-modal">
+            <h2 style="font-family: 'Bebas Neue'; font-size: 2.5rem; margin-bottom: 0.5rem;">Access Restricted</h2>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">You must be signed in to view our exclusive cinematic content and reviews.</p>
+            <button class="btn-google" id="google-login-btn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google Logo">
+                Continue with Google
+            </button>
+        </div>
+    </div>
+
     <header class="navbar">
         <a href="index.html" class="logo">THE<span>MALLU</span></a>
         
@@ -222,7 +254,7 @@
             <ul class="nav-links" id="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="reviews.html">Reviews</a></li>
-                <li><a href="#" class="btn-login">Login</a></li>
+                <li><a href="#" class="btn-login" id="nav-login-btn">Login</a></li>
             </ul>
         </div>
     </header>
@@ -235,9 +267,8 @@
             <div class="view-more-container"><a href="reviews.html" class="btn-primary">View More Reviews</a></div>
         </div>
 
-        <div id="movie-view" class="content hidden">
-            <div id="movie-detail-container">
-                </div>
+        <div id="movie-view" class="content hidden" style="flex: 1; max-width: 1000px; margin: 0 auto;">
+            <div id="movie-detail-container"></div>
         </div>
 
         <aside class="sidebar" id="sidebar-section">
@@ -253,11 +284,10 @@
         const supabaseUrl = 'https://bmtoevcfrimhwamyqbvc.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJtdG9ldmNmcmltaHdhbXlxYnZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1NTg0NzMsImV4cCI6MjA5MzEzNDQ3M30.pqVOFqFX3PWA003vHmINfnFY7yoWAX7W_V15xNRawiE';
         
-        // Expanded Dummy Data to include new movie page fields
         const dummyMovies = [
-            { id: 1, slug: 'dune-part-two', title: 'Dune: Part Two', score: '9.5', image: 'https://image.tmdb.org/t/p/original/8rpDcsfLJypbO6vtec8OobKXpqc.jpg', releaseDate: 'Mar 01, 2024', ott: 'Max', description: 'Paul Atreides unites with Chani and the Fremen while on a warpath of revenge against the conspirators who destroyed his family. Facing a choice between the love of his life and the fate of the known universe, he endeavors to prevent a terrible future only he can foresee.' },
-            { id: 2, slug: 'challengers', title: 'Challengers', score: '8.0', image: 'https://image.tmdb.org/t/p/original/8b8R8l88ILjqZWugPhM5O22t08T.jpg', releaseDate: 'Apr 26, 2024', ott: 'Prime Video', description: 'Tashi, a former tennis prodigy turned coach, transformed her husband into a champion. But to overcome a losing streak, he must face his former best friend and Tashi\'s ex-boyfriend.' },
-            { id: 3, slug: 'furiosa', title: 'Furiosa', score: '8.5', image: 'https://image.tmdb.org/t/p/original/fdZpvZcgvSqBramIWEz0hT1m5Lw.jpg', releaseDate: 'May 24, 2024', ott: 'Theaters', description: 'As the world fell, young Furiosa is snatched from the Green Place of Many Mothers and falls into the hands of a great Biker Horde led by the Warlord Dementus. Sweeping through the Wasteland, they come across the Citadel presided over by The Immortan Joe.' }
+            { id: 1, slug: 'dune-part-two', title: 'Dune: Part Two', score: '9.5', image: 'https://image.tmdb.org/t/p/original/8rpDcsfLJypbO6vtec8OobKXpqc.jpg', releaseDate: 'Mar 01, 2026', ott: 'Max', description: 'Paul Atreides unites with Chani and the Fremen while on a warpath of revenge against the conspirators who destroyed his family.' },
+            { id: 2, slug: 'challengers', title: 'Challengers', score: '8.0', image: 'https://image.tmdb.org/t/p/original/8b8R8l88ILjqZWugPhM5O22t08T.jpg', releaseDate: 'Apr 26, 2026', ott: 'Prime Video', description: 'Tashi, a former tennis prodigy turned coach, transformed her husband into a champion. But to overcome a losing streak, he must face his former best friend and Tashi\'s ex-boyfriend.' },
+            { id: 3, slug: 'furiosa', title: 'Furiosa', score: '8.5', image: 'https://image.tmdb.org/t/p/original/fdZpvZcgvSqBramIWEz0hT1m5Lw.jpg', releaseDate: 'May 24, 2026', ott: 'Theaters', description: 'As the world fell, young Furiosa is snatched from the Green Place of Many Mothers and falls into the hands of a great Biker Horde led by the Warlord Dementus.' }
         ];
 
         // UI Interactions
@@ -285,13 +315,13 @@
 
         async function start() {
             const urlParams = new URLSearchParams(window.location.search);
-            const movieId = urlParams.get('id') || urlParams.get('movie'); // Support both slug and ID
+            const movieId = urlParams.get('id') || urlParams.get('movie'); 
 
             if (movieId) {
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('home-view').classList.add('hidden');
                 document.getElementById('movie-view').classList.remove('hidden');
-                document.getElementById('sidebar-section').classList.add('hidden'); // Hide sidebar for cleaner movie view
+                document.getElementById('sidebar-section').classList.add('hidden');
                 renderSingle(movieId);
             } else {
                 let movies = dummyMovies;
@@ -319,7 +349,8 @@
         function renderHome(movies) {
             const carousel = document.getElementById('hero-carousel');
             const grid = document.getElementById('movie-grid');
-            
+            carousel.innerHTML = ''; grid.innerHTML = '';
+
             movies.forEach((movie, index) => {
                 const link = `?movie=${movie.slug || movie.id}`;
                 carousel.innerHTML += `
@@ -362,7 +393,6 @@
             try {
                 if (window.supabase) {
                     const client = window.supabase.createClient(supabaseUrl, supabaseKey);
-                    // Check if slug or ID
                     const column = isNaN(idOrSlug) ? 'slug' : 'id';
                     const { data } = await client.from('movies').select('*').eq(column, idOrSlug).single();
                     if (data) movie = data;
@@ -372,13 +402,11 @@
             if (movie) {
                 document.title = `${movie.title} - TheMallu Reviews`;
 
-                // Handle optional database fields gracefully
                 const releaseDate = movie.releaseDate || movie.release_date || 'Unknown';
                 const ottPlatform = movie.ott || movie.ott_platform || 'Theaters';
                 const summary = movie.description || movie.review || 'No summary available.';
 
                 document.getElementById('movie-detail-container').innerHTML = `
-                    
                     <div class="movie-page-hero">
                         <img src="${movie.image}" alt="${movie.title} Poster" class="movie-poster">
                         <div class="movie-info">
@@ -402,7 +430,6 @@
                         <p style="margin-bottom: 1rem; font-size: 0.9rem;">Have you seen it? Rate the movie and share your thoughts below.</p>
                         
                         <form class="review-form" onsubmit="submitReview(event)">
-                            
                             <div class="star-rating">
                                 <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 stars">★</label>
                                 <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars">★</label>
@@ -410,7 +437,6 @@
                                 <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars">★</label>
                                 <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star">★</label>
                             </div>
-
                             <textarea class="review-input" placeholder="Write your comment here..." required></textarea>
                             <button type="submit" class="btn-primary">Post Review</button>
                         </form>
@@ -421,9 +447,8 @@
             }
         }
 
-        // Dummy Submit Function for the UI
         function submitReview(event) {
-            event.preventDefault(); // Prevents page reload
+            event.preventDefault(); 
             const form = event.target;
             const rating = form.querySelector('input[name="rating"]:checked');
             
@@ -433,10 +458,62 @@
             }
             
             alert(`Thank you! You rated this movie ${rating.value} stars. (Note: Database saving requires Auth setup)`);
-            form.reset(); // Clears the form
+            form.reset(); 
         }
 
-        window.onload = start;
+        // --- AUTH & POPUP LOGIC ---
+        async function checkAuthAndLock() {
+            if (window.supabase) {
+                const client = window.supabase.createClient(supabaseUrl, supabaseKey);
+                
+                // Get the active session
+                const { data: { session } } = await client.auth.getSession();
+                
+                if (!session) {
+                    // No session detected: Lock screen after 4 seconds
+                    setTimeout(() => {
+                        document.getElementById('forced-login-overlay').classList.add('active');
+                        document.body.style.overflow = 'hidden'; // Prevents scrolling behind the popup
+                    }, 4000);
+                } else {
+                    // Session detected: Update navbar Login button to Logout
+                    const navLoginBtn = document.getElementById('nav-login-btn');
+                    if (navLoginBtn) {
+                        navLoginBtn.innerText = "Logout";
+                        navLoginBtn.href = "#";
+                        navLoginBtn.addEventListener('click', async (e) => {
+                            e.preventDefault();
+                            await client.auth.signOut();
+                            window.location.reload(); // Reload page to reset state
+                        });
+                    }
+                }
+
+                // Handle Google button click inside popup
+                const googleBtn = document.getElementById('google-login-btn');
+                if (googleBtn) {
+                    googleBtn.addEventListener('click', async () => {
+                        const { error } = await client.auth.signInWithOAuth({
+                            provider: 'google',
+                            options: {
+                                redirectTo: window.location.origin + window.location.pathname
+                            }
+                        });
+                        
+                        if (error) {
+                            alert("Login failed: " + error.message);
+                        }
+                    });
+                }
+            }
+        }
+
+        // Run the main app function, then run the auth check
+        window.onload = async () => {
+            await start();
+            checkAuthAndLock();
+        };
+
     </script>
 </body>
 </html>
