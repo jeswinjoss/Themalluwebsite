@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TheMallu | Reviews & Polls</title>
+    <title>TheMallu | Movie Reviews</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
@@ -15,6 +15,7 @@
             --text-main: #f5f5f5;
             --text-muted: #aaaaaa;
             --nav-height: 70px;
+            --star-color: #f5c518;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -103,7 +104,6 @@
             color: var(--text-muted);
             font-weight: 400;
         }
-
         /* --- NAVBAR & SEARCH --- */
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
@@ -115,7 +115,6 @@
         .logo span { color: var(--accent-red); }
 
         .nav-right { display: flex; align-items: center; gap: 1.5rem; }
-        
         .search-container { position: relative; display: flex; align-items: center; }
         .search-input { 
             width: 0; opacity: 0; transition: 0.4s ease;
@@ -133,43 +132,11 @@
         .menu-toggle { display: none; cursor: pointer; flex-direction: column; gap: 5px; z-index: 1001; }
         .menu-toggle span { width: 25px; height: 3px; background: white; transition: 0.3s; }
 
-        @media (max-width: 900px) {
-            .nav-links {
-                position: fixed; top: 0; right: -100%; width: 70%; height: 100vh;
-                background: #111; flex-direction: column; justify-content: center;
-                transition: 0.4s; box-shadow: -5px 0 15px rgba(0,0,0,0.5);
-            }
-            .nav-links.active { right: 0; }
-            .menu-toggle { display: flex; }
-        }
-
-        /* --- CAROUSEL & GRID --- */
-        .carousel-container {
-            width: 100%;
-            overflow: hidden;
-            border-radius: 12px;
-            margin-bottom: 2rem;
-            position: relative;
-        }
-
-        .carousel-wrapper {
-            display: flex;
-            width: 100%;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .carousel-item {
-            flex: 0 0 100%; height: 400px;
-            background-size: cover; background-position: center;
-            position: relative; display: flex;
-            align-items: flex-end; padding: 2rem;
-        }
-
-        .carousel-overlay {
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-        }
-
+        /* --- HOME CAROUSEL & GRID --- */
+        .carousel-container { width: 100%; overflow: hidden; border-radius: 12px; margin-bottom: 2rem; position: relative; }
+        .carousel-wrapper { display: flex; width: 100%; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        .carousel-item { flex: 0 0 100%; height: 400px; background-size: cover; background-position: center; position: relative; display: flex; align-items: flex-end; padding: 2rem; }
+        .carousel-overlay { background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
         .carousel-content { position: relative; z-index: 2; }
         .carousel-content h2 { font-size: 3rem; margin-bottom: 0.5rem; }
 
@@ -183,23 +150,50 @@
         .movie-card:hover { transform: translateY(-5px); }
         .movie-card img { width: 100%; height: 300px; object-fit: cover; }
         .card-info { padding: 1rem; }
-        .score-badge { color: #f5c518; font-weight: bold; }
-
+        .score-badge { color: var(--star-color); font-weight: bold; }
         .view-more-container { text-align: center; margin-top: 2.5rem; }
 
-        .btn-primary {
-            background: var(--text-main); color: var(--bg-dark); border: none;
-            padding: 0.7rem 1.8rem; font-weight: bold; border-radius: 4px;
-            text-decoration: none; display: inline-block; cursor: pointer;
-        }
+        .btn-primary { background: var(--text-main); color: var(--bg-dark); border: none; padding: 0.7rem 1.8rem; font-weight: bold; border-radius: 4px; text-decoration: none; display: inline-block; cursor: pointer; transition: 0.2s;}
+        .btn-primary:hover { background: var(--accent-red); color: white; }
 
         .hidden { display: none !important; }
 
-        /* Detail View */
-        .movie-header { height: 400px; background-size: cover; background-position: center; border-radius: 12px; position: relative; display: flex; align-items: flex-end; padding: 2rem; margin-bottom: 2rem;}
-        .movie-header-overlay { background: rgba(0,0,0,0.5); position: absolute; top:0; left:0; right:0; bottom:0; border-radius: 12px;}
+        /* --- DEDICATED SINGLE MOVIE PAGE STYLES --- */
+        .movie-page-hero { display: flex; gap: 2.5rem; margin-bottom: 3rem; background: var(--bg-card); padding: 2rem; border-radius: 12px; }
+        .movie-poster { width: 300px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); object-fit: cover; }
+        .movie-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .movie-info h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 0.5rem; }
+        .critic-score { font-size: 1.5rem; color: var(--star-color); font-weight: bold; margin-bottom: 1.5rem; }
+        
+        .meta-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 1.5rem; }
+        .meta-tag { background: #222; padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 5px;}
+        .ott-tag { border: 1px solid var(--accent-red); color: var(--text-main); }
+        
+        .section-box { background: var(--bg-card); padding: 2rem; border-radius: 12px; margin-bottom: 2rem; }
+        .section-box p { color: #ccc; font-size: 1.1rem; line-height: 1.8; }
 
-        @media (max-width: 900px) { .container { flex-direction: column; } }
+        /* Star Rating Form UI */
+        .review-form { margin-top: 1rem; }
+        .star-rating { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 10px; margin-bottom: 1rem; }
+        .star-rating input { display: none; }
+        .star-rating label { font-size: 2.5rem; color: #444; cursor: pointer; transition: color 0.2s; }
+        /* CSS Magic for hover and select stars */
+        .star-rating input:checked ~ label,
+        .star-rating label:hover,
+        .star-rating label:hover ~ label { color: var(--star-color); }
+
+        .review-input { width: 100%; height: 120px; background: #111; border: 1px solid #333; color: white; padding: 1rem; border-radius: 8px; font-family: 'Inter', sans-serif; resize: none; margin-bottom: 1rem; }
+        .review-input:focus { outline: 1px solid var(--accent-red); }
+
+        @media (max-width: 900px) { 
+            .container { flex-direction: column; } 
+            .nav-links { position: fixed; top: 0; right: -100%; width: 70%; height: 100vh; background: #111; flex-direction: column; justify-content: center; transition: 0.4s; }
+            .nav-links.active { right: 0; }
+            .menu-toggle { display: flex; }
+            .movie-page-hero { flex-direction: column; align-items: center; text-align: center; }
+            .movie-poster { width: 100%; max-width: 350px; }
+            .meta-tags { justify-content: center; }
+        }
     </style>
 </head>
 <body>
@@ -224,13 +218,10 @@
                     <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 </div>
             </div>
-
             <div class="menu-toggle" id="mobile-menu"><span></span><span></span><span></span></div>
-
             <ul class="nav-links" id="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="reviews.html">Reviews</a></li>
-                <li><a href="#">Polls</a></li>
                 <li><a href="#" class="btn-login">Login</a></li>
             </ul>
         </div>
@@ -238,23 +229,18 @@
 
     <main class="container">
         <div id="home-view" class="content">
-            <div class="carousel-container">
-                <div class="carousel-wrapper" id="hero-carousel"></div>
-            </div>
-            
+            <div class="carousel-container"><div class="carousel-wrapper" id="hero-carousel"></div></div>
             <h3 class="section-title">Recent Reviews</h3>
             <section class="movie-grid" id="movie-grid"></section>
-            
-            <div class="view-more-container">
-                <a href="reviews.html" class="btn-primary">View More Reviews</a>
-            </div>
+            <div class="view-more-container"><a href="reviews.html" class="btn-primary">View More Reviews</a></div>
         </div>
 
         <div id="movie-view" class="content hidden">
-            <div id="movie-detail-container"></div>
+            <div id="movie-detail-container">
+                </div>
         </div>
 
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar-section">
             <div style="background: var(--bg-card); padding: 1.5rem; border-radius: 8px; border-bottom: 4px solid var(--accent-red);">
                 <h3 style="font-family: 'Bebas Neue'; letter-spacing: 1.5px; margin-bottom: 0.5rem;">Join the Community</h3>
                 <p style="font-size: 0.9rem; color: var(--text-muted);">Sign up to write your own reviews and track your favorite films.</p>
@@ -267,10 +253,11 @@
         const supabaseUrl = 'https://bmtoevcfrimhwamyqbvc.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJtdG9ldmNmcmltaHdhbXlxYnZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1NTg0NzMsImV4cCI6MjA5MzEzNDQ3M30.pqVOFqFX3PWA003vHmINfnFY7yoWAX7W_V15xNRawiE';
         
+        // Expanded Dummy Data to include new movie page fields
         const dummyMovies = [
-            { id: 1, title: 'Dune: Part Two', score: '9.5', image: 'https://image.tmdb.org/t/p/original/8rpDcsfLJypbO6vtec8OobKXpqc.jpg', description: 'Epic sci-fi masterpiece.' },
-            { id: 2, title: 'Challengers', score: '8.0', image: 'https://image.tmdb.org/t/p/original/8b8R8l88ILjqZWugPhM5O22t08T.jpg', description: 'Intense sports drama.' },
-            { id: 3, title: 'Furiosa', score: '8.5', image: 'https://image.tmdb.org/t/p/original/fdZpvZcgvSqBramIWEz0hT1m5Lw.jpg', description: 'A Mad Max Saga.' }
+            { id: 1, slug: 'dune-part-two', title: 'Dune: Part Two', score: '9.5', image: 'https://image.tmdb.org/t/p/original/8rpDcsfLJypbO6vtec8OobKXpqc.jpg', releaseDate: 'Mar 01, 2024', ott: 'Max', description: 'Paul Atreides unites with Chani and the Fremen while on a warpath of revenge against the conspirators who destroyed his family. Facing a choice between the love of his life and the fate of the known universe, he endeavors to prevent a terrible future only he can foresee.' },
+            { id: 2, slug: 'challengers', title: 'Challengers', score: '8.0', image: 'https://image.tmdb.org/t/p/original/8b8R8l88ILjqZWugPhM5O22t08T.jpg', releaseDate: 'Apr 26, 2024', ott: 'Prime Video', description: 'Tashi, a former tennis prodigy turned coach, transformed her husband into a champion. But to overcome a losing streak, he must face his former best friend and Tashi\'s ex-boyfriend.' },
+            { id: 3, slug: 'furiosa', title: 'Furiosa', score: '8.5', image: 'https://image.tmdb.org/t/p/original/fdZpvZcgvSqBramIWEz0hT1m5Lw.jpg', releaseDate: 'May 24, 2024', ott: 'Theaters', description: 'As the world fell, young Furiosa is snatched from the Green Place of Many Mothers and falls into the hands of a great Biker Horde led by the Warlord Dementus. Sweeping through the Wasteland, they come across the Citadel presided over by The Immortan Joe.' }
         ];
 
         // UI Interactions
@@ -283,7 +270,7 @@
 
         searchTrigger.addEventListener('click', () => {
             if (searchInput.classList.contains('active') && searchInput.value.trim() !== "") {
-                performSearch(searchInput.value);
+                window.location.href = `search.html?q=${encodeURIComponent(searchInput.value)}`;
             } else {
                 searchInput.classList.toggle('active');
                 if (searchInput.classList.contains('active')) searchInput.focus();
@@ -291,22 +278,20 @@
         });
 
         searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') performSearch(searchInput.value);
+            if (e.key === 'Enter' && searchInput.value.trim() !== "") {
+                window.location.href = `search.html?q=${encodeURIComponent(searchInput.value)}`;
+            }
         });
-
-        function performSearch(query) {
-            if (!query.trim()) return;
-            window.location.href = `search.html?q=${encodeURIComponent(query)}`;
-        }
 
         async function start() {
             const urlParams = new URLSearchParams(window.location.search);
-            const movieId = urlParams.get('id');
+            const movieId = urlParams.get('id') || urlParams.get('movie'); // Support both slug and ID
 
             if (movieId) {
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('home-view').classList.add('hidden');
                 document.getElementById('movie-view').classList.remove('hidden');
+                document.getElementById('sidebar-section').classList.add('hidden'); // Hide sidebar for cleaner movie view
                 renderSingle(movieId);
             } else {
                 let movies = dummyMovies;
@@ -316,7 +301,7 @@
                         const { data } = await client.from('movies').select('*').limit(10);
                         if (data && data.length > 0) movies = data;
                     }
-                } catch (e) { console.log("Falling back"); }
+                } catch (e) { console.log("Falling back to dummy data"); }
                 
                 renderHome(movies);
                 initCarousel();
@@ -326,7 +311,7 @@
                         const loader = document.getElementById('loader');
                         loader.style.opacity = '0';
                         setTimeout(() => loader.style.display = 'none', 600);
-                    }, 1200);
+                    }, 800);
                 });
             }
         }
@@ -335,23 +320,21 @@
             const carousel = document.getElementById('hero-carousel');
             const grid = document.getElementById('movie-grid');
             
-            carousel.innerHTML = '';
-            grid.innerHTML = '';
-
             movies.forEach((movie, index) => {
+                const link = `?movie=${movie.slug || movie.id}`;
                 carousel.innerHTML += `
                     <div class="carousel-item" style="background-image: url('${movie.image}')">
                         <div class="carousel-overlay"></div>
                         <div class="carousel-content">
                             <h2>${movie.title}</h2>
-                            <a href="?id=${movie.id}" class="btn-primary">View Review</a>
+                            <a href="${link}" class="btn-primary">View Review</a>
                         </div>
                     </div>`;
                 
                 if (index < 3) { 
                     grid.innerHTML += `
-                        <a href="?id=${movie.id}" class="movie-card">
-                            <img src="${movie.image}">
+                        <a href="${link}" class="movie-card">
+                            <img src="${movie.image}" alt="Poster">
                             <div class="card-info">
                                 <h4>${movie.title}</h4>
                                 <span class="score-badge">⭐ ${movie.score}</span>
@@ -370,31 +353,87 @@
                     index++;
                     if (index >= items.length) index = 0;
                     wrapper.style.transform = `translateX(-${index * 100}%)`;
-                }, 3000);
+                }, 4000);
             }
         }
 
-        async function renderSingle(id) {
-            let movie = dummyMovies.find(m => m.id == id);
+        async function renderSingle(idOrSlug) {
+            let movie = dummyMovies.find(m => m.id == idOrSlug || m.slug === idOrSlug);
             try {
                 if (window.supabase) {
                     const client = window.supabase.createClient(supabaseUrl, supabaseKey);
-                    const { data } = await client.from('movies').select('*').eq('id', id).single();
+                    // Check if slug or ID
+                    const column = isNaN(idOrSlug) ? 'slug' : 'id';
+                    const { data } = await client.from('movies').select('*').eq(column, idOrSlug).single();
                     if (data) movie = data;
                 }
             } catch(e) {}
 
             if (movie) {
+                document.title = `${movie.title} - TheMallu Reviews`;
+
+                // Handle optional database fields gracefully
+                const releaseDate = movie.releaseDate || movie.release_date || 'Unknown';
+                const ottPlatform = movie.ott || movie.ott_platform || 'Theaters';
+                const summary = movie.description || movie.review || 'No summary available.';
+
                 document.getElementById('movie-detail-container').innerHTML = `
-                    <div class="movie-header" style="background-image: url('${movie.image}')">
-                        <div class="movie-header-overlay"></div>
-                        <h1 style="position:relative; z-index:2; font-size:3rem;">${movie.title}</h1>
+                    
+                    <div class="movie-page-hero">
+                        <img src="${movie.image}" alt="${movie.title} Poster" class="movie-poster">
+                        <div class="movie-info">
+                            <h1>${movie.title}</h1>
+                            <div class="critic-score">⭐ ${movie.score} / 10 <span style="font-size:1rem; color:#888; font-weight:normal;">(Critic Score)</span></div>
+                            
+                            <div class="meta-tags">
+                                <span class="meta-tag">📅 ${releaseDate}</span>
+                                <span class="meta-tag ott-tag">📺 Watch on: ${ottPlatform}</span>
+                            </div>
+                        </div>
                     </div>
-                    <div style="background: var(--bg-card); padding: 2rem; border-radius: 8px;">
-                        <p>${movie.description}</p>
-                        <br><a href="index.html" class="btn-primary">Back to Home</a>
-                    </div>`;
+
+                    <div class="section-box">
+                        <h3 class="section-title">Storyline</h3>
+                        <p>${summary}</p>
+                    </div>
+
+                    <div class="section-box">
+                        <h3 class="section-title">Leave Your Review</h3>
+                        <p style="margin-bottom: 1rem; font-size: 0.9rem;">Have you seen it? Rate the movie and share your thoughts below.</p>
+                        
+                        <form class="review-form" onsubmit="submitReview(event)">
+                            
+                            <div class="star-rating">
+                                <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 stars">★</label>
+                                <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars">★</label>
+                                <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 stars">★</label>
+                                <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars">★</label>
+                                <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star">★</label>
+                            </div>
+
+                            <textarea class="review-input" placeholder="Write your comment here..." required></textarea>
+                            <button type="submit" class="btn-primary">Post Review</button>
+                        </form>
+                    </div>
+                    
+                    <a href="index.html" style="color:var(--text-muted); text-decoration:none; margin-bottom:3rem; display:inline-block;">← Back to Home</a>
+                `;
             }
+        }
+
+        // Dummy Submit Function for the UI
+        function submitReview(event) {
+            event.preventDefault(); // Prevents page reload
+            const form = event.target;
+            const rating = form.querySelector('input[name="rating"]:checked');
+            
+            if (!rating) {
+                alert("Please select a star rating before submitting!");
+                return;
+            }
+            
+            alert(`Thank you! You rated this movie ${rating.value} stars. (Note: Database saving requires Auth setup)`);
+            form.reset(); // Clears the form
         }
 
         window.onload = start;
