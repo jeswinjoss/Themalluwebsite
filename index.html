@@ -32,15 +32,11 @@
 
         /* --- PROFESSIONAL LOADING SCREEN --- */
         #loader {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg-dark);
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            z-index: 9999;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-dark); display: flex; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 9999;
             transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
         .loader-icons { display: flex; gap: 30px; margin-bottom: 30px; }
         .loader-icons svg { width: 50px; height: 50px; stroke: var(--text-muted); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
         .floating { animation: floatIcon 2.5s ease-in-out infinite; opacity: 0; }
@@ -63,8 +59,7 @@
         /* --- NAVBAR & SEARCH --- */
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 0 5%; height: var(--nav-height);
-            background-color: rgba(10, 10, 10, 0.95);
+            padding: 0 5%; height: var(--nav-height); background-color: rgba(10, 10, 10, 0.95);
             border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 1000;
         }
         .logo { font-size: 1.8rem; color: var(--text-main); text-decoration: none; z-index: 1001;}
@@ -134,15 +129,13 @@
         .star-rating input:checked ~ label,
         .star-rating label:hover,
         .star-rating label:hover ~ label { color: var(--star-color); }
-
         .review-input { width: 100%; height: 120px; background: #111; border: 1px solid #333; color: white; padding: 1rem; border-radius: 8px; font-family: 'Inter', sans-serif; resize: none; margin-bottom: 1rem; }
         .review-input:focus { outline: 1px solid var(--accent-red); }
 
-        /* Displayed Review Box */
         .user-review-box { background: #111; border: 1px solid #333; padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem; }
         .user-review-box .stars { color: var(--star-color); font-size: 1.2rem; margin-bottom: 0.5rem; }
 
-        /* --- FORCED LOGIN POPUP --- */
+        /* --- POPUP OVERLAYS --- */
         .auth-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(8px);
@@ -194,6 +187,21 @@
                 <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google Logo">
                 Continue with Google
             </button>
+        </div>
+    </div>
+
+    <div id="latest-movie-overlay" class="auth-overlay">
+        <div class="auth-modal" style="padding: 0; overflow: hidden; max-width: 500px; border-top: none;">
+            <div id="latest-movie-bg" style="height: 250px; background-size: cover; background-position: center; position: relative;">
+                <div style="position: absolute; top: 10px; right: 10px; cursor: pointer; background: rgba(0,0,0,0.6); border-radius: 50%; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; transition: 0.2s;" onclick="closeLatestPopup()">✕</div>
+                <div style="position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, var(--bg-card), transparent); height: 100px;"></div>
+            </div>
+            <div style="padding: 2rem; background: var(--bg-card); position: relative; z-index: 2; margin-top: -30px;">
+                <h4 style="color: var(--accent-red); margin-bottom: 0.5rem; letter-spacing: 2px; font-size: 0.8rem; text-transform: uppercase;">Latest Release Added</h4>
+                <h2 id="latest-movie-title" style="font-family: 'Bebas Neue'; font-size: 2.8rem; margin-bottom: 0.5rem; line-height: 1;">Movie Title</h2>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.95rem;">The newest movie just dropped on TheMallu. Be the first to share your thoughts!</p>
+                <a id="latest-movie-btn" href="#" class="btn-primary" style="display: block; width: 100%;">Write Your Review</a>
+            </div>
         </div>
     </div>
 
@@ -268,6 +276,12 @@
                 window.location.href = `search.html?q=${encodeURIComponent(searchInput.value)}`;
             }
         });
+
+        // Close Latest Update Pop-up
+        function closeLatestPopup() {
+            document.getElementById('latest-movie-overlay').classList.remove('active');
+            document.body.style.overflow = 'auto'; // Re-enable scrolling
+        }
 
         async function start() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -344,7 +358,6 @@
             }
         }
 
-        // --- FETCH SINGLE MOVIE & CALCULATE REVIEWS ---
         async function renderSingle(idOrSlug) {
             let movie = dummyMovies.find(m => m.id == idOrSlug || m.slug === idOrSlug);
             let communityScore = 'No Ratings';
@@ -355,21 +368,17 @@
                     const client = window.supabase.createClient(supabaseUrl, supabaseKey);
                     const column = isNaN(idOrSlug) ? 'slug' : 'id';
                     
-                    // 1. Fetch Movie Info
                     const { data: movieData } = await client.from('movies').select('*').eq(column, idOrSlug).single();
                     if (movieData) movie = movieData;
 
-                    // 2. Fetch User Reviews for this Movie
                     if (movie) {
                         const { data: reviewsData } = await client.from('user_reviews').select('rating, comment').eq('movie_id', movie.id);
                         
                         if (reviewsData && reviewsData.length > 0) {
-                            // Calculate Average Algorithm
                             const totalSum = reviewsData.reduce((acc, curr) => acc + curr.rating, 0);
                             const average = (totalSum / reviewsData.length).toFixed(1);
                             communityScore = `⭐ ${average} <span style="font-size:1rem; color:#888; font-weight:normal;">(${reviewsData.length} votes)</span>`;
 
-                            // Generate Review Blocks
                             reviewsHTML = reviewsData.map(r => `
                                 <div class="user-review-box">
                                     <div class="stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
@@ -449,7 +458,6 @@
             }
         }
 
-        // --- ACTUAL SUPABASE SUBMIT LOGIC ---
         async function submitReview(event) {
             event.preventDefault(); 
             const form = event.target;
@@ -491,7 +499,40 @@
                 submitBtn.disabled = false;
             } else {
                 alert("Thank you! Your review has been posted.");
-                window.location.reload(); // Reload to show the new review and updated average!
+                window.location.reload(); 
+            }
+        }
+
+        // --- NEW: FETCH AND SHOW LATEST MOVIE POPUP ---
+        async function triggerLatestMoviePopup(client) {
+            // Only trigger on the Home screen (no movie ID in the URL)
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('id') || urlParams.get('movie')) return;
+
+            // Ensure it only pops up once per user session
+            if (sessionStorage.getItem('latestPopupShown')) return;
+
+            let latestMovie = dummyMovies[dummyMovies.length - 1]; // Fallback to last local movie
+
+            try {
+                // Fetch the most recently added movie from Supabase
+                const { data } = await client.from('movies').select('*').order('id', { ascending: false }).limit(1).single();
+                if (data) latestMovie = data;
+            } catch (e) {
+                console.warn("Could not fetch latest movie, using fallback.");
+            }
+
+            if (latestMovie) {
+                document.getElementById('latest-movie-bg').style.backgroundImage = `url('${latestMovie.image}')`;
+                document.getElementById('latest-movie-title').innerText = latestMovie.title;
+                document.getElementById('latest-movie-btn').href = `?movie=${latestMovie.slug || latestMovie.id}`;
+                
+                // Show the popup with a slight delay so it feels natural after loading
+                setTimeout(() => {
+                    document.getElementById('latest-movie-overlay').classList.add('active');
+                    document.body.style.overflow = 'hidden'; 
+                    sessionStorage.setItem('latestPopupShown', 'true');
+                }, 1500); 
             }
         }
 
@@ -517,6 +558,9 @@
                             window.location.reload(); 
                         });
                     }
+                    
+                    // If logged in, trigger the new lightbox pop-up!
+                    triggerLatestMoviePopup(client);
                 }
 
                 const googleBtn = document.getElementById('google-login-btn');
