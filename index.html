@@ -41,27 +41,9 @@
             transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .loader-icons {
-            display: flex;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .loader-icons svg {
-            width: 50px;
-            height: 50px;
-            stroke: var(--text-muted);
-            fill: none;
-            stroke-width: 1.5;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .floating {
-            animation: floatIcon 2.5s ease-in-out infinite;
-            opacity: 0;
-        }
-
+        .loader-icons { display: flex; gap: 30px; margin-bottom: 30px; }
+        .loader-icons svg { width: 50px; height: 50px; stroke: var(--text-muted); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+        .floating { animation: floatIcon 2.5s ease-in-out infinite; opacity: 0; }
         .delay-1 { animation-delay: 0.4s; }
         .delay-2 { animation-delay: 0.8s; }
 
@@ -73,37 +55,10 @@
             100% { transform: translateY(10px); opacity: 0; }
         }
 
-        .loader-bar {
-            width: 180px;
-            height: 2px;
-            background: #222;
-            border-radius: 4px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .loader-progress {
-            width: 60px;
-            height: 100%;
-            background: var(--accent-red);
-            position: absolute;
-            animation: slideProgress 1.5s infinite ease-in-out;
-        }
-
-        @keyframes slideProgress {
-            0% { left: -60px; }
-            100% { left: 180px; }
-        }
-
-        .loader-text {
-            margin-top: 20px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            color: var(--text-muted);
-            font-weight: 400;
-        }
+        .loader-bar { width: 180px; height: 2px; background: #222; border-radius: 4px; overflow: hidden; position: relative; }
+        .loader-progress { width: 60px; height: 100%; background: var(--accent-red); position: absolute; animation: slideProgress 1.5s infinite ease-in-out; }
+        @keyframes slideProgress { 0% { left: -60px; } 100% { left: 180px; } }
+        .loader-text { margin-top: 20px; font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 4px; color: var(--text-muted); font-weight: 400; }
 
         /* --- NAVBAR & SEARCH --- */
         .navbar {
@@ -117,11 +72,7 @@
 
         .nav-right { display: flex; align-items: center; gap: 1.5rem; }
         .search-container { position: relative; display: flex; align-items: center; }
-        .search-input { 
-            width: 0; opacity: 0; transition: 0.4s ease;
-            background: #111; border: 1px solid #333; color: white;
-            padding: 5px 10px; border-radius: 4px; outline: none;
-        }
+        .search-input { width: 0; opacity: 0; transition: 0.4s ease; background: #111; border: 1px solid #333; color: white; padding: 5px 10px; border-radius: 4px; outline: none; }
         .search-input.active { width: 180px; opacity: 1; margin-right: 10px; }
         .search-btn { cursor: pointer; color: var(--text-main); }
 
@@ -164,7 +115,9 @@
         .movie-poster { width: 300px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); object-fit: cover; }
         .movie-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
         .movie-info h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 0.5rem; }
-        .critic-score { font-size: 1.5rem; color: var(--star-color); font-weight: bold; margin-bottom: 1.5rem; }
+        .score-container { display: flex; gap: 2rem; margin-bottom: 1.5rem; }
+        .score-box h4 { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .score-value { font-size: 1.5rem; color: var(--star-color); font-weight: bold; }
         
         .meta-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 1.5rem; }
         .meta-tag { background: #222; padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 5px;}
@@ -184,6 +137,10 @@
 
         .review-input { width: 100%; height: 120px; background: #111; border: 1px solid #333; color: white; padding: 1rem; border-radius: 8px; font-family: 'Inter', sans-serif; resize: none; margin-bottom: 1rem; }
         .review-input:focus { outline: 1px solid var(--accent-red); }
+
+        /* Displayed Review Box */
+        .user-review-box { background: #111; border: 1px solid #333; padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem; }
+        .user-review-box .stars { color: var(--star-color); font-size: 1.2rem; margin-bottom: 0.5rem; }
 
         /* --- FORCED LOGIN POPUP --- */
         .auth-overlay {
@@ -213,7 +170,7 @@
             .menu-toggle { display: flex; }
             .movie-page-hero { flex-direction: column; align-items: center; text-align: center; }
             .movie-poster { width: 100%; max-width: 350px; }
-            .meta-tags { justify-content: center; }
+            .meta-tags, .score-container { justify-content: center; }
         }
     </style>
 </head>
@@ -286,8 +243,7 @@
         
         const dummyMovies = [
             { id: 1, slug: 'dune-part-two', title: 'Dune: Part Two', score: '9.5', image: 'https://image.tmdb.org/t/p/original/8rpDcsfLJypbO6vtec8OobKXpqc.jpg', releaseDate: 'Mar 01, 2026', ott: 'Max', description: 'Paul Atreides unites with Chani and the Fremen while on a warpath of revenge against the conspirators who destroyed his family.' },
-            { id: 2, slug: 'challengers', title: 'Challengers', score: '8.0', image: 'https://image.tmdb.org/t/p/original/8b8R8l88ILjqZWugPhM5O22t08T.jpg', releaseDate: 'Apr 26, 2026', ott: 'Prime Video', description: 'Tashi, a former tennis prodigy turned coach, transformed her husband into a champion. But to overcome a losing streak, he must face his former best friend and Tashi\'s ex-boyfriend.' },
-            { id: 3, slug: 'furiosa', title: 'Furiosa', score: '8.5', image: 'https://image.tmdb.org/t/p/original/fdZpvZcgvSqBramIWEz0hT1m5Lw.jpg', releaseDate: 'May 24, 2026', ott: 'Theaters', description: 'As the world fell, young Furiosa is snatched from the Green Place of Many Mothers and falls into the hands of a great Biker Horde led by the Warlord Dementus.' }
+            { id: 2, slug: 'challengers', title: 'Challengers', score: '8.0', image: 'https://image.tmdb.org/t/p/original/8b8R8l88ILjqZWugPhM5O22t08T.jpg', releaseDate: 'Apr 26, 2026', ott: 'Prime Video', description: 'Tashi, a former tennis prodigy turned coach, transformed her husband into a champion. But to overcome a losing streak, he must face his former best friend.' }
         ];
 
         // UI Interactions
@@ -320,8 +276,8 @@
             if (movieId) {
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('home-view').classList.add('hidden');
-                document.getElementById('movie-view').classList.remove('hidden');
                 document.getElementById('sidebar-section').classList.add('hidden');
+                document.getElementById('movie-view').classList.remove('hidden');
                 renderSingle(movieId);
             } else {
                 let movies = dummyMovies;
@@ -388,16 +344,42 @@
             }
         }
 
+        // --- FETCH SINGLE MOVIE & CALCULATE REVIEWS ---
         async function renderSingle(idOrSlug) {
             let movie = dummyMovies.find(m => m.id == idOrSlug || m.slug === idOrSlug);
+            let communityScore = 'No Ratings';
+            let reviewsHTML = '<p style="color: var(--text-muted);">No community reviews yet. Be the first to share your thoughts!</p>';
+
             try {
                 if (window.supabase) {
                     const client = window.supabase.createClient(supabaseUrl, supabaseKey);
                     const column = isNaN(idOrSlug) ? 'slug' : 'id';
-                    const { data } = await client.from('movies').select('*').eq(column, idOrSlug).single();
-                    if (data) movie = data;
+                    
+                    // 1. Fetch Movie Info
+                    const { data: movieData } = await client.from('movies').select('*').eq(column, idOrSlug).single();
+                    if (movieData) movie = movieData;
+
+                    // 2. Fetch User Reviews for this Movie
+                    if (movie) {
+                        const { data: reviewsData } = await client.from('user_reviews').select('rating, comment').eq('movie_id', movie.id);
+                        
+                        if (reviewsData && reviewsData.length > 0) {
+                            // Calculate Average Algorithm
+                            const totalSum = reviewsData.reduce((acc, curr) => acc + curr.rating, 0);
+                            const average = (totalSum / reviewsData.length).toFixed(1);
+                            communityScore = `⭐ ${average} <span style="font-size:1rem; color:#888; font-weight:normal;">(${reviewsData.length} votes)</span>`;
+
+                            // Generate Review Blocks
+                            reviewsHTML = reviewsData.map(r => `
+                                <div class="user-review-box">
+                                    <div class="stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
+                                    <p style="color: #ddd; font-size: 0.95rem;">"${r.comment}"</p>
+                                </div>
+                            `).join('');
+                        }
+                    }
                 }
-            } catch(e) {}
+            } catch(e) { console.error(e); }
 
             if (movie) {
                 document.title = `${movie.title} - TheMallu Reviews`;
@@ -411,7 +393,17 @@
                         <img src="${movie.image}" alt="${movie.title} Poster" class="movie-poster">
                         <div class="movie-info">
                             <h1>${movie.title}</h1>
-                            <div class="critic-score">⭐ ${movie.score} / 10 <span style="font-size:1rem; color:#888; font-weight:normal;">(Critic Score)</span></div>
+                            
+                            <div class="score-container">
+                                <div class="score-box">
+                                    <h4>Critic Score</h4>
+                                    <div class="score-value">⭐ ${movie.score}</div>
+                                </div>
+                                <div class="score-box" style="border-left: 1px solid #333; padding-left: 2rem;">
+                                    <h4>Community Score</h4>
+                                    <div class="score-value">${communityScore}</div>
+                                </div>
+                            </div>
                             
                             <div class="meta-tags">
                                 <span class="meta-tag">📅 ${releaseDate}</span>
@@ -442,8 +434,17 @@
                             <button type="submit" class="btn-primary" id="submit-btn">Post Review</button>
                         </form>
                     </div>
+
+                    <div class="section-box">
+                        <h3 class="section-title">Community Reviews</h3>
+                        <div id="reviews-list">
+                            ${reviewsHTML}
+                        </div>
+                    </div>
                     
-                    <a href="index.html" style="color:var(--text-muted); text-decoration:none; margin-bottom:3rem; display:inline-block;">← Back to Home</a>
+                    <div style="text-align: center;">
+                        <a href="index.html" style="color:var(--text-muted); text-decoration:none; margin-bottom:3rem; display:inline-block;">← Back to Home</a>
+                    </div>
                 `;
             }
         }
@@ -471,8 +472,6 @@
             submitBtn.disabled = true;
 
             const client = window.supabase.createClient(supabaseUrl, supabaseKey);
-            
-            // Check if the user is logged in
             const { data: { session } } = await client.auth.getSession();
             
             const reviewData = {
@@ -481,12 +480,8 @@
                 comment: commentInput
             };
 
-            // If you updated your table to require user_id, it will attach it here
-            if (session) {
-                reviewData.user_id = session.user.id;
-            }
+            if (session) { reviewData.user_id = session.user.id; }
 
-            // Insert into the database
             const { error } = await client.from('user_reviews').insert([reviewData]);
 
             if (error) {
@@ -495,10 +490,8 @@
                 submitBtn.innerText = "Post Review";
                 submitBtn.disabled = false;
             } else {
-                alert("Thank you! Your review has been successfully posted to the database.");
-                form.reset(); 
-                submitBtn.innerText = "Post Review";
-                submitBtn.disabled = false;
+                alert("Thank you! Your review has been posted.");
+                window.location.reload(); // Reload to show the new review and updated average!
             }
         }
 
@@ -506,7 +499,6 @@
         async function checkAuthAndLock() {
             if (window.supabase) {
                 const client = window.supabase.createClient(supabaseUrl, supabaseKey);
-                
                 const { data: { session } } = await client.auth.getSession();
                 
                 if (!session) {
@@ -532,14 +524,9 @@
                     googleBtn.addEventListener('click', async () => {
                         const { error } = await client.auth.signInWithOAuth({
                             provider: 'google',
-                            options: {
-                                redirectTo: window.location.origin + window.location.pathname
-                            }
+                            options: { redirectTo: window.location.origin + window.location.pathname }
                         });
-                        
-                        if (error) {
-                            alert("Login failed: " + error.message);
-                        }
+                        if (error) alert("Login failed: " + error.message);
                     });
                 }
             }
