@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results | TheMallu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #1a1a1a;
+            --accent-red: #e50914;
+            --text-main: #f5f5f5;
+        }
+        body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Inter', sans-serif; }
+        .navbar { padding: 1rem 5%; border-bottom: 1px solid #222; display: flex; align-items: center; }
+        .logo { font-family: 'Bebas Neue'; font-size: 1.8rem; color: #fff; text-decoration: none; }
+        .logo span { color: var(--accent-red); }
+        .container { padding: 2rem 5%; max-width: 1200px; margin: auto; }
+        .section-title { font-family: 'Bebas Neue'; font-size: 2rem; margin-bottom: 2rem; }
+        .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; }
+        .movie-card { background: var(--bg-card); border-radius: 8px; overflow: hidden; text-decoration: none; color: inherit; transition: 0.3s; }
+        .movie-card img { width: 100%; height: 300px; object-fit: cover; }
+        .card-info { padding: 1rem; }
+        .btn-back { color: var(--accent-red); text-decoration: none; font-weight: bold; margin-bottom: 1rem; display: inline-block; }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <a href="index.html" class="logo">THE<span>MALLU</span></a>
+    </header>
+
+    <main class="container">
+        <a href="index.html" class="btn-back">← Back to Home</a>
+        <h2 class="section-title" id="search-title">Searching...</h2>
+        <div class="movie-grid" id="search-grid"></div>
+    </main>
+
+    <script>
+        const supabaseUrl = 'https://bmtoevcfrimhwamyqbvc.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJtdG9ldmNmcmltaHdhbXlxYnZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1NTg0NzMsImV4cCI6MjA5MzEzNDQ3M30.pqVOFqFX3PWA003vHmINfnFY7yoWAX7W_V15xNRawiE';
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+        async function loadResults() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const query = urlParams.get('q');
+            const grid = document.getElementById('search-grid');
+            const title = document.getElementById('search-title');
+
+            if (!query) {
+                title.innerText = "No search query provided.";
+                return;
+            }
+
+            title.innerText = `Search Results for: "${query}"`;
+
+            try {
+                const { data, error } = await supabase
+                    .from('movies')
+                    .select('*')
+                    .ilike('title', `%${query}%`);
+
+                if (error) {
+                    console.error("Supabase API Error:", error.message);
+                    grid.innerHTML = `<p>Error loading results: ${error.message}</p>`;
+                    return;
+                }
+
+                if (!data || data.length === 0) {
+                    grid.innerHTML = "<p>No movies found matching your search.</p>";
+                    return;
+                }
+
+                grid.innerHTML = ''; // Clear "Searching..."
+                data.forEach(movie => {
+                    grid.innerHTML += `
+                        <a href="index.html?id=${movie.id}" class="movie-card">
+                            <img src="${movie.image}">
+                            <div class="card-info">
+                                <h4>${movie.title}</h4>
+                                <p style="color: #f5c518;">⭐ ${movie.score}</p>
+                            </div>
+                        </a>`;
+                });
+            } catch (err) {
+                console.error("System Error:", err);
+                grid.innerHTML = "<p>A connection error occurred. Please check your internet and try again.</p>";
+            }
+        }
+
+        loadResults();
+    </script>
+</body>
+</html>
