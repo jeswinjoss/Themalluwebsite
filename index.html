@@ -430,6 +430,7 @@
                         <p style="margin-bottom: 1rem; font-size: 0.9rem;">Have you seen it? Rate the movie and share your thoughts below.</p>
                         
                         <form class="review-form" onsubmit="submitReview(event)">
+                            <input type="hidden" name="movie_id" value="${movie.id}">
                             <div class="star-rating">
                                 <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 stars">★</label>
                                 <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars">★</label>
@@ -437,8 +438,8 @@
                                 <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars">★</label>
                                 <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star">★</label>
                             </div>
-                            <textarea class="review-input" placeholder="Write your comment here..." required></textarea>
-                            <button type="submit" class="btn-primary">Post Review</button>
+                            <textarea name="comment" class="review-input" placeholder="Write your comment here..." required></textarea>
+                            <button type="submit" class="btn-primary" id="submit-btn">Post Review</button>
                         </form>
                     </div>
                     
@@ -447,18 +448,58 @@
             }
         }
 
-        function submitReview(event) {
+        // --- ACTUAL SUPABASE SUBMIT LOGIC ---
+        async function submitReview(event) {
             event.preventDefault(); 
             const form = event.target;
-            const rating = form.querySelector('input[name="rating"]:checked');
+            const ratingInput = form.querySelector('input[name="rating"]:checked');
+            const commentInput = form.querySelector('textarea[name="comment"]').value;
+            const movieId = form.querySelector('input[name="movie_id"]').value;
+            const submitBtn = form.querySelector('#submit-btn');
             
-            if (!rating) {
+            if (!ratingInput) {
                 alert("Please select a star rating before submitting!");
                 return;
             }
+
+            if (!window.supabase) {
+                alert("Database connection is not available right now.");
+                return;
+            }
+
+            submitBtn.innerText = "Posting...";
+            submitBtn.disabled = true;
+
+            const client = window.supabase.createClient(supabaseUrl, supabaseKey);
             
-            alert(`Thank you! You rated this movie ${rating.value} stars. (Note: Database saving requires Auth setup)`);
-            form.reset(); 
+            // Check if the user is logged in
+            const { data: { session } } = await client.auth.getSession();
+            
+            const reviewData = {
+                movie_id: movieId,
+                rating: parseInt(ratingInput.value),
+                comment: commentInput
+            };
+
+            // If you updated your table to require user_id, it will attach it here
+            if (session) {
+                reviewData.user_id = session.user.id;
+            }
+
+            // Insert into the database
+            const { error } = await client.from('user_reviews').insert([reviewData]);
+
+            if (error) {
+                console.error("Error saving review:", error);
+                alert("Failed to save review: " + error.message);
+                submitBtn.innerText = "Post Review";
+                submitBtn.disabled = false;
+            } else {
+                alert("Thank you! Your review has been successfully posted to the database.");
+                form.reset(); 
+                submitBtn.innerText = "Post Review";
+                submitBtn.disabled = false;
+            }
         }
 
         // --- AUTH & POPUP LOGIC ---
@@ -466,17 +507,14 @@
             if (window.supabase) {
                 const client = window.supabase.createClient(supabaseUrl, supabaseKey);
                 
-                // Get the active session
                 const { data: { session } } = await client.auth.getSession();
                 
                 if (!session) {
-                    // No session detected: Lock screen after 4 seconds
                     setTimeout(() => {
                         document.getElementById('forced-login-overlay').classList.add('active');
-                        document.body.style.overflow = 'hidden'; // Prevents scrolling behind the popup
+                        document.body.style.overflow = 'hidden'; 
                     }, 4000);
                 } else {
-                    // Session detected: Update navbar Login button to Logout
                     const navLoginBtn = document.getElementById('nav-login-btn');
                     if (navLoginBtn) {
                         navLoginBtn.innerText = "Logout";
@@ -484,12 +522,11 @@
                         navLoginBtn.addEventListener('click', async (e) => {
                             e.preventDefault();
                             await client.auth.signOut();
-                            window.location.reload(); // Reload page to reset state
+                            window.location.reload(); 
                         });
                     }
                 }
 
-                // Handle Google button click inside popup
                 const googleBtn = document.getElementById('google-login-btn');
                 if (googleBtn) {
                     googleBtn.addEventListener('click', async () => {
@@ -508,7 +545,6 @@
             }
         }
 
-        // Run the main app function, then run the auth check
         window.onload = async () => {
             await start();
             checkAuthAndLock();
