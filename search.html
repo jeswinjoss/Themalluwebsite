@@ -12,15 +12,55 @@
             --bg-card: #1a1a1a;
             --accent-red: #e50914;
             --text-main: #f5f5f5;
+            --nav-height: 70px;
         }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Inter', sans-serif; }
-        .navbar { padding: 1rem 5%; border-bottom: 1px solid #222; display: flex; align-items: center; }
-        .logo { font-family: 'Bebas Neue'; font-size: 1.8rem; color: #fff; text-decoration: none; }
+        
+        /* Navbar */
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 5%; height: var(--nav-height);
+            background-color: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 1000;
+        }
+        .logo { font-family: 'Bebas Neue'; font-size: 1.8rem; color: #fff; text-decoration: none; z-index: 1001;}
         .logo span { color: var(--accent-red); }
+
+        .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+        .search-container { position: relative; display: flex; align-items: center; }
+        .search-input { 
+            width: 0; opacity: 0; transition: 0.4s ease;
+            background: #111; border: 1px solid #333; color: white;
+            padding: 5px 10px; border-radius: 4px; outline: none;
+        }
+        .search-input.active { width: 180px; opacity: 1; margin-right: 10px; }
+        .search-btn { cursor: pointer; color: var(--text-main); }
+
+        .nav-links { display: flex; gap: 2rem; align-items: center; list-style: none; }
+        .nav-links a { color: var(--text-main); text-decoration: none; font-weight: 600; transition: 0.3s; }
+        .nav-links a:hover { color: var(--accent-red); }
+        .btn-login { background: var(--accent-red); padding: 0.5rem 1.2rem; border-radius: 4px; }
+
+        .menu-toggle { display: none; cursor: pointer; flex-direction: column; gap: 5px; z-index: 1001; }
+        .menu-toggle span { width: 25px; height: 3px; background: white; transition: 0.3s; }
+
+        @media (max-width: 900px) {
+            .nav-links {
+                position: fixed; top: 0; right: -100%; width: 70%; height: 100vh;
+                background: #111; flex-direction: column; justify-content: center;
+                transition: 0.4s; box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+            }
+            .nav-links.active { right: 0; }
+            .menu-toggle { display: flex; }
+        }
+
+        /* Search Grid */
         .container { padding: 2rem 5%; max-width: 1200px; margin: auto; }
         .section-title { font-family: 'Bebas Neue'; font-size: 2rem; margin-bottom: 2rem; }
         .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; }
         .movie-card { background: var(--bg-card); border-radius: 8px; overflow: hidden; text-decoration: none; color: inherit; transition: 0.3s; }
+        .movie-card:hover { transform: translateY(-5px); }
         .movie-card img { width: 100%; height: 300px; object-fit: cover; }
         .card-info { padding: 1rem; }
         .btn-back { color: var(--accent-red); text-decoration: none; font-weight: bold; margin-bottom: 1rem; display: inline-block; }
@@ -29,18 +69,76 @@
 <body>
     <header class="navbar">
         <a href="index.html" class="logo">THE<span>MALLU</span></a>
+        
+        <div class="nav-right">
+            <div class="search-container">
+                <input type="text" id="search-input" class="search-input" placeholder="Search movies...">
+                <div class="search-btn" id="search-trigger">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </div>
+            </div>
+
+            <div class="menu-toggle" id="mobile-menu"><span></span><span></span><span></span></div>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="#">Polls</a></li>
+                <li><a href="#" class="btn-login">Login</a></li>
+            </ul>
+        </div>
     </header>
 
     <main class="container">
         <a href="index.html" class="btn-back">← Back to Home</a>
-        <h2 class="section-title" id="search-title">Searching...</h2>
+        <h2 class="section-title" id="search-title">Processing Search...</h2>
         <div class="movie-grid" id="search-grid"></div>
     </main>
 
     <script>
         const supabaseUrl = 'https://bmtoevcfrimhwamyqbvc.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJtdG9ldmNmcmltaHdhbXlxYnZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1NTg0NzMsImV4cCI6MjA5MzEzNDQ3M30.pqVOFqFX3PWA003vHmINfnFY7yoWAX7W_V15xNRawiE';
-        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+        
+        const dummyMovies = [
+            { id: 1, slug: 'dune-part-two', title: 'Dune: Part Two', score: '9.5', image: 'https://image.tmdb.org/t/p/original/8rpDcsfLJypbO6vtec8OobKXpqc.jpg' },
+            { id: 2, slug: 'challengers', title: 'Challengers', score: '8.0', image: 'https://image.tmdb.org/t/p/original/8b8R8l88ILjqZWugPhM5O22t08T.jpg' },
+            { id: 3, slug: 'furiosa', title: 'Furiosa', score: '8.5', image: 'https://image.tmdb.org/t/p/original/fdZpvZcgvSqBramIWEz0hT1m5Lw.jpg' }
+        ];
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Setup Search Bar Interactions
+            const menuBtn = document.getElementById('mobile-menu');
+            const navLinks = document.getElementById('nav-links');
+            const searchTrigger = document.getElementById('search-trigger');
+            const searchInput = document.getElementById('search-input');
+
+            if (menuBtn && navLinks) {
+                menuBtn.addEventListener('click', () => navLinks.classList.toggle('active'));
+            }
+
+            if (searchTrigger && searchInput) {
+                searchTrigger.addEventListener('click', () => {
+                    if (searchInput.classList.contains('active') && searchInput.value.trim() !== "") {
+                        performSearch(searchInput.value);
+                    } else {
+                        searchInput.classList.toggle('active');
+                        if (searchInput.classList.contains('active')) searchInput.focus();
+                    }
+                });
+
+                searchInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') performSearch(searchInput.value);
+                });
+            }
+
+            // Start loading results immediately
+            loadResults();
+        });
+
+        function performSearch(query) {
+            if (!query.trim()) return;
+            window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+        }
 
         async function loadResults() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -53,43 +151,62 @@
                 return;
             }
 
+            // Update UI to show what is being searched
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) searchInput.value = query;
             title.innerText = `Search Results for: "${query}"`;
+            grid.innerHTML = '<p style="color: var(--text-muted);">Fetching movies...</p>';
 
-            try {
-                const { data, error } = await supabase
-                    .from('movies')
-                    .select('*')
-                    .ilike('title', `%${query}%`);
+            let results = [];
+            let fetchSuccess = false;
 
-                if (error) {
-                    console.error("Supabase API Error:", error.message);
-                    grid.innerHTML = `<p>Error loading results: ${error.message}</p>`;
-                    return;
+            // Attempt Database fetch with a strict 3-second timeout
+            if (window.supabase) {
+                try {
+                    const client = window.supabase.createClient(supabaseUrl, supabaseKey);
+                    
+                    // Create the database request
+                    const dbRequest = client.from('movies').select('*').ilike('title', `%${query}%`);
+                    // Create a 3 second timer
+                    const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('Connection Timeout')), 3000));
+                    
+                    // Race them: whichever finishes first wins
+                    const response = await Promise.race([dbRequest, timeout]);
+
+                    if (response && response.data) {
+                        results = response.data;
+                        fetchSuccess = true;
+                    }
+                } catch (err) {
+                    console.warn("Database connection took too long or failed. Using fallback data.");
                 }
-
-                if (!data || data.length === 0) {
-                    grid.innerHTML = "<p>No movies found matching your search.</p>";
-                    return;
-                }
-
-                grid.innerHTML = ''; // Clear "Searching..."
-                data.forEach(movie => {
-                    grid.innerHTML += `
-                        <a href="index.html?id=${movie.id}" class="movie-card">
-                            <img src="${movie.image}">
-                            <div class="card-info">
-                                <h4>${movie.title}</h4>
-                                <p style="color: #f5c518;">⭐ ${movie.score}</p>
-                            </div>
-                        </a>`;
-                });
-            } catch (err) {
-                console.error("System Error:", err);
-                grid.innerHTML = "<p>A connection error occurred. Please check your internet and try again.</p>";
             }
-        }
 
-        loadResults();
+            // Fallback to local data if the database hangs
+            if (!fetchSuccess) {
+                results = dummyMovies.filter(m => m.title.toLowerCase().includes(query.toLowerCase()));
+            }
+
+            // Render Results
+            grid.innerHTML = ''; 
+            
+            if (results.length === 0) {
+                grid.innerHTML = `<p style="color: var(--text-muted); font-size: 1.1rem;">No movies found matching "${query}".</p>`;
+                return;
+            }
+
+            results.forEach(movie => {
+                const link = `index.html?${movie.slug ? 'movie=' + movie.slug : 'id=' + movie.id}`;
+                grid.innerHTML += `
+                    <a href="${link}" class="movie-card">
+                        <img src="${movie.image}" alt="${movie.title} Poster">
+                        <div class="card-info">
+                            <h4 style="margin-bottom: 0.5rem; font-family: 'Inter', sans-serif;">${movie.title}</h4>
+                            <p style="color: #f5c518; font-weight: bold;">⭐ ${movie.score}</p>
+                        </div>
+                    </a>`;
+            });
+        }
     </script>
 </body>
 </html>
