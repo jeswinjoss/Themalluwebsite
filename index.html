@@ -3,39 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TheMallu | Movie Reviews</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>TheMallu | Premium Movie Reviews</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
         :root {
-            --bg-dark: #0a0a0a;
-            --bg-card: #1a1a1a;
+            --bg-dark: #0d0d12;
+            --bg-card: #181820;
+            --bg-card-hover: #22222d;
             --accent-red: #e50914;
-            --text-main: #f5f5f5;
-            --text-muted: #aaaaaa;
-            --nav-height: 70px;
+            --accent-gradient: linear-gradient(135deg, #ff3344, #e50914);
+            --text-main: #ffffff;
+            --text-muted: #9aa0a6;
+            --nav-height: 75px;
             --star-color: #f5c518;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
+        html, body {
             background-color: var(--bg-dark);
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
+            width: 100%;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        h1, h2, h3, .logo { font-family: 'Bebas Neue', cursive; letter-spacing: 1px; }
+        h1, h2, h3, .logo { font-family: 'Bebas Neue', cursive; letter-spacing: 1.5px; }
 
         /* --- PROFESSIONAL LOADING SCREEN --- */
         #loader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--bg-dark); display: flex; flex-direction: column;
             justify-content: center; align-items: center; z-index: 9999;
-            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 0.6s ease;
         }
         .loader-icons { display: flex; gap: 30px; margin-bottom: 30px; }
         .loader-icons svg { width: 50px; height: 50px; stroke: var(--text-muted); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
@@ -46,124 +54,182 @@
         @keyframes floatIcon {
             0% { transform: translateY(10px); opacity: 0; }
             20% { opacity: 1; }
-            50% { transform: translateY(-15px); stroke: var(--accent-red); }
+            50% { transform: translateY(-15px); stroke: #ff3344; }
             80% { opacity: 1; }
             100% { transform: translateY(10px); opacity: 0; }
         }
 
-        .loader-bar { width: 180px; height: 2px; background: #222; border-radius: 4px; overflow: hidden; position: relative; }
-        .loader-progress { width: 60px; height: 100%; background: var(--accent-red); position: absolute; animation: slideProgress 1.5s infinite ease-in-out; }
+        .loader-bar { width: 180px; height: 3px; background: var(--bg-card); border-radius: 4px; overflow: hidden; position: relative; }
+        .loader-progress { width: 60px; height: 100%; background: var(--accent-gradient); position: absolute; animation: slideProgress 1.5s infinite ease-in-out; }
         @keyframes slideProgress { 0% { left: -60px; } 100% { left: 180px; } }
-        .loader-text { margin-top: 20px; font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 4px; color: var(--text-muted); font-weight: 400; }
+        .loader-text { margin-top: 20px; font-family: 'Inter', sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 4px; color: var(--text-muted); font-weight: 500; }
 
         /* --- NAVBAR & SEARCH --- */
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 0 5%; height: var(--nav-height); background-color: rgba(10, 10, 10, 0.95);
-            border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 1000;
+            padding: 0 5%; height: var(--nav-height); 
+            background-color: rgba(13, 13, 18, 0.85);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-subtle); 
+            position: sticky; top: 0; z-index: 1000;
         }
-        .logo { font-size: 1.8rem; color: var(--text-main); text-decoration: none; z-index: 1001;}
+        .logo { font-size: 2rem; color: var(--text-main); text-decoration: none; z-index: 1001; text-shadow: 0 2px 10px rgba(0,0,0,0.5);}
         .logo span { color: var(--accent-red); }
 
         .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+        
         .search-container { position: relative; display: flex; align-items: center; }
-        .search-input { width: 0; opacity: 0; transition: 0.4s ease; background: #111; border: 1px solid #333; color: white; padding: 5px 10px; border-radius: 4px; outline: none; }
-        .search-input.active { width: 180px; opacity: 1; margin-right: 10px; }
-        .search-btn { cursor: pointer; color: var(--text-main); }
+        .search-input { 
+            width: 0; opacity: 0; transition: var(--transition); 
+            background: rgba(255,255,255,0.05); border: 1px solid transparent; 
+            color: white; padding: 0 15px; border-radius: 20px; outline: none; font-family: 'Inter', sans-serif; pointer-events: none; height: 40px;
+        }
+        .search-input.active { width: 220px; opacity: 1; margin-right: 15px; border-color: var(--border-subtle); pointer-events: auto; }
+        .search-input:focus { border-color: var(--accent-red); box-shadow: 0 0 10px rgba(229, 9, 20, 0.2); }
+        .search-btn { cursor: pointer; color: var(--text-main); transition: color 0.2s; }
+        .search-btn:hover { color: var(--accent-red); }
 
-        .nav-links { display: flex; gap: 2rem; align-items: center; list-style: none; }
-        .nav-links a { color: var(--text-main); text-decoration: none; font-weight: 600; transition: 0.3s; }
-        .nav-links a:hover { color: var(--accent-red); }
-        .btn-login { background: var(--accent-red); padding: 0.5rem 1.2rem; border-radius: 4px; }
+        .nav-links { display: flex; gap: 2.5rem; align-items: center; list-style: none; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: var(--transition); }
+        .nav-links a:hover { color: var(--text-main); }
+        .btn-login { 
+            background: var(--accent-gradient); color: white !important; 
+            padding: 0.6rem 1.5rem; border-radius: 30px; font-weight: 600 !important; 
+            box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3); transition: var(--transition) !important; 
+        }
+        .btn-login:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(229, 9, 20, 0.4); }
 
-        .menu-toggle { display: none; cursor: pointer; flex-direction: column; gap: 5px; z-index: 1001; }
-        .menu-toggle span { width: 25px; height: 3px; background: white; transition: 0.3s; }
+        .menu-toggle { display: none; cursor: pointer; flex-direction: column; gap: 6px; z-index: 1001; }
+        .menu-toggle span { width: 28px; height: 2px; background: white; transition: var(--transition); border-radius: 2px; }
 
         /* --- HOME CAROUSEL & GRID --- */
-        .carousel-container { width: 100%; overflow: hidden; border-radius: 12px; margin-bottom: 2rem; position: relative; }
-        .carousel-wrapper { display: flex; width: 100%; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
-        .carousel-item { flex: 0 0 100%; height: 400px; background-size: cover; background-position: center; position: relative; display: flex; align-items: flex-end; padding: 2rem; }
-        .carousel-overlay { background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
-        .carousel-content { position: relative; z-index: 2; }
-        .carousel-content h2 { font-size: 3rem; margin-bottom: 0.5rem; }
+        .carousel-container { width: 100%; overflow: hidden; border-radius: var(--radius-lg); margin-bottom: 3rem; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        .carousel-wrapper { display: flex; width: 100%; transition: transform 0.8s ease-in-out; }
+        .carousel-item { flex: 0 0 100%; height: 450px; background-size: cover; background-position: center; position: relative; display: flex; align-items: flex-end; padding: 3rem; }
+        .carousel-overlay { background: linear-gradient(to top, rgba(13,13,18,1) 0%, rgba(13,13,18,0.4) 50%, transparent 100%); position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
+        .carousel-content { position: relative; z-index: 2; max-width: 600px; }
+        .carousel-content h2 { font-size: 3.5rem; margin-bottom: 1rem; line-height: 1; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
 
-        .container { display: flex; gap: 2rem; padding: 2rem 5%; max-width: 1400px; margin: auto; }
+        .container { display: flex; gap: 3rem; padding: 2rem 5%; max-width: 1400px; margin: auto; justify-content: center; }
         .content { flex: 3; }
         .sidebar { flex: 1; }
-        .section-title { font-size: 1.8rem; margin-bottom: 1.2rem; border-left: 4px solid var(--accent-red); padding-left: 10px; }
+        .section-title { font-size: 2.2rem; margin-bottom: 1.5rem; border-left: 4px solid var(--accent-red); padding-left: 15px; line-height: 1.2;}
         
-        .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; }
-        .movie-card { background: var(--bg-card); border-radius: 8px; overflow: hidden; text-decoration: none; color: inherit; transition: 0.3s; }
-        .movie-card:hover { transform: translateY(-5px); }
-        .movie-card img { width: 100%; height: 300px; object-fit: cover; }
-        .card-info { padding: 1rem; }
-        .score-badge { color: var(--star-color); font-weight: bold; }
-        .view-more-container { text-align: center; margin-top: 2.5rem; }
+        .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 2rem; }
+        .movie-card { 
+            background: var(--bg-card); border-radius: var(--radius-lg); overflow: hidden; 
+            text-decoration: none; color: inherit; transition: var(--transition);
+            border: 1px solid var(--border-subtle); display: flex; flex-direction: column;
+        }
+        .movie-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.5); border-color: rgba(229, 9, 20, 0.4); }
+        .movie-card img { width: 100%; height: 320px; object-fit: cover; transition: var(--transition); }
+        .movie-card:hover img { transform: scale(1.03); }
+        .card-info { padding: 1.2rem; background: var(--bg-card); position: relative; z-index: 2;}
+        .card-info h4 { font-family: 'Inter', sans-serif; font-size: 1.1rem; font-weight: 600; margin-bottom: 0.4rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+        .score-badge { color: var(--star-color); font-weight: 700; font-size: 0.95rem; }
+        .view-more-container { text-align: center; margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border-subtle); }
 
-        .btn-primary { background: var(--text-main); color: var(--bg-dark); border: none; padding: 0.7rem 1.8rem; font-weight: bold; border-radius: 4px; text-decoration: none; display: inline-block; cursor: pointer; transition: 0.2s;}
-        .btn-primary:hover { background: var(--accent-red); color: white; }
+        .btn-primary { 
+            background: rgba(255,255,255,0.1); border: 1px solid var(--border-subtle); color: var(--text-main); 
+            padding: 0.8rem 2rem; font-weight: 600; border-radius: 30px; text-decoration: none; 
+            display: inline-block; cursor: pointer; transition: var(--transition); backdrop-filter: blur(5px);
+        }
+        .btn-primary:hover { background: var(--text-main); color: var(--bg-dark); transform: translateY(-2px); }
+        .btn-accent { background: var(--accent-gradient); color: white; border: none; }
+        .btn-accent:hover { background: var(--text-main); color: var(--accent-red); box-shadow: 0 10px 20px rgba(229, 9, 20, 0.3); }
 
         .hidden { display: none !important; }
 
         /* --- DEDICATED SINGLE MOVIE PAGE STYLES --- */
-        .movie-page-hero { display: flex; gap: 2.5rem; margin-bottom: 3rem; background: var(--bg-card); padding: 2rem; border-radius: 12px; }
-        .movie-poster { width: 300px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); object-fit: cover; }
-        .movie-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
-        .movie-info h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 0.5rem; }
-        .score-container { display: flex; gap: 2rem; margin-bottom: 1.5rem; }
-        .score-box h4 { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
-        .score-value { font-size: 1.5rem; color: var(--star-color); font-weight: bold; }
+        .movie-page-hero { display: flex; gap: 3rem; margin-bottom: 4rem; position: relative; }
+        .movie-poster { width: 320px; border-radius: var(--radius-lg); box-shadow: 0 20px 40px rgba(0,0,0,0.6); object-fit: cover; z-index: 2; border: 1px solid var(--border-subtle); }
+        .movie-info { flex: 1; display: flex; flex-direction: column; justify-content: center; z-index: 2;}
+        .movie-info h1 { font-size: 4.5rem; line-height: 1; margin-bottom: 1rem; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
         
-        .meta-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 1.5rem; }
-        .meta-tag { background: #222; padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 5px;}
-        .ott-tag { border: 1px solid var(--accent-red); color: var(--text-main); }
+        .score-container { display: inline-flex; flex-wrap: wrap; gap: 2.5rem; margin-bottom: 2rem; background: rgba(255,255,255,0.03); padding: 1rem 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); max-width: 100%;}
+        .score-box h4 { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.2rem;}
+        .score-value { font-size: 1.8rem; color: var(--star-color); font-weight: 700; display: flex; align-items: baseline; gap: 5px;}
+        .score-box-right { border-left: 1px solid var(--border-subtle); padding-left: 2.5rem; margin-left: 0.5rem; }
         
-        .section-box { background: var(--bg-card); padding: 2rem; border-radius: 12px; margin-bottom: 2rem; }
-        .section-box p { color: #ccc; font-size: 1.1rem; line-height: 1.8; }
+        .meta-tags { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 1.5rem; }
+        .meta-tag { background: rgba(255,255,255,0.05); padding: 0.5rem 1rem; border-radius: 30px; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; border: 1px solid var(--border-subtle); letter-spacing: 0.5px;}
+        .ott-tag { background: rgba(229, 9, 20, 0.1); border-color: rgba(229, 9, 20, 0.3); color: #ff4a61; }
+        
+        .section-box { background: var(--bg-card); padding: 2.5rem; border-radius: var(--radius-lg); margin-bottom: 2rem; border: 1px solid var(--border-subtle); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .section-box p { color: var(--text-muted); font-size: 1.1rem; line-height: 1.8; }
 
         /* Star Rating Form UI */
-        .review-form { margin-top: 1rem; }
-        .star-rating { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 10px; margin-bottom: 1rem; }
+        .review-form { margin-top: 1.5rem; }
+        .star-rating { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 5px; margin-bottom: 1.5rem; }
         .star-rating input { display: none; }
-        .star-rating label { font-size: 2.5rem; color: #444; cursor: pointer; transition: color 0.2s; }
+        .star-rating label { font-size: 3rem; color: #333; cursor: pointer; transition: var(--transition); line-height: 1; }
         .star-rating input:checked ~ label,
         .star-rating label:hover,
-        .star-rating label:hover ~ label { color: var(--star-color); }
-        .review-input { width: 100%; height: 120px; background: #111; border: 1px solid #333; color: white; padding: 1rem; border-radius: 8px; font-family: 'Inter', sans-serif; resize: none; margin-bottom: 1rem; }
-        .review-input:focus { outline: 1px solid var(--accent-red); }
+        .star-rating label:hover ~ label { color: var(--star-color); text-shadow: 0 0 15px rgba(245, 197, 24, 0.4); transform: scale(1.1); }
 
-        .user-review-box { background: #111; border: 1px solid #333; padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem; }
-        .user-review-box .stars { color: var(--star-color); font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .review-input { width: 100%; height: 140px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-subtle); color: white; padding: 1.2rem; border-radius: var(--radius-md); font-family: 'Inter', sans-serif; resize: none; margin-bottom: 1.5rem; font-size: 1rem; transition: var(--transition);}
+        .review-input:focus { outline: none; border-color: var(--accent-red); box-shadow: 0 0 0 4px rgba(229, 9, 20, 0.1); background: rgba(0,0,0,0.5);}
+
+        .user-review-box { background: rgba(0,0,0,0.2); border: 1px solid var(--border-subtle); padding: 1.5rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; transition: var(--transition); }
+        .user-review-box:hover { border-color: rgba(255,255,255,0.15); background: rgba(0,0,0,0.4);}
+        .user-review-box .stars { color: var(--star-color); font-size: 1.1rem; margin-bottom: 0.8rem; letter-spacing: 2px;}
 
         /* --- POPUP OVERLAYS --- */
         .auth-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(8px);
+            background: rgba(10, 10, 15, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             display: flex; justify-content: center; align-items: center;
-            z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
+            z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
         }
         .auth-overlay.active { opacity: 1; pointer-events: all; }
         .auth-modal {
-            background: var(--bg-card); padding: 3rem; border-radius: 12px;
-            text-align: center; border-top: 4px solid var(--accent-red);
-            max-width: 400px; width: 90%; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            background: var(--bg-card); padding: 3rem; border-radius: 24px;
+            text-align: center; border: 1px solid rgba(255,255,255,0.05);
+            max-width: 420px; width: 90%; box-shadow: 0 30px 60px rgba(0,0,0,0.6); position: relative; overflow: hidden;
         }
+        .auth-modal::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--accent-gradient); }
         .btn-google {
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            width: 100%; background: white; color: #333; border: none; padding: 0.8rem;
-            border-radius: 4px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: 0.2s; margin-top: 1.5rem;
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            width: 100%; background: #ffffff; color: #000000; border: none; padding: 1rem;
+            border-radius: 30px; font-weight: 600; font-size: 1.05rem; cursor: pointer; transition: var(--transition); margin-top: 2rem;
         }
-        .btn-google:hover { background: #eee; }
-        .btn-google img { width: 20px; }
+        .btn-google:hover { background: #f0f0f0; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(255,255,255,0.1); }
+        .btn-google img { width: 22px; }
 
+        /* --- MASSIVE MOBILE RESPONSIVENESS FIXES --- */
         @media (max-width: 900px) { 
-            .container { flex-direction: column; } 
-            .nav-links { position: fixed; top: 0; right: -100%; width: 70%; height: 100vh; background: #111; flex-direction: column; justify-content: center; transition: 0.4s; }
-            .nav-links.active { right: 0; }
+            .container { flex-direction: column; padding: 1.5rem 5%; gap: 2rem; justify-content: flex-start;} 
+            
+            /* Navbar sliding menu fix */
+            .nav-links { 
+                position: fixed; top: 0; right: -100%; width: 75%; height: 100vh; 
+                background: rgba(18,18,24,0.95); backdrop-filter: blur(20px); flex-direction: column; 
+                justify-content: center; transition: 0.4s cubic-bezier(0.25, 1, 0.5, 1); border-left: 1px solid var(--border-subtle);
+            }
+            .nav-links.active { right: 0; box-shadow: -20px 0 50px rgba(0,0,0,0.5); }
             .menu-toggle { display: flex; }
-            .movie-page-hero { flex-direction: column; align-items: center; text-align: center; }
-            .movie-poster { width: 100%; max-width: 350px; }
-            .meta-tags, .score-container { justify-content: center; }
+            
+            /* Search Dropdown fix so it doesn't break header width */
+            .search-input.active {
+                position: absolute; top: var(--nav-height); left: 5%; width: 90%; right: 5%;
+                margin: 10px 0 0 0; background: var(--bg-card); z-index: 1000;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+                border-color: var(--accent-red); padding: 12px 20px; height: 50px;
+            }
+
+            /* Detail Layout Fixes */
+            .movie-page-hero { flex-direction: column; align-items: center; text-align: center; margin-bottom: 2rem; gap: 1.5rem;}
+            .movie-poster { width: 100%; max-width: 320px; }
+            .movie-info h1 { font-size: 2.8rem; }
+            .meta-tags, .score-container { justify-content: center; width: 100%; }
+            
+            /* Score Box Stacking Fix */
+            .score-container { flex-direction: column; gap: 1rem; align-items: center; text-align: center; }
+            .score-box-right { border-left: none; padding-left: 0; margin-left: 0; border-top: 1px solid var(--border-subtle); padding-top: 1rem; width: 100%; }
+            
+            /* Carousel Fixes */
+            .carousel-item { height: 350px; padding: 2rem; }
+            .carousel-content h2 { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -176,13 +242,13 @@
             <svg class="floating delay-2" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path><path d="M13 5v2"></path><path d="M13 17v2"></path><path d="M13 11v2"></path></svg>
         </div>
         <div class="loader-bar"><div class="loader-progress"></div></div>
-        <div class="loader-text">Loading the experience</div>
+        <div class="loader-text">Loading Experience</div>
     </div>
 
     <div id="forced-login-overlay" class="auth-overlay">
         <div class="auth-modal">
-            <h2 style="font-family: 'Bebas Neue'; font-size: 2.5rem; margin-bottom: 0.5rem;">Access Restricted</h2>
-            <p style="color: var(--text-muted); font-size: 0.95rem;">You must be signed in to view our exclusive cinematic content and reviews.</p>
+            <h2 style="font-family: 'Bebas Neue'; font-size: 2.8rem; margin-bottom: 0.8rem; line-height:1;">Members Only</h2>
+            <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.5;">Sign in to access exclusive cinematic content, submit your own ratings, and join the community.</p>
             <button class="btn-google" id="google-login-btn">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google Logo">
                 Continue with Google
@@ -191,16 +257,16 @@
     </div>
 
     <div id="latest-movie-overlay" class="auth-overlay">
-        <div class="auth-modal" style="padding: 0; overflow: hidden; max-width: 500px; border-top: none;">
-            <div id="latest-movie-bg" style="height: 250px; background-size: cover; background-position: center; position: relative;">
-                <div style="position: absolute; top: 10px; right: 10px; cursor: pointer; background: rgba(0,0,0,0.6); border-radius: 50%; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; transition: 0.2s;" onclick="closeLatestPopup()">✕</div>
-                <div style="position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, var(--bg-card), transparent); height: 100px;"></div>
+        <div class="auth-modal" style="padding: 0; max-width: 450px;">
+            <div id="latest-movie-bg" style="height: 280px; background-size: cover; background-position: center; position: relative;">
+                <div style="position: absolute; top: 15px; right: 15px; cursor: pointer; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; color: white; transition: 0.2s;" onclick="closeLatestPopup()">✕</div>
+                <div style="position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, var(--bg-card), transparent); height: 120px;"></div>
             </div>
-            <div style="padding: 2rem; background: var(--bg-card); position: relative; z-index: 2; margin-top: -30px;">
-                <h4 style="color: var(--accent-red); margin-bottom: 0.5rem; letter-spacing: 2px; font-size: 0.8rem; text-transform: uppercase;">Latest Release Added</h4>
-                <h2 id="latest-movie-title" style="font-family: 'Bebas Neue'; font-size: 2.8rem; margin-bottom: 0.5rem; line-height: 1;">Movie Title</h2>
-                <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.95rem;">The newest movie just dropped on TheMallu. Be the first to share your thoughts!</p>
-                <a id="latest-movie-btn" href="#" class="btn-primary" style="display: block; width: 100%;">Write Your Review</a>
+            <div style="padding: 0 2.5rem 2.5rem 2.5rem; background: var(--bg-card); position: relative; z-index: 2; margin-top: -40px;">
+                <span style="background: var(--accent-gradient); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; display: inline-block; margin-bottom: 1rem;">Just Added</span>
+                <h2 id="latest-movie-title" style="font-family: 'Bebas Neue'; font-size: 3rem; margin-bottom: 0.5rem; line-height: 1;">Movie Title</h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 0.95rem;">The newest release is here. Be the first to share your thoughts.</p>
+                <a id="latest-movie-btn" href="#" class="btn-primary btn-accent" style="display: block; width: 100%;">Write a Review</a>
             </div>
         </div>
     </div>
@@ -210,16 +276,16 @@
         
         <div class="nav-right">
             <div class="search-container">
-                <input type="text" id="search-input" class="search-input" placeholder="Search movies...">
+                <input type="text" id="search-input" class="search-input" placeholder="Search films...">
                 <div class="search-btn" id="search-trigger">
-                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 </div>
             </div>
             <div class="menu-toggle" id="mobile-menu"><span></span><span></span><span></span></div>
             <ul class="nav-links" id="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="reviews.html">Reviews</a></li>
-                <li><a href="#" class="btn-login" id="nav-login-btn">Login</a></li>
+                <li><a href="#" class="btn-login" id="nav-login-btn">Sign In</a></li>
             </ul>
         </div>
     </header>
@@ -227,34 +293,36 @@
     <main class="container">
         <div id="home-view" class="content">
             <div class="carousel-container"><div class="carousel-wrapper" id="hero-carousel"></div></div>
-            <h3 class="section-title">Recent Reviews</h3>
+            <h3 class="section-title">Trending Reviews</h3>
             <section class="movie-grid" id="movie-grid"></section>
-            <div class="view-more-container"><a href="reviews.html" class="btn-primary">View More Reviews</a></div>
+            <div class="view-more-container"><a href="reviews.html" class="btn-primary">Explore All Reviews</a></div>
         </div>
 
-        <div id="movie-view" class="content hidden" style="flex: 1; max-width: 1000px; margin: 0 auto;">
+        <div id="movie-view" class="content hidden" style="flex: 1; max-width: 1050px; margin: 0 auto; width: 100%;">
             <div id="movie-detail-container"></div>
         </div>
 
         <aside class="sidebar" id="sidebar-section">
-            <div style="background: var(--bg-card); padding: 1.5rem; border-radius: 8px; border-bottom: 4px solid var(--accent-red);">
-                <h3 style="font-family: 'Bebas Neue'; letter-spacing: 1.5px; margin-bottom: 0.5rem;">Join the Community</h3>
-                <p style="font-size: 0.9rem; color: var(--text-muted);">Sign up to write your own reviews and track your favorite films.</p>
-                <button class="btn-primary" style="width: 100%; margin-top: 1rem; font-size: 0.8rem;">Join Now</button>
+            <div class="section-box" style="border-top: 4px solid #ff3344; text-align: center; padding: 2.5rem 1.5rem;">
+                <h3 style="font-family: 'Bebas Neue'; letter-spacing: 1.5px; margin-bottom: 0.8rem; font-size: 2rem;">Join the Community</h3>
+                <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.5rem;">Sign up to curate your own watchlist, write reviews, and track your favorite films.</p>
+                <button class="btn-primary btn-accent" style="width: 100%;">Create Account</button>
             </div>
         </aside>
     </main>
 
     <script>
+        // SUPABASE CONFIGURATION
         const supabaseUrl = 'https://bmtoevcfrimhwamyqbvc.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJtdG9ldmNmcmltaHdhbXlxYnZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1NTg0NzMsImV4cCI6MjA5MzEzNDQ3M30.pqVOFqFX3PWA003vHmINfnFY7yoWAX7W_V15xNRawiE';
         
+        // LOCAL FALLBACK DATA
         const dummyMovies = [
             { id: 1, slug: 'dune-part-two', title: 'Dune: Part Two', score: '9.5', image: 'https://image.tmdb.org/t/p/original/8rpDcsfLJypbO6vtec8OobKXpqc.jpg', releaseDate: 'Mar 01, 2026', ott: 'Max', description: 'Paul Atreides unites with Chani and the Fremen while on a warpath of revenge against the conspirators who destroyed his family.' },
             { id: 2, slug: 'challengers', title: 'Challengers', score: '8.0', image: 'https://image.tmdb.org/t/p/original/8b8R8l88ILjqZWugPhM5O22t08T.jpg', releaseDate: 'Apr 26, 2026', ott: 'Prime Video', description: 'Tashi, a former tennis prodigy turned coach, transformed her husband into a champion. But to overcome a losing streak, he must face his former best friend.' }
         ];
 
-        // UI Interactions
+        // UI INTERACTIONS
         const menuBtn = document.getElementById('mobile-menu');
         const navLinks = document.getElementById('nav-links');
         const searchTrigger = document.getElementById('search-trigger');
@@ -277,12 +345,12 @@
             }
         });
 
-        // Close Latest Update Pop-up
         function closeLatestPopup() {
             document.getElementById('latest-movie-overlay').classList.remove('active');
-            document.body.style.overflow = 'auto'; // Re-enable scrolling
+            document.body.style.overflow = 'auto'; 
         }
 
+        // INITIALIZATION WITH SAFE TIMEOUTS
         async function start() {
             const urlParams = new URLSearchParams(window.location.search);
             const movieId = urlParams.get('id') || urlParams.get('movie'); 
@@ -298,10 +366,15 @@
                 try {
                     if (window.supabase) {
                         const client = window.supabase.createClient(supabaseUrl, supabaseKey);
-                        const { data } = await client.from('movies').select('*').limit(10);
-                        if (data && data.length > 0) movies = data;
+                        const dbRequest = client.from('movies').select('*').limit(10);
+                        
+                        // Safety Timeout: Will fallback to dummy data if DB hangs for 3 seconds
+                        const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 3000));
+                        const response = await Promise.race([dbRequest, timeout]);
+                        
+                        if (response && response.data && response.data.length > 0) movies = response.data;
                     }
-                } catch (e) { console.log("Falling back to dummy data"); }
+                } catch (e) { console.log("Connection delayed. Using local fallback."); }
                 
                 renderHome(movies);
                 initCarousel();
@@ -328,14 +401,14 @@
                         <div class="carousel-overlay"></div>
                         <div class="carousel-content">
                             <h2>${movie.title}</h2>
-                            <a href="${link}" class="btn-primary">View Review</a>
+                            <a href="${link}" class="btn-primary btn-accent">Read Review</a>
                         </div>
                     </div>`;
                 
                 if (index < 3) { 
                     grid.innerHTML += `
                         <a href="${link}" class="movie-card">
-                            <img src="${movie.image}" alt="Poster">
+                            <img src="${movie.image}" alt="${movie.title}">
                             <div class="card-info">
                                 <h4>${movie.title}</h4>
                                 <span class="score-badge">⭐ ${movie.score}</span>
@@ -358,9 +431,10 @@
             }
         }
 
+        // RENDER SINGLE MOVIE PAGE
         async function renderSingle(idOrSlug) {
             let movie = dummyMovies.find(m => m.id == idOrSlug || m.slug === idOrSlug);
-            let communityScore = 'No Ratings';
+            let communityScore = '<span style="font-size:1.2rem; color:var(--text-muted); font-weight:500;">No Ratings</span>';
             let reviewsHTML = '<p style="color: var(--text-muted);">No community reviews yet. Be the first to share your thoughts!</p>';
 
             try {
@@ -368,34 +442,40 @@
                     const client = window.supabase.createClient(supabaseUrl, supabaseKey);
                     const column = isNaN(idOrSlug) ? 'slug' : 'id';
                     
-                    const { data: movieData } = await client.from('movies').select('*').eq(column, idOrSlug).single();
-                    if (movieData) movie = movieData;
+                    const dbReq = client.from('movies').select('*').eq(column, idOrSlug).single();
+                    const timeout1 = new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 3000));
+                    const movieResp = await Promise.race([dbReq, timeout1]);
+
+                    if (movieResp && movieResp.data) movie = movieResp.data;
 
                     if (movie) {
-                        const { data: reviewsData } = await client.from('user_reviews').select('rating, comment').eq('movie_id', movie.id);
+                        const revReq = client.from('user_reviews').select('rating, comment').eq('movie_id', movie.id);
+                        const timeout2 = new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 3000));
+                        const reviewsResp = await Promise.race([revReq, timeout2]);
                         
-                        if (reviewsData && reviewsData.length > 0) {
+                        if (reviewsResp && reviewsResp.data && reviewsResp.data.length > 0) {
+                            const reviewsData = reviewsResp.data;
                             const totalSum = reviewsData.reduce((acc, curr) => acc + curr.rating, 0);
                             const average = (totalSum / reviewsData.length).toFixed(1);
-                            communityScore = `⭐ ${average} <span style="font-size:1rem; color:#888; font-weight:normal;">(${reviewsData.length} votes)</span>`;
+                            communityScore = `⭐ ${average} <span style="font-size:0.9rem; color:var(--text-muted); font-weight:500; margin-left: 5px;">(${reviewsData.length} votes)</span>`;
 
                             reviewsHTML = reviewsData.map(r => `
                                 <div class="user-review-box">
                                     <div class="stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
-                                    <p style="color: #ddd; font-size: 0.95rem;">"${r.comment}"</p>
+                                    <p style="color: #e8e8ed; font-size: 1rem; font-style: italic;">"${r.comment}"</p>
                                 </div>
                             `).join('');
                         }
                     }
                 }
-            } catch(e) { console.error(e); }
+            } catch(e) { console.log("Connection delayed. Rendering local content."); }
 
             if (movie) {
-                document.title = `${movie.title} - TheMallu Reviews`;
+                document.title = `${movie.title} - TheMallu`;
 
                 const releaseDate = movie.releaseDate || movie.release_date || 'Unknown';
-                const ottPlatform = movie.ott || movie.ott_platform || 'Theaters';
-                const summary = movie.description || movie.review || 'No summary available.';
+                const ottPlatform = movie.ott || movie.ott_platform || 'Theaters Only';
+                const summary = movie.description || movie.review || 'No summary available for this title.';
 
                 document.getElementById('movie-detail-container').innerHTML = `
                     <div class="movie-page-hero">
@@ -403,32 +483,32 @@
                         <div class="movie-info">
                             <h1>${movie.title}</h1>
                             
+                            <div class="meta-tags">
+                                <span class="meta-tag">📅 ${releaseDate}</span>
+                                <span class="meta-tag ott-tag">📺 Streaming on: ${ottPlatform}</span>
+                            </div>
+
                             <div class="score-container">
                                 <div class="score-box">
                                     <h4>Critic Score</h4>
-                                    <div class="score-value">⭐ ${movie.score}</div>
+                                    <div class="score-value">⭐ ${movie.score} <span style="font-size:0.9rem; color:var(--text-muted); font-weight:500; margin-left: 5px;">/ 10</span></div>
                                 </div>
-                                <div class="score-box" style="border-left: 1px solid #333; padding-left: 2rem;">
-                                    <h4>Community Score</h4>
+                                <div class="score-box score-box-right">
+                                    <h4>User Score</h4>
                                     <div class="score-value">${communityScore}</div>
                                 </div>
-                            </div>
-                            
-                            <div class="meta-tags">
-                                <span class="meta-tag">📅 ${releaseDate}</span>
-                                <span class="meta-tag ott-tag">📺 Watch on: ${ottPlatform}</span>
                             </div>
                         </div>
                     </div>
 
                     <div class="section-box">
-                        <h3 class="section-title">Storyline</h3>
+                        <h3 class="section-title">Synopsis</h3>
                         <p>${summary}</p>
                     </div>
 
                     <div class="section-box">
-                        <h3 class="section-title">Leave Your Review</h3>
-                        <p style="margin-bottom: 1rem; font-size: 0.9rem;">Have you seen it? Rate the movie and share your thoughts below.</p>
+                        <h3 class="section-title">Log Your Review</h3>
+                        <p style="margin-bottom: 1.5rem; font-size: 1rem; color: var(--text-muted);">Have you seen it? Rate the movie and share your thoughts with the community.</p>
                         
                         <form class="review-form" onsubmit="submitReview(event)">
                             <input type="hidden" name="movie_id" value="${movie.id}">
@@ -439,8 +519,8 @@
                                 <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars">★</label>
                                 <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star">★</label>
                             </div>
-                            <textarea name="comment" class="review-input" placeholder="Write your comment here..." required></textarea>
-                            <button type="submit" class="btn-primary" id="submit-btn">Post Review</button>
+                            <textarea name="comment" class="review-input" placeholder="Write your spoiler-free review here..." required></textarea>
+                            <button type="submit" class="btn-primary btn-accent" id="submit-btn" style="width:100%; padding: 1rem;">Post Review</button>
                         </form>
                     </div>
 
@@ -451,8 +531,8 @@
                         </div>
                     </div>
                     
-                    <div style="text-align: center;">
-                        <a href="index.html" style="color:var(--text-muted); text-decoration:none; margin-bottom:3rem; display:inline-block;">← Back to Home</a>
+                    <div style="text-align: center; margin-bottom: 4rem;">
+                        <a href="index.html" class="btn-primary">← Browse More Films</a>
                     </div>
                 `;
             }
@@ -466,101 +546,86 @@
             const movieId = form.querySelector('input[name="movie_id"]').value;
             const submitBtn = form.querySelector('#submit-btn');
             
-            if (!ratingInput) {
-                alert("Please select a star rating before submitting!");
-                return;
-            }
+            if (!ratingInput) { alert("Please select a star rating!"); return; }
+            if (!window.supabase) { alert("Database disconnected."); return; }
 
-            if (!window.supabase) {
-                alert("Database connection is not available right now.");
-                return;
-            }
-
-            submitBtn.innerText = "Posting...";
+            submitBtn.innerText = "Publishing...";
             submitBtn.disabled = true;
 
             const client = window.supabase.createClient(supabaseUrl, supabaseKey);
             const { data: { session } } = await client.auth.getSession();
             
-            const reviewData = {
-                movie_id: movieId,
-                rating: parseInt(ratingInput.value),
-                comment: commentInput
-            };
-
+            const reviewData = { movie_id: movieId, rating: parseInt(ratingInput.value), comment: commentInput };
             if (session) { reviewData.user_id = session.user.id; }
 
             const { error } = await client.from('user_reviews').insert([reviewData]);
 
             if (error) {
-                console.error("Error saving review:", error);
-                alert("Failed to save review: " + error.message);
+                console.error("Error:", error);
+                alert("Failed: " + error.message);
                 submitBtn.innerText = "Post Review";
                 submitBtn.disabled = false;
             } else {
-                alert("Thank you! Your review has been posted.");
                 window.location.reload(); 
             }
         }
 
-        // --- NEW: FETCH AND SHOW LATEST MOVIE POPUP ---
         async function triggerLatestMoviePopup(client) {
-            // Only trigger on the Home screen (no movie ID in the URL)
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('id') || urlParams.get('movie')) return;
-
-            // Ensure it only pops up once per user session
             if (sessionStorage.getItem('latestPopupShown')) return;
 
-            let latestMovie = dummyMovies[dummyMovies.length - 1]; // Fallback to last local movie
-
+            let latestMovie = dummyMovies[dummyMovies.length - 1]; 
             try {
-                // Fetch the most recently added movie from Supabase
-                const { data } = await client.from('movies').select('*').order('id', { ascending: false }).limit(1).single();
+                const dbReq = client.from('movies').select('*').order('id', { ascending: false }).limit(1).single();
+                const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 2000));
+                const { data } = await Promise.race([dbReq, timeout]);
                 if (data) latestMovie = data;
-            } catch (e) {
-                console.warn("Could not fetch latest movie, using fallback.");
-            }
+            } catch (e) { }
 
             if (latestMovie) {
                 document.getElementById('latest-movie-bg').style.backgroundImage = `url('${latestMovie.image}')`;
                 document.getElementById('latest-movie-title').innerText = latestMovie.title;
                 document.getElementById('latest-movie-btn').href = `?movie=${latestMovie.slug || latestMovie.id}`;
                 
-                // Show the popup with a slight delay so it feels natural after loading
                 setTimeout(() => {
                     document.getElementById('latest-movie-overlay').classList.add('active');
                     document.body.style.overflow = 'hidden'; 
                     sessionStorage.setItem('latestPopupShown', 'true');
-                }, 1500); 
+                }, 2000); 
             }
         }
 
-        // --- AUTH & POPUP LOGIC ---
         async function checkAuthAndLock() {
             if (window.supabase) {
                 const client = window.supabase.createClient(supabaseUrl, supabaseKey);
-                const { data: { session } } = await client.auth.getSession();
-                
-                if (!session) {
-                    setTimeout(() => {
-                        document.getElementById('forced-login-overlay').classList.add('active');
-                        document.body.style.overflow = 'hidden'; 
-                    }, 4000);
-                } else {
-                    const navLoginBtn = document.getElementById('nav-login-btn');
-                    if (navLoginBtn) {
-                        navLoginBtn.innerText = "Logout";
-                        navLoginBtn.href = "#";
-                        navLoginBtn.addEventListener('click', async (e) => {
-                            e.preventDefault();
-                            await client.auth.signOut();
-                            window.location.reload(); 
-                        });
+                try {
+                    const sessionReq = client.auth.getSession();
+                    // Prevent check from locking the site if the DB hangs
+                    const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 3000));
+                    const response = await Promise.race([sessionReq, timeout]);
+                    const session = response?.data?.session;
+
+                    if (!session) {
+                        setTimeout(() => {
+                            document.getElementById('forced-login-overlay').classList.add('active');
+                            document.body.style.overflow = 'hidden'; 
+                        }, 4000);
+                    } else {
+                        const navLoginBtn = document.getElementById('nav-login-btn');
+                        if (navLoginBtn) {
+                            navLoginBtn.innerText = "Sign Out";
+                            navLoginBtn.href = "#";
+                            navLoginBtn.addEventListener('click', async (e) => {
+                                e.preventDefault();
+                                await client.auth.signOut();
+                                window.location.reload(); 
+                            });
+                        }
+                        triggerLatestMoviePopup(client);
                     }
-                    
-                    // If logged in, trigger the new lightbox pop-up!
-                    triggerLatestMoviePopup(client);
+                } catch(e) {
+                    console.log("Skipping Auth Screen Lock due to local connection delay.");
                 }
 
                 const googleBtn = document.getElementById('google-login-btn');
@@ -580,7 +645,6 @@
             await start();
             checkAuthAndLock();
         };
-
     </script>
 </body>
 </html>
