@@ -114,7 +114,6 @@
             margin-bottom: 2rem; 
         }
 
-        /* Optimized Pricing Visibility */
         .hero-content h1 span { 
             font-family: 'Playfair Display', serif; 
             font-style: normal;
@@ -171,6 +170,41 @@
         .hero-visual { display: flex; justify-content: flex-end; align-items: center; }
         .mockup-img { width: 100%; max-width: 650px; height: auto; border-radius: 12px; box-shadow: 0 30px 60px -15px rgba(0,0,0,0.15); transition: transform 0.6s ease; }
 
+        /* --- Dark Why Choose Us Section --- */
+        .why-choose-us {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 120px 0;
+            border-top: 1px solid #1e293b;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 80px;
+            letter-spacing: -2px;
+        }
+
+        .features-grid {
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 60px;
+        }
+
+        .feature-item h3 {
+            margin-bottom: 1.5rem; 
+            font-size: 1.4rem; 
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .feature-item p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
         /* --- Mobile Navigation Fixes --- */
         .mobile-slider {
             position: fixed; top: 0; right: -100%; width: 300px; height: 100vh;
@@ -197,6 +231,8 @@
             .hero-visual { display: none; } 
             .nav-links { display: none; }
             .menu-toggle { display: block; }
+            .why-choose-us { padding: 80px 0; }
+            .section-title { margin-bottom: 40px; }
         }
     </style>
 </head>
@@ -232,36 +268,41 @@
         <button class="theme-toggle-btn" onclick="toggleTheme()">Switch Aesthetic</button>
     </div>
 
-    <main class="container">
-        <section class="hero">
-            <div class="hero-content">
-                <div class="badge">Limited time availability</div>
-                <h1>Grab your website just for <span>2599₹*</span></h1>
-                <p>Establish your digital presence with precision. We deliver high-performance, fully responsive websites starting at just 2599₹.</p>
-                <div class="cta-group">
-                    <a href="#" class="btn btn-primary">Let's Start</a>
-                    <a href="#" class="btn btn-outline">Templates</a>
+    <main>
+        <div class="container">
+            <section class="hero">
+                <div class="hero-content">
+                    <div class="badge">Limited time availability</div>
+                    <h1>Grab your website just for <span>2599₹*</span></h1>
+                    <p>Establish your digital presence with precision. We deliver high-performance, fully responsive websites starting at just 2599₹.</p>
+                    <div class="cta-group">
+                        <a href="#" class="btn btn-primary">Let's Start</a>
+                        <a href="#" class="btn btn-outline">Templates</a>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="hero-visual">
-                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=2426" alt="Website Showcase" class="mockup-img">
-            </div>
-        </section>
+                
+                <div class="hero-visual">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=2426" alt="Website Showcase" class="mockup-img">
+                </div>
+            </section>
+        </div>
 
-        <section id="features" style="padding: 100px 0; border-top: 1px solid var(--border);">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 60px;">
-                <div style="padding: 0 1rem;">
-                    <h3 style="margin-bottom: 1.5rem; font-size: 1.4rem; font-weight: 800;">Systemic Clarity</h3>
-                    <p style="color: var(--sub-text);">Build on a foundation of pure logic. Our engine removes the noise, allowing your content to dominate the experience.</p>
-                </div>
-                <div style="padding: 0 1rem;">
-                    <h3 style="margin-bottom: 1.5rem; font-size: 1.4rem; font-weight: 800;">Global Edge</h3>
-                    <p style="color: var(--sub-text);">Deploy to our global edge network instantly. 99.9% uptime guaranteed with zero configuration required.</p>
-                </div>
-                <div style="padding: 0 1rem;">
-                    <h3 style="margin-bottom: 1.5rem; font-size: 1.4rem; font-weight: 800;">Developer First</h3>
-                    <p style="color: var(--sub-text);">Full API access and Git integration. Extend the platform with your own custom components and hooks.</p>
+        <section id="features" class="why-choose-us">
+            <div class="container">
+                <h2 class="section-title">Why Choose Us?</h2>
+                <div class="features-grid">
+                    <div class="feature-item" style="padding: 0 1rem;">
+                        <h3>Website Quality & Affordability</h3>
+                        <p>Build on a foundation of pure logic. Our engine removes the noise, allowing your content to dominate the experience.</p>
+                    </div>
+                    <div class="feature-item" style="padding: 0 1rem;">
+                        <h3>No code Management & Maintainance</h3>
+                        <p>Deploy to our global edge network instantly. 99.9% uptime guaranteed with zero configuration required.</p>
+                    </div>
+                    <div class="feature-item" style="padding: 0 1rem;">
+                        <h3>Feature add-on & Bug fixes assistance</h3>
+                        <p>Full API access and Git integration. Extend the platform with your own custom components and hooks.</p>
+                    </div>
                 </div>
             </div>
         </section>
