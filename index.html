@@ -32,12 +32,11 @@
             font-family: 'Inter', sans-serif;
             transition: background 0.4s ease;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
-        /* --- Global Layout --- */
         .container { max-width: 1400px; margin: 0 auto; padding: 0 5%; }
 
-        /* --- Navigation --- */
         header {
             position: sticky;
             top: 0;
@@ -45,22 +44,16 @@
             background: var(--nav-bg);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border);
-            padding: 1.25rem 0;
+            padding: 1rem 0;
         }
 
         nav { display: flex; justify-content: space-between; align-items: center; }
 
-        .brand {
-            font-weight: 800;
-            font-size: 1.4rem;
-            letter-spacing: -1px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .brand { display: flex; align-items: center; text-decoration: none; color: var(--text); }
+        .logo-img { height: 40px; width: auto; display: block; }
+        [data-theme='dark'] .logo-img { filter: invert(1) brightness(2); }
 
         .nav-links { display: flex; gap: 2.5rem; align-items: center; }
-
         .nav-links a {
             text-decoration: none;
             color: var(--sub-text);
@@ -68,143 +61,97 @@
             font-weight: 500;
             transition: color 0.3s;
         }
-
         .nav-links a:hover { color: var(--text); }
 
-        .header-actions { display: flex; gap: 1.5rem; align-items: center; }
-
-        /* --- Hero Section --- */
-        .hero {
-            padding: 120px 0 80px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .hero-content h1 {
-            font-size: clamp(3rem, 5vw, 5.5rem);
-            line-height: 1.05;
-            font-weight: 800;
-            letter-spacing: -3px;
-            margin-bottom: 2rem;
-        }
-
-        .hero-content h1 span {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-        }
-
-        .hero-content p {
-            font-size: 1.25rem;
-            color: var(--sub-text);
-            max-width: 520px;
-            margin-bottom: 3rem;
-        }
-
-        /* --- Buttons --- */
-        .btn {
-            padding: 0.8rem 1.8rem;
-            font-weight: 600;
-            font-size: 0.95rem;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            color: var(--bg);
-            border: 1px solid var(--accent);
-        }
-
-        .btn-primary:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-
-        .btn-outline {
-            border: 1px solid var(--border);
-            color: var(--text);
-        }
-
-        .btn-outline:hover { background: var(--border); }
-
-        /* --- Visual Panel --- */
-        .hero-image {
-            position: relative;
-        }
-
-        .dashboard-mockup {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15);
-            overflow: hidden;
-            aspect-ratio: 16/10;
-        }
-
-        .mock-nav {
-            background: var(--border);
-            height: 40px;
-            display: flex;
-            align-items: center;
-            padding: 0 15px;
-            gap: 6px;
-        }
-
-        .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sub-text); opacity: 0.4; }
-
-        /* --- Feature Section --- */
-        .features {
-            padding: 100px 0;
-            border-top: 1px solid var(--border);
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-        }
-
-        .feature-card {
-            padding: 2rem;
-            border: 1px solid transparent;
-            transition: 0.3s;
-        }
-
-        .feature-card:hover {
-            border-color: var(--border);
-            background: rgba(128, 128, 128, 0.02);
-        }
-
-        .feature-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .feature-card p {
-            color: var(--sub-text);
-            font-size: 0.95rem;
-        }
-
-        /* --- Theme Switcher --- */
-        .theme-toggle {
+        /* --- Mobile Specific Elements --- */
+        .menu-toggle {
+            display: none;
             background: none;
             border: 1px solid var(--border);
             color: var(--text);
-            padding: 6px 12px;
+            padding: 8px 16px;
             font-size: 0.75rem;
-            font-weight: 600;
+            font-weight: 800;
             text-transform: uppercase;
             cursor: pointer;
-            border-radius: 4px;
+            letter-spacing: 1px;
         }
+
+        .mobile-slider {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background: var(--bg);
+            border-left: 1px solid var(--border);
+            z-index: 2000;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .mobile-slider.active { right: 0; }
+
+        .slider-close {
+            align-self: flex-end;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-bottom: 2rem;
+        }
+
+        .mobile-nav-links { display: flex; flex-direction: column; gap: 1.5rem; }
+        .mobile-nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            z-index: 1500;
+        }
+
+        .overlay.active { display: block; }
+
+        /* --- Hero & General Styling --- */
+        .hero { padding: 120px 0 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .hero-content h1 { font-size: clamp(3rem, 5vw, 5.5rem); line-height: 1.05; font-weight: 800; letter-spacing: -3px; margin-bottom: 2rem; }
+        .hero-content h1 span { font-family: 'Playfair Display', serif; font-style: italic; }
+        .hero-content p { font-size: 1.25rem; color: var(--sub-text); max-width: 520px; margin-bottom: 3rem; }
+
+        .btn { padding: 0.8rem 1.8rem; font-weight: 600; font-size: 0.95rem; border-radius: 4px; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block; }
+        .btn-primary { background: var(--accent); color: var(--bg); border: 1px solid var(--accent); }
+        .btn-outline { border: 1px solid var(--border); color: var(--text); }
+
+        .dashboard-mockup { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); overflow: hidden; aspect-ratio: 16/10; }
+        .mock-nav { background: var(--border); height: 40px; display: flex; align-items: center; padding: 0 15px; gap: 6px; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sub-text); opacity: 0.4; }
+
+        .features { padding: 100px 0; border-top: 1px solid var(--border); display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        .feature-card { padding: 2rem; border: 1px solid transparent; transition: 0.3s; }
+        .feature-card:hover { border-color: var(--border); background: rgba(128, 128, 128, 0.02); }
+        .feature-card h3 { font-size: 1.25rem; margin-bottom: 1rem; font-weight: 700; }
+        .feature-card p { color: var(--sub-text); font-size: 0.95rem; }
+
+        .theme-toggle { background: none; border: 1px solid var(--border); color: var(--text); padding: 12px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; cursor: pointer; margin-top: auto; }
 
         @media (max-width: 1024px) {
             .hero { grid-template-columns: 1fr; text-align: center; padding-top: 60px; }
-            .hero-content p { margin-left: auto; margin-right: auto; }
             .nav-links { display: none; }
+            .menu-toggle { display: block; }
             .features { grid-template-columns: 1fr; }
         }
     </style>
@@ -214,20 +161,32 @@
     <header>
         <div class="container">
             <nav>
-                <div class="brand">THE MALLU</div>
+                <a href="/" class="brand">
+                    <img src="mallulogo.png" alt="The Mallu Logo" class="logo-img">
+                </a>
                 <div class="nav-links">
                     <a href="#features">Platform</a>
                     <a href="#templates">Showcase</a>
                     <a href="#enterprise">Enterprise</a>
                     <a href="#pricing">Pricing</a>
                 </div>
-                <div class="header-actions">
-                    <button class="theme-toggle" onclick="toggleTheme()">Appearance</button>
-                    <a href="#" class="btn btn-primary">Get Started</a>
-                </div>
+                <button class="menu-toggle" onclick="toggleSlider()">Menu</button>
             </nav>
         </div>
     </header>
+
+    <div class="overlay" id="overlay" onclick="toggleSlider()"></div>
+
+    <div class="mobile-slider" id="mobileSlider">
+        <button class="slider-close" onclick="toggleSlider()">&times;</button>
+        <div class="mobile-nav-links">
+            <a href="#features" onclick="toggleSlider()">Platform</a>
+            <a href="#templates" onclick="toggleSlider()">Showcase</a>
+            <a href="#enterprise" onclick="toggleSlider()">Enterprise</a>
+            <a href="#pricing" onclick="toggleSlider()">Pricing</a>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()">Switch Appearance</button>
+    </div>
 
     <main class="container">
         <section class="hero">
@@ -280,7 +239,20 @@
             html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
         }
 
-        // Smooth scroll for nav links
+        function toggleSlider() {
+            const slider = document.getElementById('mobileSlider');
+            const overlay = document.getElementById('overlay');
+            slider.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if(slider.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
