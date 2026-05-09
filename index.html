@@ -12,9 +12,8 @@
             --sub-text: #475569;
             --border: #e2e8f0;
             --accent: #000000;
-            --nav-bg: rgba(255, 255, 255, 0.8);
-            /* Refined spotlight to remove "cut" lines */
-            --spotlight: radial-gradient(circle at center, rgba(226, 232, 240, 0.3) 0%, transparent 80%);
+            --nav-bg: rgba(255, 255, 255, 0.85);
+            --spotlight: radial-gradient(circle at center, rgba(226, 232, 240, 0.4) 0%, transparent 80%);
         }
 
         [data-theme='dark'] {
@@ -23,8 +22,8 @@
             --sub-text: #94a3b8;
             --border: #1e293b;
             --accent: #ffffff;
-            --nav-bg: rgba(5, 5, 5, 0.8);
-            --spotlight: radial-gradient(circle at center, rgba(30, 41, 59, 0.4) 0%, transparent 80%);
+            --nav-bg: rgba(5, 5, 5, 0.85);
+            --spotlight: radial-gradient(circle at center, rgba(30, 41, 59, 0.5) 0%, transparent 80%);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -53,7 +52,7 @@
         nav { display: flex; justify-content: space-between; align-items: center; }
 
         .brand { display: flex; align-items: center; text-decoration: none; color: var(--text); }
-        .logo-img { height: 40px; width: auto; display: block; }
+        .logo-img { height: 38px; width: auto; display: block; }
         [data-theme='dark'] .logo-img { filter: invert(1) brightness(2); }
 
         .nav-links { display: flex; gap: 2.5rem; align-items: center; }
@@ -68,18 +67,19 @@
 
         .menu-toggle {
             display: none;
-            background: none;
-            border: 1px solid var(--border);
-            color: var(--text);
+            background: var(--text);
+            color: var(--bg);
+            border: none;
             padding: 8px 16px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 800;
             text-transform: uppercase;
             cursor: pointer;
             letter-spacing: 1px;
+            border-radius: 4px;
         }
 
-        /* --- Redesigned Hero --- */
+        /* --- Hero Section --- */
         .hero { 
             position: relative; 
             padding: clamp(80px, 12vh, 160px) 0; 
@@ -92,7 +92,7 @@
 
         .hero-content { position: relative; z-index: 2; }
 
-        .hero-content .badge {
+        .badge {
             display: inline-flex;
             align-items: center;
             padding: 6px 14px;
@@ -107,7 +107,7 @@
         }
 
         .hero-content h1 { 
-            font-size: clamp(3rem, 6vw, 6.5rem); 
+            font-size: clamp(2.8rem, 6vw, 6.5rem); 
             line-height: 0.95; 
             font-weight: 800; 
             letter-spacing: -4px; 
@@ -122,14 +122,14 @@
         }
 
         .hero-content p { 
-            font-size: 1.2rem; 
+            font-size: 1.15rem; 
             color: var(--sub-text); 
             max-width: 500px; 
             margin-bottom: 3rem; 
             line-height: 1.6;
         }
 
-        .cta-group { display: flex; gap: 1rem; align-items: center; }
+        .cta-group { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
 
         .btn { 
             padding: 1.1rem 2.4rem; 
@@ -140,54 +140,32 @@
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); 
             text-decoration: none; 
             display: inline-block; 
+            text-align: center;
         }
 
-        .btn-primary { 
-            background: var(--accent); 
-            color: var(--bg); 
-            border: 1px solid var(--accent); 
-        }
+        .btn-primary { background: var(--accent); color: var(--bg); border: 1px solid var(--accent); }
+        .btn-primary:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.2); }
+        .btn-outline { border: 1px solid var(--border); color: var(--text); }
 
-        .btn-primary:hover { 
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.2);
-        }
+        .hero-visual { display: flex; justify-content: flex-end; align-items: center; }
+        .mockup-img { width: 100%; max-width: 650px; height: auto; border-radius: 12px; box-shadow: 0 30px 60px -15px rgba(0,0,0,0.15); transition: transform 0.6s ease; }
 
-        .btn-outline { 
-            border: 1px solid var(--border); 
-            color: var(--text); 
-        }
-
-        /* --- Website Image Visual --- */
-        .hero-visual {
-            position: relative;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-        }
-
-        .mockup-img {
-            width: 100%;
-            max-width: 650px;
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 30px 60px -15px rgba(0,0,0,0.15);
-            /* Optional transition for a subtle entrance */
-            transition: transform 0.6s ease;
-        }
-
-        .mockup-img:hover {
-            transform: scale(1.02);
-        }
-
-        /* Mobile Menu */
+        /* --- Mobile Navigation Fixes --- */
         .mobile-slider {
-            position: fixed; top: 0; right: -100%; width: 320px; height: 100vh;
+            position: fixed; top: 0; right: -100%; width: 300px; height: 100vh;
             background: var(--bg); border-left: 1px solid var(--border); z-index: 2000;
-            padding: 50px; display: flex; flex-direction: column; gap: 2.5rem;
-            transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 40px; display: flex; flex-direction: column; 
+            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .mobile-slider.active { right: 0; }
+        
+        .slider-close { align-self: flex-end; background:none; border:none; color:var(--text); font-size:2rem; cursor:pointer; margin-bottom: 2rem; }
+        
+        .mobile-nav-links { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: auto; }
+        .mobile-nav-links a { text-decoration: none; color: var(--text); font-size: 1.1rem; font-weight: 600; padding: 10px 0; border-bottom: 1px solid transparent; }
+        
+        .theme-toggle-btn { background: var(--text); color: var(--bg); border: none; padding: 14px; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; border-radius: 4px; cursor: pointer; }
+
         .overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: none; z-index: 1500; backdrop-filter: blur(4px); }
         .overlay.active { display: block; }
 
@@ -215,7 +193,7 @@
                     <a href="#enterprise">Enterprise</a>
                     <a href="#pricing">Pricing</a>
                 </div>
-                <button class="menu-toggle" onclick="toggleSlider()">Menu</button>
+                <button class="menu-toggle" id="menuBtn" onclick="toggleSlider()">Menu</button>
             </nav>
         </div>
     </header>
@@ -223,14 +201,14 @@
     <div class="overlay" id="overlay" onclick="toggleSlider()"></div>
 
     <div class="mobile-slider" id="mobileSlider">
-        <button style="align-self: flex-end; background:none; border:none; color:var(--text); font-size:2rem; cursor:pointer;" onclick="toggleSlider()">&times;</button>
-        <div style="display: flex; flex-direction: column; gap: 2rem;">
+        <button class="slider-close" onclick="toggleSlider()">&times;</button>
+        <div class="mobile-nav-links">
             <a href="#features" onclick="toggleSlider()">Platform</a>
             <a href="#templates" onclick="toggleSlider()">Showcase</a>
             <a href="#enterprise" onclick="toggleSlider()">Enterprise</a>
             <a href="#pricing" onclick="toggleSlider()">Pricing</a>
         </div>
-        <button onclick="toggleTheme()">Switch Appearance</button>
+        <button class="theme-toggle-btn" onclick="toggleTheme()">Switch Aesthetic</button>
     </div>
 
     <main class="container">
@@ -251,17 +229,17 @@
         </section>
 
         <section id="features" style="padding: 100px 0; border-top: 1px solid var(--border);">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 60px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 60px;">
                 <div style="padding: 0 1rem;">
-                    <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem; font-weight: 800;">Systemic Clarity</h3>
+                    <h3 style="margin-bottom: 1.5rem; font-size: 1.4rem; font-weight: 800;">Systemic Clarity</h3>
                     <p style="color: var(--sub-text);">Build on a foundation of pure logic. Our engine removes the noise, allowing your content to dominate the experience.</p>
                 </div>
                 <div style="padding: 0 1rem;">
-                    <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem; font-weight: 800;">Global Edge</h3>
+                    <h3 style="margin-bottom: 1.5rem; font-size: 1.4rem; font-weight: 800;">Global Edge</h3>
                     <p style="color: var(--sub-text);">Deploy to our global edge network instantly. 99.9% uptime guaranteed with zero configuration required.</p>
                 </div>
                 <div style="padding: 0 1rem;">
-                    <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem; font-weight: 800;">Developer First</h3>
+                    <h3 style="margin-bottom: 1.5rem; font-size: 1.4rem; font-weight: 800;">Developer First</h3>
                     <p style="color: var(--sub-text);">Full API access and Git integration. Extend the platform with your own custom components and hooks.</p>
                 </div>
             </div>
@@ -280,8 +258,20 @@
             const overlay = document.getElementById('overlay');
             slider.classList.toggle('active');
             overlay.classList.toggle('active');
-            document.body.style.overflow = slider.classList.contains('active') ? 'hidden' : 'auto';
+            
+            if(slider.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
         }
+
+        // Close menu on link click
+        document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                toggleSlider();
+            });
+        });
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
