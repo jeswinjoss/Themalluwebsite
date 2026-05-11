@@ -253,6 +253,96 @@
             margin-top: 4rem;
         }
 
+        /* --- Footer Section --- */
+        footer {
+            background-color: var(--bg);
+            border-top: 1px solid var(--border);
+            padding: 80px 0 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand p {
+            margin-top: 20px;
+            color: var(--sub-text);
+            max-width: 300px;
+            line-height: 1.6;
+        }
+
+        .footer-links h4 {
+            font-weight: 800;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: var(--sub-text);
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text);
+        }
+
+        /* --- Payment Strip --- */
+        .payment-strip {
+            background-color: var(--border);
+            padding: 20px 0;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+
+        .payment-strip p {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 700;
+            color: var(--sub-text);
+        }
+
+        .payment-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            filter: grayscale(1);
+            opacity: 0.6;
+        }
+
+        .payment-icons span {
+            font-weight: 800;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom {
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--sub-text);
+        }
+
         /* --- Mobile Navigation Fixes --- */
         .mobile-slider {
             position: fixed; top: 0; right: -100%; width: 300px; height: 100vh;
@@ -281,6 +371,9 @@
             .menu-toggle { display: block; }
             .why-choose-us { padding: 80px 0; }
             .section-title { margin-bottom: 40px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+            .footer-brand p { margin: 20px auto 0; }
+            .footer-bottom { flex-direction: column; gap: 20px; }
         }
     </style>
 </head>
@@ -406,6 +499,51 @@
             </div>
         </section>
     </main>
+
+    <footer>
+        <div class="container">
+            <div class="payment-strip">
+                <p>Secure Transactions via Trusted Partners</p>
+                <div class="payment-icons">
+                    <span>UPI</span>
+                    <span>VISA</span>
+                    <span>MASTERCARD</span>
+                    <span>RAZORPAY</span>
+                    <span>STRIPE</span>
+                </div>
+            </div>
+
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="brand">
+                        <img src="mallulogo.png" alt="The Mallu Logo" class="logo-img">
+                    </a>
+                    <p>Precisely engineered web solutions for forward-thinking enterprises. Built to scale, designed to dominate.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#templates">Templates</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="support.html">Support Center</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 The Mallu. A unit of Jeswin Jose Innovations & Technology.</p>
+                <p>Handcrafted in Kerala, India.</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
         function toggleTheme() {
