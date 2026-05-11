@@ -205,6 +205,54 @@
             line-height: 1.6;
         }
 
+        /* --- FAQ Section --- */
+        .faq-section {
+            padding: 120px 0;
+            background-color: var(--bg);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 1.5rem 0;
+        }
+
+        .faq-item summary {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+
+        .faq-item summary::after {
+            content: '+';
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item[open] summary::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-content {
+            padding-top: 1rem;
+            color: var(--sub-text);
+            line-height: 1.6;
+        }
+
+        .faq-footer {
+            text-align: center;
+            margin-top: 4rem;
+        }
+
         /* --- Mobile Navigation Fixes --- */
         .mobile-slider {
             position: fixed; top: 0; right: -100%; width: 300px; height: 100vh;
@@ -282,7 +330,7 @@
                 </div>
                 
                 <div class="hero-visual">
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=2426" alt="Website Showcase" class="mockup-img">
+                    <img src="hero-web.png" alt="Website Showcase" class="mockup-img">
                 </div>
             </section>
         </div>
@@ -292,17 +340,68 @@
                 <h2 class="section-title">Why Choose Us?</h2>
                 <div class="features-grid">
                     <div class="feature-item" style="padding: 0 1rem;">
-                        <h3>Website Quality & Affordability</h3>
-                        <p>Build on a foundation of pure logic. Our engine removes the noise, allowing your content to dominate the experience.</p>
+                        <h3>Enterprise-Grade Quality</h3>
+                        <p>We deliver architectural excellence at a competitive price point, ensuring your brand stands out with a sophisticated, performance-optimized digital presence.</p>
                     </div>
                     <div class="feature-item" style="padding: 0 1rem;">
-                        <h3>No code Management & Maintainance</h3>
-                        <p>Deploy to our global edge network instantly. 99.9% uptime guaranteed with zero configuration required.</p>
+                        <h3>Seamless Management</h3>
+                        <p>Experience hassle-free operations with our fully managed ecosystem. We handle technical deployment and maintenance so you can focus on core business growth.</p>
                     </div>
                     <div class="feature-item" style="padding: 0 1rem;">
-                        <h3>Feature add-on & Bug fixes assistance</h3>
-                        <p>Full API access and Git integration. Extend the platform with your own custom components and hooks.</p>
+                        <h3>Dedicated Evolution</h3>
+                        <p>Our partnership doesn't end at launch. Benefit from proactive feature enhancements and rigorous bug resolution to keep your site at the cutting edge.</p>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <div class="container">
+                <h2 class="section-title" style="color: var(--text);">Frequently Asked Questions</h2>
+                <div class="faq-container">
+                    <details class="faq-item">
+                        <summary>What is included in the base pricing?</summary>
+                        <div class="faq-content">The base package includes a fully responsive design, secure hosting setup, SSL certification, and basic SEO optimization to get your business online quickly.</div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>How fast can my website be live?</summary>
+                        <div class="faq-content">Standard professional websites are typically deployed within 3 to 5 business days once all content and requirements are finalized.</div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Can I update the content myself?</summary>
+                        <div class="faq-content">Yes, we provide a streamlined management interface that allows you to update text and images easily without needing any technical knowledge.</div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Is hosting included in the 2599₹ starting price?</summary>
+                        <div class="faq-content">The starting price covers the professional build and deployment. Hosting plans are available as monthly or annual subscriptions depending on your traffic needs.</div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Will my website work on mobile devices?</summary>
+                        <div class="faq-content">Every project we build is mobile-responsive by default, ensuring a perfect user experience across smartphones, tablets, and desktops.</div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Can I add custom features later?</summary>
+                        <div class="faq-content">Our websites are built to be scalable. You can integrate additional pages, e-commerce modules, or custom tools as your business grows.</div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Do you provide professional email addresses?</summary>
+                        <div class="faq-content">Yes, we can assist in setting up professional business emails (e.g., hello@yourbrand.com) as part of our extended service packages.</div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>What kind of SEO do you provide?</summary>
+                        <div class="faq-content">We implement on-page SEO best practices including meta tags, image alt-text, and fast loading speeds to help improve your search engine rankings.</div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Is there a hidden maintenance fee?</summary>
+                        <div class="faq-content">No hidden fees. We are transparent about all costs, including any optional annual maintenance or domain renewal charges.</div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>What if I need technical support later?</summary>
+                        <div class="faq-content">We provide dedicated support channels for all our clients to resolve any technical issues or implementation questions post-launch.</div>
+                    </details>
+                </div>
+                <div class="faq-footer">
+                    <a href="support.html" class="btn btn-outline">View More Help</a>
                 </div>
             </div>
         </section>
