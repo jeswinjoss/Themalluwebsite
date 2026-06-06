@@ -24,6 +24,7 @@
             --bg-business: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
             --bg-landing: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%);
             --bg-customizable: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+            --bg-tutorials: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
             --border-portfolio: rgba(16, 185, 129, 0.2);
             --border-business: rgba(79, 70, 229, 0.2);
             --border-landing: rgba(168, 85, 247, 0.2);
@@ -47,6 +48,7 @@
             --bg-business: linear-gradient(135deg, rgba(30, 58, 138, 0.2) 0%, rgba(30, 27, 75, 0.4) 100%);
             --bg-landing: linear-gradient(135deg, rgba(88, 28, 135, 0.2) 0%, rgba(15, 23, 42, 0.4) 100%);
             --bg-customizable: linear-gradient(180deg, #0b0f19 0%, #05070f 100%);
+            --bg-tutorials: linear-gradient(180deg, #05070f 0%, #02040a 100%);
             --border-portfolio: rgba(52, 211, 153, 0.2);
             --border-business: rgba(129, 140, 248, 0.2);
             --border-landing: rgba(192, 132, 252, 0.2);
@@ -447,7 +449,6 @@
             padding: 120px 0;
             background: var(--bg-customizable);
             border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
             position: relative;
         }
 
@@ -483,6 +484,49 @@
             max-width: 680px;
             line-height: 1.7;
             margin-bottom: 2.5rem;
+        }
+
+        /* --- New Watch and Do Video Tutorials Section --- */
+        .tutorials-section {
+            padding: 120px 0;
+            background: var(--bg-tutorials);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tutorials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .video-wrapper {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .video-wrapper:hover {
+            transform: translateY(-4px);
+        }
+
+        .video-frame {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 10px;
+            border: none;
+            display: block;
+        }
+
+        .video-caption {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-top: 1rem;
+            padding: 0 4px;
+            color: var(--text);
         }
 
         /* --- Corporate Styled Accordion (FAQ) --- */
@@ -698,19 +742,19 @@
             .menu-toggle { display: block; }
             
             /* Smartphone Smooth Touch Carousel Implementation */
-            .solutions-section {
+            .solutions-section, .tutorials-section {
                 padding: 60px 0;
             }
-            .solutions-section .container {
-                padding: 0 0 0 1.5rem; /* Allows scrolling off screen flawlessly */
+            .solutions-section .container, .tutorials-section .container {
+                padding: 0 0 0 1.5rem;
                 position: relative;
             }
-            .solutions-section .section-header {
+            .solutions-section .section-header, .tutorials-section .section-header {
                 padding-right: 1.5rem;
                 margin-bottom: 40px;
                 text-align: left;
             }
-            .solutions-grid {
+            .solutions-grid, .tutorials-grid {
                 display: flex;
                 flex-wrap: nowrap;
                 overflow-x: auto;
@@ -719,16 +763,18 @@
                 padding: 10px 1.5rem 30px 0;
                 scroll-snap-type: x mandatory;
                 -webkit-overflow-scrolling: touch;
-                scrollbar-width: none; /* Disables raw desktop bars */
+                scrollbar-width: none;
             }
-            .solutions-grid::-webkit-scrollbar {
+            .solutions-grid::-webkit-scrollbar, .tutorials-grid::-webkit-scrollbar {
                 display: none;
             }
-            .solution-bento-card {
-                flex: 0 0 82vw; /* Balances glance visibility of next layout card */
+            .solution-bento-card, .video-wrapper {
+                flex: 0 0 82vw;
                 max-width: 340px;
                 scroll-snap-align: start;
-                padding: 2.25rem;
+            }
+            .video-wrapper {
+                padding: 10px;
             }
             .exclusions-banner {
                 flex: 0 0 82vw;
@@ -748,6 +794,9 @@
             }
             .customizable-content p {
                 margin: 0 auto 2.5rem;
+            }
+            .tutorials-action-footer {
+                padding-right: 1.5rem;
             }
 
             .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
@@ -919,6 +968,41 @@
                     <div class="cta-group">
                         <a href="#" class="btn btn-primary">Design Yours</a>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- New Watch and Do Video Tutorials Section[span_0](start_span)[span_0](end_span) -->
+        <section class="tutorials-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Watch and Do</h2>
+                    <p class="section-subtitle">Master your digital toolkit with our step-by-step video walk-throughs engineered for effortless operations.</p>
+                </div>
+                
+                <div class="tutorials-grid">
+                    <!-- Video Card 1 -->
+                    <div class="video-wrapper">
+                        <!-- Replace src URL parameter values with your official YouTube video IDs -->
+                        <iframe class="video-frame" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class="video-caption">Getting Started with Your Dashboard</div>
+                    </div>
+
+                    <!-- Video Card 2 -->
+                    <div class="video-wrapper">
+                        <iframe class="video-frame" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class="video-caption">Customizing Layout Structures</div>
+                    </div>
+
+                    <!-- Video Card 3 -->
+                    <div class="video-wrapper">
+                        <iframe class="video-frame" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class="video-caption">Deploying Updates & Media</div>
+                    </div>
+                </div>
+
+                <div class="faq-footer tutorials-action-footer">
+                    <a href="tutorials.html" class="btn btn-outline">Watch More Tutorials</a>
                 </div>
             </div>
         </section>
