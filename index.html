@@ -19,7 +19,8 @@
             --nav-bg: rgba(248, 250, 252, 0.75);
             --grid-color: rgba(15, 23, 42, 0.04);
 
-            /* Light Theme Custom Solutions Backgrounds */
+            /* Theme Specific Context Backgrounds */
+            --bg-whychooseus: linear-gradient(180deg, #fff5f5 0%, #ffebeb 100%);
             --bg-portfolio: linear-gradient(135deg, #f0fdf4 0%, #e6f4ea 100%);
             --bg-business: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
             --bg-landing: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%);
@@ -45,7 +46,8 @@
             --nav-bg: rgba(3, 7, 18, 0.75);
             --grid-color: rgba(255, 255, 255, 0.03);
 
-            /* Dark Theme Custom Solutions Backgrounds */
+            /* Theme Specific Context Backgrounds */
+            --bg-whychooseus: linear-gradient(180deg, #1a0f0f 0%, #140b0b 100%);
             --bg-portfolio: linear-gradient(135deg, rgba(6, 78, 59, 0.2) 0%, rgba(2, 44, 34, 0.4) 100%);
             --bg-business: linear-gradient(135deg, rgba(30, 58, 138, 0.2) 0%, rgba(30, 27, 75, 0.4) 100%);
             --bg-landing: linear-gradient(135deg, rgba(88, 28, 135, 0.2) 0%, rgba(15, 23, 42, 0.4) 100%);
@@ -150,11 +152,13 @@
             color: var(--bg);
             border: none;
             padding: 10px 18px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 700;
             cursor: pointer;
             border-radius: 10px;
+            transition: opacity 0.2s;
         }
+        .menu-toggle:hover { opacity: 0.9; }
 
         /* --- Advanced Geometric Hero Layout --- */
         .hero { 
@@ -261,11 +265,16 @@
             border: 1px solid var(--border);
         }
 
-        /* --- Cyber Bento-Inspired Features Area --- */
+        /* --- Cyber Bento-Inspired Features Area[span_3](start_span)[span_3](end_span) --- */
         .why-choose-us {
             padding: 120px 0;
             border-top: 1px solid var(--border);
-            background-color: var(--surface);
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-whychooseus); /* Overridden to premium soft light red gradient color context[span_4](start_span)[span_4](end_span) */
+        }
+
+        .why-choose-us .section-title {
+            color: var(--text) !important;
         }
 
         .section-header {
@@ -294,14 +303,17 @@
         }
 
         .feature-card {
-            background: var(--surface-card);
+            background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 20px;
             padding: 3rem 2.5rem;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.01);
+        }
+        [data-theme='dark'] .feature-card {
+            background: rgba(15, 23, 42, 0.4);
+            border-color: rgba(255,255,255,0.04);
         }
 
         .feature-card:hover {
@@ -490,7 +502,7 @@
             margin-bottom: 2.5rem;
         }
 
-        /* --- New Watch and Do Video Tutorials Section[span_4](start_span)[span_4](end_span) --- */
+        /* --- New Watch and Do Video Tutorials Section --- */
         .tutorials-section {
             padding: 120px 0;
             background: var(--bg-tutorials);
@@ -498,7 +510,7 @@
             border-bottom: 1px solid var(--border);
         }
         
-        /* Overriding text parameters on deep navy context layout[span_5](start_span)[span_5](end_span) */
+        /* Overriding text parameters on deep navy context layout */
         .tutorials-section .section-title {
             color: #ffffff !important;
         }
@@ -543,13 +555,15 @@
         
         .btn-tutorials-outline {
             border-color: rgba(255, 255, 255, 0.2) !important;
-            color: #ffffff !important;
+            color: #ffffff !important; /* Explicit default visibility value fixed */
+            background: transparent;
         }
         .btn-tutorials-outline:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.05) !important;
+            color: #ffffff !important;
         }
 
-        /* --- New Fill the Vacant Spaces Section[span_6](start_span)[span_6](end_span) --- */
+        /* --- New Fill the Vacant Spaces Section --- */
         .vacancies-section {
             padding: 120px 0;
             background: var(--bg-vacancies);
@@ -569,7 +583,7 @@
             position: relative;
         }
 
-        /* Hardware-accelerated continuous sliding container pipeline[span_7](start_span)[span_7](end_span) */
+        /* Hardware-accelerated continuous sliding container pipeline */
         .vacancies-track {
             display: flex;
             gap: 2rem;
@@ -688,28 +702,30 @@
             margin-top: 4rem;
         }
 
-        /* --- Minimal Enterprise Footer --- */
+        /* --- Professional Enterprise Footer Optimization[span_5](start_span)[span_5](end_span) --- */
         footer {
             background-color: var(--surface);
             border-top: 1px solid var(--border);
-            padding: 90px 0 40px;
+            padding: 100px 0 40px; /* Enhanced space distribution framework[span_6](start_span)[span_6](end_span) */
         }
 
         .payment-strip {
             border: 1px solid var(--border);
             background: var(--bg);
-            padding: 1.25rem 2rem;
+            padding: 1.5rem 2.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-radius: 14px;
+            border-radius: 16px;
             margin-bottom: 5rem;
         }
 
         .payment-strip p {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             font-weight: 700;
             color: var(--sub-text);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
         }
 
         .payment-icons {
@@ -721,41 +737,45 @@
 
         .payment-icons span {
             font-weight: 800;
-            font-size: 0.78rem;
-            letter-spacing: 0.05em;
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            opacity: 0.85;
+            position: relative;
         }
 
         .footer-grid {
             display: grid;
-            grid-template-columns: 2.2fr repeat(4, 1fr); 
-            gap: 40px;
-            margin-bottom: 70px;
+            grid-template-columns: 2.5fr repeat(4, 1fr); 
+            gap: 50px;
+            margin-bottom: 80px;
         }
 
         .footer-brand p {
             margin-top: 1.5rem;
             color: var(--sub-text);
-            max-width: 280px;
-            line-height: 1.6;
+            max-width: 310px;
+            line-height: 1.7;
             font-size: 0.92rem;
         }
 
         .footer-links h4 {
             font-weight: 700;
-            margin-bottom: 1.5rem;
-            font-size: 0.85rem;
+            margin-bottom: 1.75rem;
+            font-size: 0.88rem;
             color: var(--text);
+            letter-spacing: 0.02em;
         }
 
         .footer-links ul { list-style: none; }
-        .footer-links li { margin-bottom: 0.8rem; }
+        .footer-links li { margin-bottom: 0.9rem; }
         .footer-links a {
             text-decoration: none;
             color: var(--sub-text);
-            font-size: 0.88rem;
-            transition: color 0.2s;
+            font-size: 0.9rem;
+            transition: color 0.2s ease, transform 0.2s ease;
+            display: inline-block;
         }
-        .footer-links a:hover { color: var(--text); }
+        .footer-links a:hover { color: var(--text); transform: translateX(2px); }
 
         .footer-bottom {
             padding-top: 2.5rem;
@@ -763,29 +783,86 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             color: var(--sub-text);
             flex-wrap: wrap;
             gap: 15px;
         }
 
-        /* --- Drawer Layout Components --- */
+        /* --- Premium Mobile Glassmorphic Overlay Navigation Menu[span_7](start_span)[span_7](end_span) --- */
         .mobile-slider {
-            position: fixed; top: 0; right: -100%; width: 310px; height: 100vh;
-            background: var(--surface); border-left: 1px solid var(--border); z-index: 2000;
-            padding: 40px; display: flex; flex-direction: column; 
-            transition: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            position: fixed; 
+            top: 0; 
+            right: -100%; 
+            width: 100%; 
+            max-width: 440px; 
+            height: 100vh;
+            background: rgba(11, 15, 25, 0.8); 
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-left: 1px solid rgba(255, 255, 255, 0.08); 
+            z-index: 2000;
+            padding: 50px 40px; 
+            display: flex; 
+            flex-direction: column; 
+            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        [data-theme='light'] .mobile-slider {
+            background: rgba(255, 255, 255, 0.85);
+            border-left: 1px solid rgba(0, 0, 0, 0.06);
         }
         .mobile-slider.active { right: 0; }
         
-        .slider-close { align-self: flex-end; background:none; border:none; color:var(--text); font-size:2rem; cursor:pointer; margin-bottom: 3rem; }
+        .slider-close { 
+            align-self: flex-end; 
+            background: none; 
+            border: none; 
+            color: var(--text); 
+            font-size: 2.5rem; 
+            font-weight: 300;
+            cursor: pointer; 
+            margin-bottom: 4rem; 
+            line-height: 1;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+        .slider-close:hover { background: rgba(255,255,255,0.05); }
+        [data-theme='light'] .slider-close:hover { background: rgba(0,0,0,0.05); }
         
-        .mobile-nav-links { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: auto; }
-        .mobile-nav-links a { text-decoration: none; color: var(--text); font-size: 1.1rem; font-weight: 600; padding: 6px 0; }
+        .mobile-nav-links { display: flex; flex-direction: column; gap: 2rem; margin-bottom: auto; }
+        .mobile-nav-links a { 
+            text-decoration: none; 
+            color: var(--text); 
+            font-size: 1.5rem; 
+            font-weight: 700; 
+            letter-spacing: -0.03em;
+            padding: 10px 0; 
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: color 0.2s, padding-left 0.2s;
+        }
+        [data-theme='light'] .mobile-nav-links a { border-bottom-color: rgba(0,0,0,0.05); }
+        .mobile-nav-links a:hover { color: var(--primary); padding-left: 8px; }
         
-        .mobile-slider .theme-toggle-btn { background: var(--accent); color: var(--bg); border: none; padding: 14px; font-weight: 700; font-size: 0.85rem; border-radius: 10px; cursor: pointer; }
+        .mobile-slider .theme-toggle-btn { 
+            background: var(--text); 
+            color: var(--bg); 
+            border: none; 
+            padding: 16px; 
+            font-weight: 700; 
+            font-size: 0.9rem; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .mobile-slider .theme-toggle-btn:active { transform: scale(0.98); }
 
-        .overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.3); display: none; z-index: 1500; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+        .overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(3, 7, 18, 0.4); display: none; z-index: 1500; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
         .overlay.active { display: block; }
 
         /* --- Micro Privacy Tray --- */
@@ -841,7 +918,7 @@
             .nav-links, .theme-toggle-nav { display: none; }
             .menu-toggle { display: block; }
             
-            /* Smartphone Smooth Touch Carousel Implementation[span_8](start_span)[span_8](end_span) */
+            /* Smartphone Smooth Touch Carousel Implementation */
             .solutions-section, .tutorials-section {
                 padding: 60px 0;
             }
@@ -907,9 +984,9 @@
                 padding: 1.75rem;
             }
 
-            .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
             .footer-brand { grid-column: span 2; }
-            .payment-strip { flex-direction: column; gap: 1.25rem; text-align: center; }
+            .payment-strip { flex-direction: column; gap: 1.25rem; text-align: center; padding: 1.5rem; }
         }
 
         @media (max-width: 640px) {
@@ -945,6 +1022,7 @@
 
     <div class="overlay" id="overlay" onclick="toggleSlider()"></div>
 
+    <!-- Redesigned High-End Mobile Menu[span_8](start_span)[span_8](end_span) -->
     <div class="mobile-slider" id="mobileSlider">
         <button class="slider-close" onclick="toggleSlider()">&times;</button>
         <div class="mobile-nav-links">
@@ -1080,7 +1158,7 @@
             </div>
         </section>
 
-        <!-- New Watch and Do Video Tutorials Section[span_9](start_span)[span_9](end_span) -->
+        <!-- New Watch and Do Video Tutorials Section -->
         <section class="tutorials-section">
             <div class="container">
                 <div class="section-header">
@@ -1114,7 +1192,7 @@
             </div>
         </section>
 
-        <!-- New Fill the Vacant Spaces Section[span_10](start_span)[span_10](end_span) -->
+        <!-- New Fill the Vacant Spaces Section -->
         <section class="vacancies-section">
             <div class="container">
                 <div class="section-header">
@@ -1224,6 +1302,7 @@
         </section>
     </main>
 
+    <!-- Professional and Attractive Optimized Footer Section[span_9](start_span)[span_9](end_span) -->
     <footer>
         <div class="container">
             <div class="payment-strip">
