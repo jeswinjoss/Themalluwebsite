@@ -24,7 +24,9 @@
             --bg-business: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
             --bg-landing: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%);
             --bg-customizable: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
-            --bg-tutorials: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+            --bg-tutorials: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+            --bg-vacancies: linear-gradient(180deg, #fefce8 0%, #fef9c3 100%);
+            --text-vacancies: #1e293b;
             --border-portfolio: rgba(16, 185, 129, 0.2);
             --border-business: rgba(79, 70, 229, 0.2);
             --border-landing: rgba(168, 85, 247, 0.2);
@@ -48,7 +50,9 @@
             --bg-business: linear-gradient(135deg, rgba(30, 58, 138, 0.2) 0%, rgba(30, 27, 75, 0.4) 100%);
             --bg-landing: linear-gradient(135deg, rgba(88, 28, 135, 0.2) 0%, rgba(15, 23, 42, 0.4) 100%);
             --bg-customizable: linear-gradient(180deg, #0b0f19 0%, #05070f 100%);
-            --bg-tutorials: linear-gradient(180deg, #05070f 0%, #02040a 100%);
+            --bg-tutorials: linear-gradient(180deg, #020617 0%, #00020a 100%);
+            --bg-vacancies: linear-gradient(180deg, #1e1b4b 0%, #171233 100%);
+            --text-vacancies: #fef08a;
             --border-portfolio: rgba(52, 211, 153, 0.2);
             --border-business: rgba(129, 140, 248, 0.2);
             --border-landing: rgba(192, 132, 252, 0.2);
@@ -486,12 +490,20 @@
             margin-bottom: 2.5rem;
         }
 
-        /* --- New Watch and Do Video Tutorials Section --- */
+        /* --- New Watch and Do Video Tutorials Section[span_4](start_span)[span_4](end_span) --- */
         .tutorials-section {
             padding: 120px 0;
             background: var(--bg-tutorials);
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
+        }
+        
+        /* Overriding text parameters on deep navy context layout[span_5](start_span)[span_5](end_span) */
+        .tutorials-section .section-title {
+            color: #ffffff !important;
+        }
+        .tutorials-section .section-subtitle, .tutorials-section .video-caption {
+            color: #94a3b8 !important;
         }
 
         .tutorials-grid {
@@ -502,15 +514,16 @@
         }
 
         .video-wrapper {
-            background: var(--surface);
-            border: 1px solid var(--border);
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 16px;
             padding: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .video-wrapper:hover {
             transform: translateY(-4px);
+            border-color: rgba(16, 185, 129, 0.4);
         }
 
         .video-frame {
@@ -526,13 +539,100 @@
             font-weight: 700;
             margin-top: 1rem;
             padding: 0 4px;
+        }
+        
+        .btn-tutorials-outline {
+            border-color: rgba(255, 255, 255, 0.2) !important;
+            color: #ffffff !important;
+        }
+        .btn-tutorials-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* --- New Fill the Vacant Spaces Section[span_6](start_span)[span_6](end_span) --- */
+        .vacancies-section {
+            padding: 120px 0;
+            background: var(--bg-vacancies);
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .vacancies-section .section-title {
+            color: var(--accent) !important;
+        }
+
+        .vacancies-carousel-container {
+            width: 100%;
+            overflow: hidden;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        /* Hardware-accelerated continuous sliding container pipeline[span_7](start_span)[span_7](end_span) */
+        .vacancies-track {
+            display: flex;
+            gap: 2rem;
+            width: max-content;
+            animation: infiniteScroll 35s linear infinite;
+        }
+
+        .vacancies-track:hover {
+            animation-play-state: paused;
+        }
+
+        .vacancy-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            width: 380px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 10px 30px -15px rgba(0,0,0,0.05);
+            transition: border-color 0.2s;
+        }
+        [data-theme='dark'] .vacancy-card {
+            background: #111827;
+        }
+
+        .vacancy-card:hover {
+            border-color: var(--primary);
+        }
+
+        .vacancy-card h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
             color: var(--text);
+        }
+
+        .vacancy-card p {
+            color: var(--sub-text);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+
+        .vacancy-card .btn {
+            align-self: flex-start;
+            padding: 0.6rem 1.25rem;
+            font-size: 0.85rem;
+        }
+
+        @keyframes infiniteScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 1rem)); }
         }
 
         /* --- Corporate Styled Accordion (FAQ) --- */
         .faq-section {
             padding: 120px 0;
             background-color: var(--bg);
+            border-top: 1px solid var(--border);
         }
 
         .faq-container {
@@ -741,7 +841,7 @@
             .nav-links, .theme-toggle-nav { display: none; }
             .menu-toggle { display: block; }
             
-            /* Smartphone Smooth Touch Carousel Implementation */
+            /* Smartphone Smooth Touch Carousel Implementation[span_8](start_span)[span_8](end_span) */
             .solutions-section, .tutorials-section {
                 padding: 60px 0;
             }
@@ -797,6 +897,14 @@
             }
             .tutorials-action-footer {
                 padding-right: 1.5rem;
+            }
+
+            .vacancies-section {
+                padding: 60px 0;
+            }
+            .vacancy-card {
+                width: 300px;
+                padding: 1.75rem;
             }
 
             .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
@@ -972,7 +1080,7 @@
             </div>
         </section>
 
-        <!-- New Watch and Do Video Tutorials Section[span_0](start_span)[span_0](end_span) -->
+        <!-- New Watch and Do Video Tutorials Section[span_9](start_span)[span_9](end_span) -->
         <section class="tutorials-section">
             <div class="container">
                 <div class="section-header">
@@ -983,7 +1091,6 @@
                 <div class="tutorials-grid">
                     <!-- Video Card 1 -->
                     <div class="video-wrapper">
-                        <!-- Replace src URL parameter values with your official YouTube video IDs -->
                         <iframe class="video-frame" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         <div class="video-caption">Getting Started with Your Dashboard</div>
                     </div>
@@ -1002,7 +1109,83 @@
                 </div>
 
                 <div class="faq-footer tutorials-action-footer">
-                    <a href="tutorials.html" class="btn btn-outline">Watch More Tutorials</a>
+                    <a href="tutorials.html" class="btn btn-outline btn-tutorials-outline">Watch More Tutorials</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- New Fill the Vacant Spaces Section[span_10](start_span)[span_10](end_span) -->
+        <section class="vacancies-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Fill the vacant spaces</h2>
+                    <p class="section-subtitle" style="color: var(--text-vacancies);">Explore dynamic micro-roles and sandbox collaboration parameters designed to accelerate collective tech scaling.</p>
+                </div>
+            </div>
+            
+            <div class="vacancies-carousel-container">
+                <div class="vacancies-track">
+                    <!-- Card 1 -->
+                    <div class="vacancy-card">
+                        <h3>Join our freelance community</h3>
+                        <p>Connect with high-performance creative pipelines globally. Scale out independent development tasks, access sandbox tooling configurations, and coordinate remotely with verified specialists.</p>
+                        <a href="#" class="btn btn-outline">View More</a>
+                    </div>
+                    
+                    <!-- Card 2 -->
+                    <div class="vacancy-card">
+                        <h3>No agreement, no liability</h3>
+                        <p>Work on modular micro-sprints under decentralized execution models. Bypass restrictive long-term operational retainers, manage flexible assignments, and maintain absolute structural independence.</p>
+                        <a href="#" class="btn btn-outline">View More</a>
+                    </div>
+                    
+                    <!-- Card 3 -->
+                    <div class="vacancy-card">
+                        <h3>Zero Overhead Scaling</h3>
+                        <p>Deploy specialized capabilities instantly on adaptive design micro-projects. Reduce structural resource requirements and optimize development velocity through modular team building.</p>
+                        <a href="#" class="btn btn-outline">View More</a>
+                    </div>
+                    
+                    <!-- Card 4 -->
+                    <div class="vacancy-card">
+                        <h3>Open-Source Matrix</h3>
+                        <p>Contribute core architectural framework variations directly to the ecosystem repository. Collaborate alongside top-tier UI developers to shape scalable digital experiences.</p>
+                        <a href="#" class="btn btn-outline">View More</a>
+                    </div>
+                    
+                    <!-- Card 5 -->
+                    <div class="vacancy-card">
+                        <h3>Creative Frontier Access</h3>
+                        <p>Bypass legacy corporate deployment bottlenecks. Test early-alpha interface structures and experiment with glassmorphic layouts inside production environments.</p>
+                        <a href="#" class="btn btn-outline">View More</a>
+                    </div>
+
+                    <!-- Duplicated Track Layer to form a continuous loop bridge -->
+                    <div class="vacancy-card">
+                        <h3>Join our freelance community</h3>
+                        <p>Connect with high-performance creative pipelines globally. Scale out independent development tasks, access sandbox tooling configurations, and coordinate remotely with verified specialists.</p>
+                        <a href="#" class="btn btn-outline">View More</a>
+                    </div>
+                    <div class="vacancy-card">
+                        <h3>No agreement, no liability</h3>
+                        <p>Work on modular micro-sprints under decentralized execution models. Bypass restrictive long-term operational retainers, manage flexible assignments, and maintain absolute structural independence.</p>
+                        <a href="#" class="btn btn-outline">View More</a>
+                    </div>
+                    <div class="vacancy-card">
+                        <h3>Zero Overhead Scaling</h3>
+                        <p>Deploy specialized capabilities instantly on adaptive design micro-projects. Reduce structural resource requirements and optimize development velocity through modular team building.</p>
+                        <a href="#" class="btn btn-outline">View More</a>
+                    </div>
+                    <div class="vacancy-card">
+                        <h3>Open-Source Matrix</h3>
+                        <p>Contribute core architectural framework variations directly to the ecosystem repository. Collaborate alongside top-tier UI developers to shape scalable digital experiences.</p>
+                        <a href="#" class="btn btn-outline">View More</a>
+                    </div>
+                    <div class="vacancy-card">
+                        <h3>Creative Frontier Access</h3>
+                        <p>Bypass legacy corporate deployment bottlenecks. Test early-alpha interface structures and experiment with glassmorphic layouts inside production environments.</p>
+                        <a href="#" class="btn btn-outline">View More</a>
+                    </div>
                 </div>
             </div>
         </section>
