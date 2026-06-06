@@ -265,12 +265,12 @@
             border: 1px solid var(--border);
         }
 
-        /* --- Cyber Bento-Inspired Features Area[span_3](start_span)[span_3](end_span) --- */
+        /* --- Cyber Bento-Inspired Features Area --- */
         .why-choose-us {
             padding: 120px 0;
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
-            background: var(--bg-whychooseus); /* Overridden to premium soft light red gradient color context[span_4](start_span)[span_4](end_span) */
+            background: var(--bg-whychooseus); 
         }
 
         .why-choose-us .section-title {
@@ -555,7 +555,7 @@
         
         .btn-tutorials-outline {
             border-color: rgba(255, 255, 255, 0.2) !important;
-            color: #ffffff !important; /* Explicit default visibility value fixed */
+            color: #ffffff !important; 
             background: transparent;
         }
         .btn-tutorials-outline:hover {
@@ -702,11 +702,11 @@
             margin-top: 4rem;
         }
 
-        /* --- Professional Enterprise Footer Optimization[span_5](start_span)[span_5](end_span) --- */
+        /* --- Professional Enterprise Footer Optimization --- */
         footer {
             background-color: var(--surface);
             border-top: 1px solid var(--border);
-            padding: 100px 0 40px; /* Enhanced space distribution framework[span_6](start_span)[span_6](end_span) */
+            padding: 100px 0 40px; 
         }
 
         .payment-strip {
@@ -789,7 +789,7 @@
             gap: 15px;
         }
 
-        /* --- Premium Mobile Glassmorphic Overlay Navigation Menu[span_7](start_span)[span_7](end_span) --- */
+        /* --- Premium Mobile Glassmorphic Overlay Navigation Menu --- */
         .mobile-slider {
             position: fixed; 
             top: 0; 
@@ -1022,7 +1022,6 @@
 
     <div class="overlay" id="overlay" onclick="toggleSlider()"></div>
 
-    <!-- Redesigned High-End Mobile Menu[span_8](start_span)[span_8](end_span) -->
     <div class="mobile-slider" id="mobileSlider">
         <button class="slider-close" onclick="toggleSlider()">&times;</button>
         <div class="mobile-nav-links">
@@ -1034,13 +1033,14 @@
         <button class="theme-toggle-btn" onclick="toggleTheme()">Switch Aesthetic</button>
     </div>
 
+    <!-- Privacy Banner Element[span_0](start_span)[span_0](end_span) -->
     <div id="privacy-popup">
         <div class="privacy-text">
             We use essential files to personalize your deployment architecture. Read our <a href="links.html">Privacy Policy</a>.
         </div>
         <div class="privacy-actions">
             <button class="btn-small btn-ignore" onclick="closePrivacy()">Ignore</button>
-            <button class="btn-small btn-accept" onclick="closePrivacy()">Accept All</button>
+            <button class="btn-small btn-accept" onclick="acceptPrivacyAndReload()">Accept All</button>
         </div>
     </div>
 
@@ -1302,7 +1302,6 @@
         </section>
     </main>
 
-    <!-- Professional and Attractive Optimized Footer Section[span_9](start_span)[span_9](end_span) -->
     <footer>
         <div class="container">
             <div class="payment-strip">
@@ -1406,10 +1405,55 @@
             document.body.style.overflow = slider.classList.contains('active') ? 'hidden' : 'auto';
         }
 
+        // --- Custom Expiration-Aware Privacy Policy Management Framework ---
         window.onload = function() {
+            checkPrivacyConsent();
+        }
+
+        function checkPrivacyConsent() {
+            const consentData = localStorage.getItem('privacy_consent_accepted');
+            const popupElement = document.getElementById('privacy-popup');
+
+            if (consentData) {
+                try {
+                    const parsedData = JSON.parse(consentData);
+                    const now = new Date().getTime();
+
+                    // Check if current system time exceeds the historical expiration marker
+                    if (now > parsedData.expiry) {
+                        localStorage.removeItem('privacy_consent_accepted');
+                        displayPrivacyBanner(popupElement);
+                    }
+                } catch (e) {
+                    // Fail-safe clear if string corruptions occur
+                    localStorage.removeItem('privacy_consent_accepted');
+                    displayPrivacyBanner(popupElement);
+                }
+            } else {
+                displayPrivacyBanner(popupElement);
+            }
+        }
+
+        function displayPrivacyBanner(element) {
             setTimeout(function() {
-                document.getElementById('privacy-popup').classList.add('show');
+                element.classList.add('show');
             }, 1000);
+        }
+
+        function acceptPrivacyAndReload() {
+            const highValueDuration = 30 * 24 * 60 * 60 * 1000; // 30-Day lifetime constraints calculated in milliseconds
+            const expirationTimestamp = new Date().getTime() + highValueDuration;
+
+            const trackingPayload = {
+                accepted: true,
+                expiry: expirationTimestamp
+            };
+
+            localStorage.setItem('privacy_consent_accepted', JSON.stringify(trackingPayload));
+            
+            // Instantly hide context animations and refresh standard thread pipelines
+            document.getElementById('privacy-popup').classList.remove('show');
+            window.location.reload();
         }
 
         function closePrivacy() {
