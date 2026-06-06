@@ -31,6 +31,12 @@
             --border-portfolio: rgba(16, 185, 129, 0.2);
             --border-business: rgba(79, 70, 229, 0.2);
             --border-landing: rgba(168, 85, 247, 0.2);
+            
+            /* Announcement Variable Configuration Matrices */
+            --bg-announce: linear-gradient(135deg, #fffbeb 0%, #fef9c3 50%, #ffffff 100%);
+            --text-announce: #1e293b;
+            --sub-announce: #475569;
+            --border-announce: rgba(234, 179, 8, 0.3);
         }
 
         [data-theme='dark'] {
@@ -58,6 +64,12 @@
             --border-portfolio: rgba(52, 211, 153, 0.2);
             --border-business: rgba(129, 140, 248, 0.2);
             --border-landing: rgba(192, 132, 252, 0.2);
+            
+            /* Dark Mode Announcement Override Parameters */
+            --bg-announce: linear-gradient(135deg, #1e1b4b 0%, #141133 50%, #0b0f19 100%);
+            --text-announce: #fef08a;
+            --sub-announce: #cbd5e1;
+            --border-announce: rgba(234, 179, 8, 0.25);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -908,6 +920,120 @@
         .btn-ignore { background: transparent; color: var(--text); border: 1px solid var(--border); }
         .btn-ignore:hover { background: var(--border); }
 
+        /* --- Program Announcement Modal Layout Styles --- */
+        .announcement-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(3, 7, 18, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 11000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 1.5rem;
+        }
+        .announcement-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .announcement-card {
+            background: var(--bg-announce);
+            border: 1px solid var(--border-announce);
+            color: var(--text-announce);
+            padding: 3rem 2.5rem;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 520px;
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            transform: translateY(30px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .announcement-overlay.active .announcement-card {
+            transform: translateY(0) scale(1);
+        }
+
+        /* Abstract Fluid Decorative Ring Layout Elements */
+        .announcement-card::before, .announcement-card::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(234, 179, 8, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .announcement-card::before {
+            width: 240px; height: 240px;
+            top: -80px; right: -80px;
+        }
+        .announcement-card::after {
+            width: 180px; height: 180px;
+            bottom: -60px; left: -60px;
+        }
+
+        .announce-close {
+            position: absolute;
+            top: 1.5rem; right: 1.5rem;
+            background: rgba(15, 23, 42, 0.05);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            color: var(--text-announce);
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 300;
+            cursor: pointer;
+            z-index: 10;
+            line-height: 1;
+            transition: all 0.2s ease;
+        }
+        [data-theme='dark'] .announce-close {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .announce-close:hover { transform: rotate(90deg); background: rgba(234, 179, 8, 0.2); border-color: transparent; }
+
+        .announcement-card h2 {
+            font-size: 1.65rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+            padding-right: 2rem;
+        }
+
+        .announcement-card p {
+            color: var(--sub-announce);
+            font-size: 0.98rem;
+            line-height: 1.6;
+            margin-bottom: 2.25rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn-announce {
+            width: 100%;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            background: var(--text-announce);
+            color: var(--bg);
+            border: 1px solid var(--text-announce);
+            box-shadow: 0 4px 12px rgba(234, 179, 8, 0.15);
+        }
+        .btn-announce:hover { opacity: 0.95; transform: translateY(-1px); }
+        [data-theme='dark'] .btn-announce {
+            background: linear-gradient(90deg, #fef08a 0%, #facc15 100%);
+            color: #030712;
+            border: none;
+        }
+
         /* --- Comprehensive Responsive Infrastructure Design --- */
         @media (max-width: 1024px) {
             header { margin: 1rem; }
@@ -993,12 +1119,23 @@
             .footer-grid { grid-template-columns: 1fr; }
             .footer-brand { grid-column: span 1; }
             .container { padding: 0 1.5rem; }
+            .announcement-card { padding: 2.5rem 1.75rem; }
         }
     </style>
 </head>
 <body>
 
     <div class="glow-aura" id="glowAura"></div>
+
+    <!-- New Acquisition Program Announcement Interface Component Overlay Layer -->
+    <div class="announcement-overlay" id="announceOverlay">
+        <div class="announcement-card">
+            <button class="announce-close" onclick="closeAnnounceModal()">&times;</button>
+            <h2>Our FC program talent acquisition is live now, Join now !</h2>
+            <p>Our FC program's (Freelancers community programs) first tier talent acquisition is coming soon. Attend our upcoming YouTube live session to know more.</p>
+            <a href="fcp-2026.html" class="btn btn-announce">Join beta program</a>
+        </div>
+    </div>
 
     <header>
         <div class="container">
@@ -1033,7 +1170,6 @@
         <button class="theme-toggle-btn" onclick="toggleTheme()">Switch Aesthetic</button>
     </div>
 
-    <!-- Privacy Banner Element[span_0](start_span)[span_0](end_span) -->
     <div id="privacy-popup">
         <div class="privacy-text">
             We use essential files to personalize your deployment architecture. Read our <a href="links.html">Privacy Policy</a>.
@@ -1405,9 +1541,10 @@
             document.body.style.overflow = slider.classList.contains('active') ? 'hidden' : 'auto';
         }
 
-        // --- Custom Expiration-Aware Privacy Policy Management Framework ---
+        // --- Custom Expiration-Aware Privacy Policy & Acquisition Management Framework ---
         window.onload = function() {
             checkPrivacyConsent();
+            checkProgramAnnouncement();
         }
 
         function checkPrivacyConsent() {
@@ -1419,13 +1556,11 @@
                     const parsedData = JSON.parse(consentData);
                     const now = new Date().getTime();
 
-                    // Check if current system time exceeds the historical expiration marker
                     if (now > parsedData.expiry) {
                         localStorage.removeItem('privacy_consent_accepted');
                         displayPrivacyBanner(popupElement);
                     }
                 } catch (e) {
-                    // Fail-safe clear if string corruptions occur
                     localStorage.removeItem('privacy_consent_accepted');
                     displayPrivacyBanner(popupElement);
                 }
@@ -1441,7 +1576,7 @@
         }
 
         function acceptPrivacyAndReload() {
-            const highValueDuration = 30 * 24 * 60 * 60 * 1000; // 30-Day lifetime constraints calculated in milliseconds
+            const highValueDuration = 30 * 24 * 60 * 60 * 1000; 
             const expirationTimestamp = new Date().getTime() + highValueDuration;
 
             const trackingPayload = {
@@ -1450,14 +1585,28 @@
             };
 
             localStorage.setItem('privacy_consent_accepted', JSON.stringify(trackingPayload));
-            
-            // Instantly hide context animations and refresh standard thread pipelines
             document.getElementById('privacy-popup').classList.remove('show');
             window.location.reload();
         }
 
         function closePrivacy() {
             document.getElementById('privacy-popup').classList.remove('show');
+        }
+
+        // --- Program Announcement Trigger Closure Logic ---
+        function checkProgramAnnouncement() {
+            // Evaluates if the user closed the program modal manually within this window frame session
+            const isAnnounceClosed = sessionStorage.getItem('announce_modal_dismissed');
+            if (!isAnnounceClosed) {
+                setTimeout(function() {
+                    document.getElementById('announceOverlay').classList.add('active');
+                }, 2200); // Fades in gracefully shortly after the layout stabilizes
+            }
+        }
+
+        function closeAnnounceModal() {
+            document.getElementById('announceOverlay').classList.remove('active');
+            sessionStorage.setItem('announce_modal_dismissed', 'true');
         }
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
