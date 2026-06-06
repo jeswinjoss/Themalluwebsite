@@ -23,6 +23,7 @@
             --bg-portfolio: linear-gradient(135deg, #f0fdf4 0%, #e6f4ea 100%);
             --bg-business: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
             --bg-landing: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%);
+            --bg-customizable: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
             --border-portfolio: rgba(16, 185, 129, 0.2);
             --border-business: rgba(79, 70, 229, 0.2);
             --border-landing: rgba(168, 85, 247, 0.2);
@@ -45,6 +46,7 @@
             --bg-portfolio: linear-gradient(135deg, rgba(6, 78, 59, 0.2) 0%, rgba(2, 44, 34, 0.4) 100%);
             --bg-business: linear-gradient(135deg, rgba(30, 58, 138, 0.2) 0%, rgba(30, 27, 75, 0.4) 100%);
             --bg-landing: linear-gradient(135deg, rgba(88, 28, 135, 0.2) 0%, rgba(15, 23, 42, 0.4) 100%);
+            --bg-customizable: linear-gradient(180deg, #0b0f19 0%, #05070f 100%);
             --border-portfolio: rgba(52, 211, 153, 0.2);
             --border-business: rgba(129, 140, 248, 0.2);
             --border-landing: rgba(192, 132, 252, 0.2);
@@ -349,7 +351,7 @@
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Isolated Specific Background Variables mapping[span_4](start_span)[span_4](end_span) */
+        /* Isolated Specific Background Variables mapping */
         .solution-bento-card.portfolio-card {
             background: var(--bg-portfolio);
             border-color: var(--border-portfolio);
@@ -400,7 +402,7 @@
             margin-bottom: 2rem;
         }
 
-        /* Micro graphic decorative layers inside cards to simulate website blueprints[span_5](start_span)[span_5](end_span) */
+        /* Micro graphic decorative layers inside cards to simulate website blueprints */
         .solution-wireframe {
             height: 60px;
             width: 100%;
@@ -440,11 +442,53 @@
             color: var(--sub-text);
         }
 
+        /* --- 100% Customizable Section --- */
+        .customizable-section {
+            padding: 120px 0;
+            background: var(--bg-customizable);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .custom-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 14px;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--primary);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .customizable-content h2 {
+            font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            max-width: 750px;
+        }
+
+        .customizable-content h2 span {
+            color: var(--primary);
+        }
+
+        .customizable-content p {
+            font-size: 1.15rem;
+            color: var(--sub-text);
+            max-width: 680px;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+        }
+
         /* --- Corporate Styled Accordion (FAQ) --- */
         .faq-section {
             padding: 120px 0;
             background-color: var(--bg);
-            border-top: 1px solid var(--border);
         }
 
         .faq-container {
@@ -653,7 +697,7 @@
             .nav-links, .theme-toggle-nav { display: none; }
             .menu-toggle { display: block; }
             
-            /* Smartphone Smooth Touch Carousel Implementation[span_6](start_span)[span_6](end_span) */
+            /* Smartphone Smooth Touch Carousel Implementation */
             .solutions-section {
                 padding: 60px 0;
             }
@@ -696,6 +740,14 @@
                 align-items: flex-start;
                 justify-content: center;
                 gap: 1rem;
+            }
+
+            .customizable-section {
+                padding: 80px 0;
+                text-align: center;
+            }
+            .customizable-content p {
+                margin: 0 auto 2.5rem;
             }
 
             .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
@@ -804,7 +856,7 @@
             </div>
         </section>
 
-        <!-- Overhauled Web Solutions Architecture Platform Component[span_7](start_span)[span_7](end_span) -->
+        <!-- Overhauled Web Solutions Architecture Platform Component -->
         <section id="solutions" class="solutions-section">
             <div class="container">
                 <div class="section-header">
@@ -852,6 +904,20 @@
                                 <p>To protect performance speeds and keep engineering pricing highly accessible, we focus strictly on high-conversion presentation sites (No heavy e-commerce/retail systems built).</p>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- New 100% Customizable Designs Branding Section -->
+        <section class="customizable-section">
+            <div class="container">
+                <div class="customizable-content">
+                    <div class="custom-badge">Tailored Engineering</div>
+                    <h2>100% <span>Customizable Designs</span> Built Around Your Vision</h2>
+                    <p>No generic templates, rigid layouts, or restrictive styling limits. Every aspect of our architectural canvas can be adapted to mirror your exclusive brand aesthetic. From complex grid behaviors to personalized content hierarchies, we construct digital spaces that scale exactly how you choose.</p>
+                    <div class="cta-group">
+                        <a href="#" class="btn btn-primary">Design Yours</a>
                     </div>
                 </div>
             </div>
