@@ -1,29 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Mallu | High quality and Affordable Web Solutions</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #ffffff;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --surface-card: rgba(255, 255, 255, 0.7);
             --text: #0f172a;
-            --sub-text: #475569;
-            --border: #e2e8f0;
-            --accent: #000000;
-            --nav-bg: rgba(255, 255, 255, 0.85);
-            --spotlight: radial-gradient(circle at center, rgba(226, 232, 240, 0.4) 0%, transparent 80%);
+            --sub-text: #64748b;
+            --border: rgba(226, 232, 240, 0.8);
+            --accent: #0f172a;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+            --primary: #10b981;
+            --nav-bg: rgba(248, 250, 252, 0.75);
+            --grid-color: rgba(15, 23, 42, 0.04);
         }
 
         [data-theme='dark'] {
-            --bg: #050505;
-            --text: #f8fafc;
-            --sub-text: #94a3b8;
-            --border: #1e293b;
+            --bg: #030712;
+            --surface: #0b0f19;
+            --surface-card: rgba(11, 15, 25, 0.6);
+            --text: #f9fafb;
+            --sub-text: #9ca3af;
+            --border: rgba(31, 41, 55, 0.7);
             --accent: #ffffff;
-            --nav-bg: rgba(5, 5, 5, 0.85);
-            --spotlight: radial-gradient(circle at center, rgba(30, 41, 59, 0.5) 0%, transparent 80%);
+            --accent-glow: rgba(16, 185, 129, 0.25);
+            --primary: #10b981;
+            --nav-bg: rgba(3, 7, 18, 0.75);
+            --grid-color: rgba(255, 255, 255, 0.03);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -31,120 +39,152 @@
         body {
             background-color: var(--bg);
             color: var(--text);
-            font-family: 'Inter', sans-serif;
-            transition: background 0.4s ease;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
+            letter-spacing: -0.02em;
+            position: relative;
         }
 
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 5%; }
+        /* Technical Interactive Grid Backdrop */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px), linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -2;
+            pointer-events: none;
+        }
 
+        /* Dynamic Glow Aura Tracked via Mouse script */
+        .glow-aura {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            top: 0; left: 0;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: -1;
+            mix-blend-mode: screen;
+            opacity: 0.8;
+        }
+
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 2rem; }
+
+        /* --- Sophisticated Header Navigation --- */
         header {
             position: sticky;
-            top: 0;
+            top: 16px;
             z-index: 1000;
             background: var(--nav-bg);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem 0;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin: 0 2rem;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
         }
 
         nav { display: flex; justify-content: space-between; align-items: center; }
 
-        .brand { display: flex; align-items: center; text-decoration: none; color: var(--text); }
-        .logo-img { height: 38px; width: auto; display: block; }
+        .brand { display: flex; align-items: center; text-decoration: none; color: var(--text); font-weight: 800; font-size: 1.15rem; }
+        .logo-img { height: 30px; width: auto; display: block; }
         [data-theme='dark'] .logo-img { filter: invert(1) brightness(2); }
 
-        .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+        .nav-links { display: flex; gap: 2.2rem; align-items: center; }
         .nav-links a {
             text-decoration: none;
             color: var(--sub-text);
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.3s;
+            font-size: 0.88rem;
+            font-weight: 600;
+            transition: color 0.2s ease, transform 0.2s ease;
         }
-        .nav-links a:hover { color: var(--text); }
+        .nav-links a:hover { color: var(--text); transform: translateY(-1px); }
+
+        .nav-actions { display: flex; align-items: center; gap: 1rem; }
+
+        .theme-toggle-nav {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 10px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .theme-toggle-nav:hover { background: var(--border); }
 
         .menu-toggle {
             display: none;
-            background: var(--text);
+            background: var(--accent);
             color: var(--bg);
             border: none;
-            padding: 8px 16px;
-            font-size: 0.7rem;
-            font-weight: 800;
-            text-transform: uppercase;
+            padding: 10px 18px;
+            font-size: 0.8rem;
+            font-weight: 700;
             cursor: pointer;
-            letter-spacing: 1px;
-            border-radius: 4px;
+            border-radius: 10px;
         }
 
-        /* --- Hero Section --- */
+        /* --- Advanced Geometric Hero Layout --- */
         .hero { 
-            position: relative; 
-            padding: clamp(80px, 12vh, 160px) 0; 
+            padding: clamp(60px, 12vh, 140px) 0; 
             display: grid; 
-            grid-template-columns: 1.1fr 0.9fr; 
-            gap: 40px; 
+            grid-template-columns: 1.15fr 0.85fr; 
+            gap: 60px; 
             align-items: center;
-            background: var(--spotlight);
         }
 
-        .hero-content { position: relative; z-index: 2; }
+        .hero-content { position: relative; }
 
         .badge {
             display: inline-flex;
             align-items: center;
+            gap: 6px;
             padding: 6px 14px;
-            background: rgba(16, 185, 129, 0.1);
-            color: #10b981;
-            border-radius: 100px;
-            font-size: 0.7rem;
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            font-size: 0.75rem;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 1.5rem;
+            letter-spacing: 0.02em;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+        .badge::before {
+            content: '';
+            width: 6px; height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: inline-block;
         }
 
         .hero-content h1 { 
-            font-size: clamp(2.8rem, 6vw, 6.5rem); 
-            line-height: 0.95; 
+            font-size: clamp(2.6rem, 5.5vw, 4.5rem); 
+            line-height: 1.05; 
             font-weight: 800; 
-            letter-spacing: -4px; 
-            margin-bottom: 2rem; 
+            letter-spacing: -0.04em; 
+            margin-bottom: 1.5rem; 
         }
 
         .hero-content h1 span { 
-            font-family: 'Playfair Display', serif; 
-            font-style: normal;
-            font-weight: 800;
-            color: var(--text);
-            position: relative;
-            display: inline-block;
-            letter-spacing: -1px;
-            padding: 0 4px;
-        }
-
-        .hero-content h1 span::after {
-            content: '';
-            position: absolute;
-            bottom: 8px;
-            left: 0;
-            width: 100%;
-            height: 6px;
-            background: #10b981;
-            opacity: 0.2;
-            z-index: -1;
-        }
-
-        [data-theme='dark'] .hero-content h1 span {
-            text-shadow: 0 0 25px rgba(248, 250, 252, 0.15);
+            color: var(--primary);
+            background: linear-gradient(to right, var(--primary), #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero-content p { 
             font-size: 1.15rem; 
             color: var(--sub-text); 
-            max-width: 500px; 
+            max-width: 520px; 
             margin-bottom: 3rem; 
             line-height: 1.6;
         }
@@ -152,60 +192,123 @@
         .cta-group { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
 
         .btn { 
-            padding: 1.1rem 2.4rem; 
-            font-weight: 600; 
-            font-size: 1rem; 
-            border-radius: 4px; 
+            padding: 0.9rem 2rem; 
+            font-weight: 700; 
+            font-size: 0.95rem; 
+            border-radius: 10px; 
             cursor: pointer; 
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); 
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); 
             text-decoration: none; 
-            display: inline-block; 
-            text-align: center;
+            display: inline-flex; 
+            align-items: center;
+            justify-content: center;
         }
 
         .btn-primary { background: var(--accent); color: var(--bg); border: 1px solid var(--accent); }
-        .btn-primary:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.2); }
-        .btn-outline { border: 1px solid var(--border); color: var(--text); }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+        .btn-outline { border: 1px solid var(--border); color: var(--text); background: var(--surface); }
+        .btn-outline:hover { background: var(--border); transform: translateY(-2px); }
 
-        .hero-visual { display: flex; justify-content: flex-end; align-items: center; }
-        .mockup-img { width: 100%; max-width: 650px; height: auto; border-radius: 12px; box-shadow: 0 30px 60px -15px rgba(0,0,0,0.15); transition: transform 0.6s ease; }
+        /* Dynamic Asymmetric Tech Showcase Box */
+        .hero-visual { display: flex; justify-content: flex-end; position: relative; }
+        .showcase-wrapper {
+            position: relative;
+            background: linear-gradient(145deg, var(--surface) 0%, var(--bg) 100%);
+            padding: 16px;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            box-shadow: 0 30px 60px -20px rgba(0,0,0,0.08);
+        }
+        .showcase-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: linear-gradient(to bottom right, var(--primary), transparent);
+            border-radius: 24px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        .mockup-img { 
+            width: 100%; 
+            max-width: 580px; 
+            height: auto; 
+            border-radius: 14px; 
+            display: block;
+            border: 1px solid var(--border);
+        }
 
-        /* --- Why Choose Us Section --- */
+        /* --- Cyber Bento-Inspired Features Area --- */
         .why-choose-us {
-            background-color: #000000;
-            color: #ffffff;
             padding: 120px 0;
-            border-top: 1px solid #1e293b;
+            border-top: 1px solid var(--border);
+            background-color: var(--surface);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 620px;
+            margin: 0 auto 70px;
         }
 
         .section-title {
-            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-size: clamp(2.1rem, 4vw, 3rem);
             font-weight: 800;
-            text-align: center;
-            margin-bottom: 80px;
-            letter-spacing: -2px;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.25rem;
+        }
+
+        .section-subtitle {
+            color: var(--sub-text);
+            font-size: 1.1rem;
+            line-height: 1.5;
         }
 
         .features-grid {
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 60px;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); 
+            gap: 2rem;
         }
 
-        .feature-item h3 {
-            margin-bottom: 1.5rem; 
-            font-size: 1.4rem; 
+        .feature-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px -20px var(--accent-glow);
+        }
+
+        .feature-num {
+            font-size: 0.85rem;
             font-weight: 800;
-            color: #ffffff;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: block;
+            letter-spacing: 0.1em;
         }
 
-        .feature-item p {
-            color: #94a3b8;
-            font-size: 1.1rem;
+        .feature-card h3 {
+            margin-bottom: 1rem; 
+            font-size: 1.35rem; 
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .feature-card p {
+            color: var(--sub-text);
+            font-size: 0.98rem;
             line-height: 1.6;
         }
 
-        /* --- FAQ Section --- */
+        /* --- Corporate Styled Accordion (FAQ) --- */
         .faq-section {
             padding: 120px 0;
             background-color: var(--bg);
@@ -214,12 +317,18 @@
         .faq-container {
             max-width: 800px;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
 
         .faq-item {
-            border-bottom: 1px solid var(--border);
-            padding: 1.5rem 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            transition: all 0.3s ease;
         }
+        .faq-item:hover { border-color: var(--text); }
 
         .faq-item summary {
             list-style: none;
@@ -228,23 +337,28 @@
             align-items: center;
             cursor: pointer;
             font-weight: 600;
-            font-size: 1.1rem;
-            color: var(--text);
+            font-size: 1.05rem;
+            padding: 1.5rem;
+            user-select: none;
         }
+        .faq-item summary::-webkit-details-marker { display: none; }
 
         .faq-item summary::after {
-            content: '+';
-            font-size: 1.5rem;
-            transition: transform 0.3s ease;
+            content: "+";
+            font-size: 1.3rem;
+            color: var(--sub-text);
+            transition: transform 0.2s ease;
         }
 
         .faq-item[open] summary::after {
             transform: rotate(45deg);
+            color: var(--text);
         }
 
         .faq-content {
-            padding-top: 1rem;
+            padding: 0 1.5rem 1.5rem;
             color: var(--sub-text);
+            font-size: 0.98rem;
             line-height: 1.6;
         }
 
@@ -253,211 +367,173 @@
             margin-top: 4rem;
         }
 
-        /* --- Updated Footer Section --- */
+        /* --- Minimal Enterprise Footer --- */
         footer {
-            background-color: var(--bg);
+            background-color: var(--surface);
             border-top: 1px solid var(--border);
-            padding: 60px 0 30px;
-            text-align: left;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr repeat(4, 1fr); 
-            gap: 40px;
-            margin-bottom: 60px;
-        }
-
-        .footer-brand {
-            grid-column: span 1;
-        }
-
-        .footer-brand p {
-            margin-top: 20px;
-            color: var(--sub-text);
-            max-width: 320px;
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
-
-        .footer-links h4 {
-            font-weight: 800;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-            color: var(--text);
-        }
-
-        .footer-links ul {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links a {
-            text-decoration: none;
-            color: var(--sub-text);
-            font-size: 0.85rem;
-            transition: color 0.3s;
-            display: inline-block;
-        }
-
-        .footer-links a:hover {
-            color: var(--text);
+            padding: 90px 0 40px;
         }
 
         .payment-strip {
-            background-color: var(--border);
-            padding: 20px;
-            text-align: left;
-            border-radius: 12px;
-            margin-bottom: 40px;
-            opacity: 0.9;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 14px;
+            margin-bottom: 5rem;
         }
 
         .payment-strip p {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 15px;
-            font-weight: 800;
+            font-size: 0.85rem;
+            font-weight: 700;
             color: var(--sub-text);
         }
 
         .payment-icons {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
-            filter: grayscale(1);
-            opacity: 0.7;
+            gap: 2rem;
+            color: var(--text);
         }
 
         .payment-icons span {
-            font-weight: 900;
-            font-size: 0.8rem;
+            font-weight: 800;
+            font-size: 0.78rem;
+            letter-spacing: 0.05em;
         }
 
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2.2fr repeat(4, 1fr); 
+            gap: 40px;
+            margin-bottom: 70px;
+        }
+
+        .footer-brand p {
+            margin-top: 1.5rem;
+            color: var(--sub-text);
+            max-width: 280px;
+            line-height: 1.6;
+            font-size: 0.92rem;
+        }
+
+        .footer-links h4 {
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text);
+        }
+
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 0.8rem; }
+        .footer-links a {
+            text-decoration: none;
+            color: var(--sub-text);
+            font-size: 0.88rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--text); }
+
         .footer-bottom {
-            padding-top: 30px;
+            padding-top: 2.5rem;
             border-top: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             color: var(--sub-text);
             flex-wrap: wrap;
             gap: 15px;
         }
 
-        /* Mobile Slider */
+        /* --- Drawer Layout Components --- */
         .mobile-slider {
-            position: fixed; top: 0; right: -100%; width: 300px; height: 100vh;
-            background: var(--bg); border-left: 1px solid var(--border); z-index: 2000;
+            position: fixed; top: 0; right: -100%; width: 310px; height: 100vh;
+            background: var(--surface); border-left: 1px solid var(--border); z-index: 2000;
             padding: 40px; display: flex; flex-direction: column; 
-            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .mobile-slider.active { right: 0; }
         
-        .slider-close { align-self: flex-end; background:none; border:none; color:var(--text); font-size:2rem; cursor:pointer; margin-bottom: 2rem; }
+        .slider-close { align-self: flex-end; background:none; border:none; color:var(--text); font-size:2rem; cursor:pointer; margin-bottom: 3rem; }
         
         .mobile-nav-links { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: auto; }
-        .mobile-nav-links a { text-decoration: none; color: var(--text); font-size: 1.1rem; font-weight: 600; padding: 10px 0; }
+        .mobile-nav-links a { text-decoration: none; color: var(--text); font-size: 1.1rem; font-weight: 600; padding: 6px 0; }
         
-        .theme-toggle-btn { background: var(--text); color: var(--bg); border: none; padding: 14px; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; border-radius: 4px; cursor: pointer; }
+        .mobile-slider .theme-toggle-btn { background: var(--accent); color: var(--bg); border: none; padding: 14px; font-weight: 700; font-size: 0.85rem; border-radius: 10px; cursor: pointer; }
 
-        .overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: none; z-index: 1500; backdrop-filter: blur(4px); }
+        .overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.3); display: none; z-index: 1500; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
         .overlay.active { display: block; }
 
-        /* --- Privacy Popup --- */
+        /* --- Micro Privacy Tray --- */
         #privacy-popup {
             position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 1200px;
-            background-color: var(--bg);
+            bottom: 24px;
+            right: 24px;
+            width: calc(100% - 48px);
+            max-width: 420px;
+            background-color: var(--surface);
             border: 1px solid var(--border);
-            padding: 20px 30px;
+            padding: 1.5rem;
             z-index: 9999;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-            border-radius: 12px;
+            flex-direction: column;
+            gap: 1.25rem;
+            border-radius: 16px;
             visibility: hidden;
             opacity: 0;
-            transition: all 0.5s ease;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         #privacy-popup.show {
             visibility: visible;
             opacity: 1;
-            bottom: 30px;
+            transform: translateY(0);
         }
 
         .privacy-text {
-            font-size: 0.9rem;
-            color: var(--text);
+            font-size: 0.88rem;
+            color: var(--sub-text);
             line-height: 1.5;
         }
 
-        .privacy-text a {
-            color: var(--text);
-            text-decoration: underline;
-            font-weight: 600;
-        }
+        .privacy-text a { color: var(--text); text-decoration: none; font-weight: 600; }
+        .privacy-text a:hover { text-decoration: underline; }
 
-        .privacy-actions {
-            display: flex;
-            gap: 10px;
-            white-space: nowrap;
-        }
+        .privacy-actions { display: flex; gap: 10px; }
+        .btn-small { flex: 1; padding: 10px; font-size: 0.82rem; font-weight: 700; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+        .btn-accept { background-color: var(--accent); color: var(--bg); border: 1px solid var(--accent); }
+        .btn-ignore { background: transparent; color: var(--text); border: 1px solid var(--border); }
+        .btn-ignore:hover { background: var(--border); }
 
-        .btn-small {
-            padding: 10px 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: 0.3s;
-            text-transform: uppercase;
-        }
-
-        .btn-accept {
-            background-color: var(--text);
-            color: var(--bg);
-            border: none;
-        }
-
-        .btn-ignore {
-            background: transparent;
-            color: var(--text);
-            border: 1px solid var(--border);
-        }
-
-        @media (max-width: 1100px) {
-            .hero { grid-template-columns: 1fr; text-align: center; padding: 60px 0; }
+        @media (max-width: 1024px) {
+            header { margin: 1rem; }
+            .hero { grid-template-columns: 1fr; text-align: center; padding: 40px 0; gap: 40px; }
             .hero-content p { margin-left: auto; margin-right: auto; }
             .cta-group { justify-content: center; }
-            .hero-visual { display: none; } 
-            .nav-links { display: none; }
+            .hero-visual { justify-content: center; } 
+            .nav-links, .theme-toggle-nav { display: none; }
             .menu-toggle { display: block; }
-            .why-choose-us { padding: 80px 0; }
-            .section-title { margin-bottom: 40px; }
             .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
-            .footer-brand { grid-column: span 2; margin-bottom: 10px; }
-            .footer-brand p { max-width: 100%; }
-            .footer-bottom { flex-direction: column; align-items: flex-start; }
-            #privacy-popup { flex-direction: column; text-align: center; padding: 25px; }
+            .footer-brand { grid-column: span 2; }
+            .payment-strip { flex-direction: column; gap: 1.25rem; text-align: center; }
+        }
+
+        @media (max-width: 640px) {
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-brand { grid-column: span 1; }
+            .container { padding: 0 1.5rem; }
         }
     </style>
 </head>
 <body>
+
+    <!-- Animated Dynamic Pointer Background Shine Element -->
+    <div class="glow-aura" id="glowAura"></div>
 
     <header>
         <div class="container">
@@ -471,7 +547,10 @@
                     <a href="#enterprise">Support</a>
                     <a href="#pricing">How this work ?</a>
                 </div>
-                <button class="menu-toggle" id="menuBtn" onclick="toggleSlider()">Menu</button>
+                <div class="nav-actions">
+                    <button class="theme-toggle-nav" onclick="toggleTheme()">Aesthetic</button>
+                    <button class="menu-toggle" id="menuBtn" onclick="toggleSlider()">Menu</button>
+                </div>
             </nav>
         </div>
     </header>
@@ -481,17 +560,17 @@
     <div class="mobile-slider" id="mobileSlider">
         <button class="slider-close" onclick="toggleSlider()">&times;</button>
         <div class="mobile-nav-links">
-            <a href="#features" onclick="toggleSlider()">Dashboard</a>
-            <a href="#templates" onclick="toggleSlider()">Our Pricing</a>
-            <a href="#enterprise" onclick="toggleSlider()">Support</a>
-            <a href="#pricing" onclick="toggleSlider()">How this work ?</a>
+            <a href="#features">Dashboard</a>
+            <a href="#templates">Our Pricing</a>
+            <a href="#enterprise">Support</a>
+            <a href="#pricing">How this work ?</a>
         </div>
         <button class="theme-toggle-btn" onclick="toggleTheme()">Switch Aesthetic</button>
     </div>
 
     <div id="privacy-popup">
         <div class="privacy-text">
-            We value your privacy. By using our site, you agree to our <a href="links.html">Terms of Service</a>, <a href="links.html">Privacy Policy</a>, and use of <a href="links.html">Cookies</a> to enhance your professional experience.
+            We use essential files to personalize your deployment architecture. Read our <a href="links.html">Privacy Policy</a>.
         </div>
         <div class="privacy-actions">
             <button class="btn-small btn-ignore" onclick="closePrivacy()">Ignore</button>
@@ -503,7 +582,7 @@
         <div class="container">
             <section class="hero">
                 <div class="hero-content">
-                    <div class="badge">Limited time availability</div>
+                    <div class="badge">Early Access Active</div>
                     <h1>Grab your website just for <span>2599₹*</span></h1>
                     <p>Establish your digital presence with precision. We deliver high-performance, fully responsive websites starting at just 2599₹.</p>
                     <div class="cta-group">
@@ -513,24 +592,32 @@
                 </div>
                 
                 <div class="hero-visual">
-                    <img src="hero-web.png" alt="Website Showcase" class="mockup-img">
+                    <div class="showcase-wrapper">
+                        <img src="hero-web.png" alt="Website Showcase" class="mockup-img">
+                    </div>
                 </div>
             </section>
         </div>
 
         <section id="features" class="why-choose-us">
             <div class="container">
-                <h2 class="section-title">Why Choose Us?</h2>
+                <div class="section-header">
+                    <h2 class="section-title">Why Choose Us?</h2>
+                    <p class="section-subtitle">Engineered architectural pipelines customized to scale your commercial reach efficiently.</p>
+                </div>
                 <div class="features-grid">
-                    <div class="feature-item" style="padding: 0 1rem;">
+                    <div class="feature-card">
+                        <span class="feature-num">// MODULE 01</span>
                         <h3>Enterprise-Grade Quality</h3>
                         <p>We deliver architectural excellence at a competitive price point, ensuring your brand stands out with a sophisticated, performance-optimized digital presence.</p>
                     </div>
-                    <div class="feature-item" style="padding: 0 1rem;">
+                    <div class="feature-card">
+                        <span class="feature-num">// MODULE 02</span>
                         <h3>Seamless Management</h3>
                         <p>Experience hassle-free operations with our fully managed ecosystem. We handle technical deployment and maintenance so you can focus on core business growth.</p>
                     </div>
-                    <div class="feature-item" style="padding: 0 1rem;">
+                    <div class="feature-card">
+                        <span class="feature-num">// MODULE 03</span>
                         <h3>Dedicated Evolution</h3>
                         <p>Our partnership doesn't end at launch. Benefit from proactive feature enhancements and rigorous bug resolution to keep your site at the cutting edge.</p>
                     </div>
@@ -540,7 +627,9 @@
 
         <section class="faq-section">
             <div class="container">
-                <h2 class="section-title" style="color: var(--text);">Frequently Asked Questions</h2>
+                <div class="section-header">
+                    <h2 class="section-title">Frequently Asked Questions</h2>
+                </div>
                 <div class="faq-container">
                     <details class="faq-item">
                         <summary>What is included in the base pricing?</summary>
@@ -562,26 +651,6 @@
                         <summary>Will my website work on mobile devices?</summary>
                         <div class="faq-content">Every project we build is mobile-responsive by default, ensuring a perfect user experience across smartphones, tablets, and desktops.</div>
                     </details>
-                    <details class="faq-item">
-                        <summary>Can I add custom features later?</summary>
-                        <div class="faq-content">Our websites are built to be scalable. You can integrate additional pages, e-commerce modules, or custom tools as your business grows.</div>
-                    </details>
-                    <details class="faq-item">
-                        <summary>Do you provide professional email addresses?</summary>
-                        <div class="faq-content">Yes, we can assist in setting up professional business emails (e.g., hello@yourbrand.com) as part of our extended service packages.</div>
-                    </details>
-                    <details class="faq-item">
-                        <summary>What kind of SEO do you provide?</summary>
-                        <div class="faq-content">We implement on-page SEO best practices including meta tags, image alt-text, and fast loading speeds to help improve your search engine rankings.</div>
-                    </details>
-                    <details class="faq-item">
-                        <summary>Is there a hidden maintenance fee?</summary>
-                        <div class="faq-content">No hidden fees. We are transparent about all costs, including any optional annual maintenance or domain renewal charges.</div>
-                    </details>
-                    <details class="faq-item">
-                        <summary>What if I need technical support later?</summary>
-                        <div class="faq-content">We provide dedicated support channels for all our clients to resolve any technical issues or implementation questions post-launch.</div>
-                    </details>
                 </div>
                 <div class="faq-footer">
                     <a href="support.html" class="btn btn-outline">View More Help</a>
@@ -593,12 +662,12 @@
     <footer>
         <div class="container">
             <div class="payment-strip">
-                <p>Secure Transaction Partners</p>
+                <p>SUPPORTED CLEARING NETWORKS</p>
                 <div class="payment-icons">
                     <span>UPI</span>
                     <span>VISA</span>
                     <span>MASTERCARD</span>
-                    <span>RUPAYCARD</span>
+                    <span>RUPAY</span>
                 </div>
             </div>
 
@@ -663,26 +732,36 @@
     </footer>
 
     <script>
-        function toggleTheme() {
-            const html = document.documentElement;
-            const current = html.getAttribute('data-theme');
-            html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+        // Track mouse position to update the glowing aura overlay
+        const glowAura = document.getElementById('glowAura');
+        window.addEventListener('mousemove', (e) => {
+            glowAura.style.left = e.clientX + 'px';
+            glowAura.style.top = e.clientY + 'px';
+        });
+
+        // System Preference-Aware Dark Mode Engine
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
         }
 
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+            applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        }
+
+        const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        applyTheme(savedTheme);
+
+        // Sidebar Navigation Animation Closures
         function toggleSlider() {
             const slider = document.getElementById('mobileSlider');
             const overlay = document.getElementById('overlay');
             slider.classList.toggle('active');
             overlay.classList.toggle('active');
-            
-            if(slider.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = 'auto';
-            }
+            document.body.style.overflow = slider.classList.contains('active') ? 'hidden' : 'auto';
         }
 
-        // Privacy Popup Logic
         window.onload = function() {
             setTimeout(function() {
                 document.getElementById('privacy-popup').classList.add('show');
@@ -692,12 +771,6 @@
         function closePrivacy() {
             document.getElementById('privacy-popup').classList.remove('show');
         }
-
-        document.querySelectorAll('.mobile-nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                toggleSlider();
-            });
-        });
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
