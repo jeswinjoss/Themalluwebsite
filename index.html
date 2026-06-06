@@ -308,10 +308,109 @@
             line-height: 1.6;
         }
 
+        /* --- Architecture Types / Kind of Websites Section --- */
+        .solutions-section {
+            padding: 120px 0;
+            background-color: var(--bg);
+            border-top: 1px solid var(--border);
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr 1fr;
+            gap: 2rem;
+        }
+
+        .solution-bento-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .solution-bento-card:hover {
+            border-color: var(--text);
+            box-shadow: 0 30px 60px -25px rgba(0,0,0,0.05);
+        }
+
+        .solution-tag {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--sub-text);
+            border: 1px solid var(--border);
+            padding: 4px 10px;
+            border-radius: 6px;
+            align-self: flex-start;
+            margin-bottom: 2rem;
+        }
+
+        .solution-bento-card h3 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 1rem;
+        }
+
+        .solution-bento-card p {
+            color: var(--sub-text);
+            font-size: 0.98rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        /* Micro graphic decorative layers inside cards to simulate website blueprints */
+        .solution-wireframe {
+            height: 60px;
+            width: 100%;
+            background: linear-gradient(90deg, var(--border) 2px, transparent 2px);
+            background-size: 24px 100%;
+            border-top: 1px solid var(--border);
+            opacity: 0.6;
+            margin-top: auto;
+        }
+
+        .exclusions-banner {
+            grid-column: span 3;
+            background: rgba(16, 185, 129, 0.03);
+            border: 1px dashed rgba(16, 185, 129, 0.3);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .exclusions-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .exclusions-left h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .exclusions-left p {
+            font-size: 0.88rem;
+            color: var(--sub-text);
+        }
+
         /* --- Corporate Styled Accordion (FAQ) --- */
         .faq-section {
             padding: 120px 0;
             background-color: var(--bg);
+            border-top: 1px solid var(--border);
         }
 
         .faq-container {
@@ -518,6 +617,8 @@
             .hero-visual { justify-content: center; } 
             .nav-links, .theme-toggle-nav { display: none; }
             .menu-toggle { display: block; }
+            .solutions-grid { grid-template-columns: 1fr; }
+            .exclusions-banner { grid-column: span 1; flex-direction: column; text-align: center; gap: 1rem; }
             .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
             .footer-brand { grid-column: span 2; }
             .payment-strip { flex-direction: column; gap: 1.25rem; text-align: center; }
@@ -532,7 +633,6 @@
 </head>
 <body>
 
-    <!-- Animated Dynamic Pointer Background Shine Element -->
     <div class="glow-aura" id="glowAura"></div>
 
     <header>
@@ -543,9 +643,9 @@
                 </a>
                 <div class="nav-links">
                     <a href="#features">Dashboard</a>
+                    <a href="#solutions">Web Ecosystems</a>
                     <a href="#templates">Our Pricing</a>
                     <a href="#enterprise">Support</a>
-                    <a href="#pricing">How this work ?</a>
                 </div>
                 <div class="nav-actions">
                     <button class="theme-toggle-nav" onclick="toggleTheme()">Aesthetic</button>
@@ -561,9 +661,9 @@
         <button class="slider-close" onclick="toggleSlider()">&times;</button>
         <div class="mobile-nav-links">
             <a href="#features">Dashboard</a>
+            <a href="#solutions">Web Ecosystems</a>
             <a href="#templates">Our Pricing</a>
             <a href="#enterprise">Support</a>
-            <a href="#pricing">How this work ?</a>
         </div>
         <button class="theme-toggle-btn" onclick="toggleTheme()">Switch Aesthetic</button>
     </div>
@@ -620,6 +720,54 @@
                         <span class="feature-num">// MODULE 03</span>
                         <h3>Dedicated Evolution</h3>
                         <p>Our partnership doesn't end at launch. Benefit from proactive feature enhancements and rigorous bug resolution to keep your site at the cutting edge.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="solutions" class="solutions-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Core Design Frameworks</h2>
+                    <p class="section-subtitle">We craft custom structural layouts geared toward authority positioning and high audience retention.</p>
+                </div>
+                
+                <div class="solutions-grid">
+                    <div class="solution-bento-card">
+                        <div>
+                            <span class="solution-tag">Visual Authority</span>
+                            <h3>Creative & Professional Portfolios</h3>
+                            <p>Sleek, minimalist architectures explicitly customized for agencies, developers, artists, and executives. Designed to display projects with responsive layout transitions that capture leads seamlessly.</p>
+                        </div>
+                        <div class="solution-wireframe"></div>
+                    </div>
+
+                    <div class="solution-bento-card">
+                        <div>
+                            <span class="solution-tag">Corporate Identity</span>
+                            <h3>Business Profile Websites</h3>
+                            <p>Digital representations engineered for local enterprises and corporations. Designed to lay out services, structural timelines, brand values, and validation metrics cleanly.</p>
+                        </div>
+                        <div class="solution-wireframe"></div>
+                    </div>
+
+                    <div class="solution-bento-card">
+                        <div>
+                            <span class="solution-tag">Conversion Optimized</span>
+                            <h3>High-Performance Landing Pages</h3>
+                            <p>Hyper-focused single-page funnels engineered with precise layout hierarchies. Perfect for targeted campaigns, marketing rollouts, product previews, and client acquisition.</p>
+                        </div>
+                        <div class="solution-wireframe"></div>
+                    </div>
+
+                    <div class="exclusions-banner">
+                        <div class="exclusions-left">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary); flex-shrink: 0;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                            <div>
+                                <h4>Streamlined Architecture Focus</h4>
+                                <p>To protect performance speeds and keep engineering pricing highly accessible, we focus strictly on high-conversion presentation sites (No heavy e-commerce/retail systems built).</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
