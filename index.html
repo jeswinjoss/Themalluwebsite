@@ -18,6 +18,14 @@
             --primary: #10b981;
             --nav-bg: rgba(248, 250, 252, 0.75);
             --grid-color: rgba(15, 23, 42, 0.04);
+
+            /* Light Theme Custom Solutions Backgrounds */
+            --bg-portfolio: linear-gradient(135deg, #f0fdf4 0%, #e6f4ea 100%);
+            --bg-business: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+            --bg-landing: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%);
+            --border-portfolio: rgba(16, 185, 129, 0.2);
+            --border-business: rgba(79, 70, 229, 0.2);
+            --border-landing: rgba(168, 85, 247, 0.2);
         }
 
         [data-theme='dark'] {
@@ -32,6 +40,14 @@
             --primary: #10b981;
             --nav-bg: rgba(3, 7, 18, 0.75);
             --grid-color: rgba(255, 255, 255, 0.03);
+
+            /* Dark Theme Custom Solutions Backgrounds */
+            --bg-portfolio: linear-gradient(135deg, rgba(6, 78, 59, 0.2) 0%, rgba(2, 44, 34, 0.4) 100%);
+            --bg-business: linear-gradient(135deg, rgba(30, 58, 138, 0.2) 0%, rgba(30, 27, 75, 0.4) 100%);
+            --bg-landing: linear-gradient(135deg, rgba(88, 28, 135, 0.2) 0%, rgba(15, 23, 42, 0.4) 100%);
+            --border-portfolio: rgba(52, 211, 153, 0.2);
+            --border-business: rgba(129, 140, 248, 0.2);
+            --border-landing: rgba(192, 132, 252, 0.2);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -317,12 +333,11 @@
 
         .solutions-grid {
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr 1fr;
+            grid-template-columns: 1.1fr 1fr 1.1fr;
             gap: 2rem;
         }
 
         .solution-bento-card {
-            background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 24px;
             padding: 3rem;
@@ -334,9 +349,23 @@
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
+        /* Isolated Specific Background Variables mapping[span_4](start_span)[span_4](end_span) */
+        .solution-bento-card.portfolio-card {
+            background: var(--bg-portfolio);
+            border-color: var(--border-portfolio);
+        }
+        .solution-bento-card.business-card {
+            background: var(--bg-business);
+            border-color: var(--border-business);
+        }
+        .solution-bento-card.landing-card {
+            background: var(--bg-landing);
+            border-color: var(--border-landing);
+        }
+
         .solution-bento-card:hover {
-            border-color: var(--text);
-            box-shadow: 0 30px 60px -25px rgba(0,0,0,0.05);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
         }
 
         .solution-tag {
@@ -344,16 +373,21 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: var(--sub-text);
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.4);
             border: 1px solid var(--border);
             padding: 4px 10px;
             border-radius: 6px;
             align-self: flex-start;
             margin-bottom: 2rem;
+            backdrop-filter: blur(4px);
+        }
+        [data-theme='dark'] .solution-tag {
+            background: rgba(0, 0, 0, 0.3);
         }
 
         .solution-bento-card h3 {
-            font-size: 1.75rem;
+            font-size: 1.65rem;
             font-weight: 800;
             letter-spacing: -0.03em;
             margin-bottom: 1rem;
@@ -366,14 +400,14 @@
             margin-bottom: 2rem;
         }
 
-        /* Micro graphic decorative layers inside cards to simulate website blueprints */
+        /* Micro graphic decorative layers inside cards to simulate website blueprints[span_5](start_span)[span_5](end_span) */
         .solution-wireframe {
             height: 60px;
             width: 100%;
             background: linear-gradient(90deg, var(--border) 2px, transparent 2px);
             background-size: 24px 100%;
             border-top: 1px solid var(--border);
-            opacity: 0.6;
+            opacity: 0.4;
             margin-top: auto;
         }
 
@@ -609,6 +643,7 @@
         .btn-ignore { background: transparent; color: var(--text); border: 1px solid var(--border); }
         .btn-ignore:hover { background: var(--border); }
 
+        /* --- Comprehensive Responsive Infrastructure Design --- */
         @media (max-width: 1024px) {
             header { margin: 1rem; }
             .hero { grid-template-columns: 1fr; text-align: center; padding: 40px 0; gap: 40px; }
@@ -617,8 +652,52 @@
             .hero-visual { justify-content: center; } 
             .nav-links, .theme-toggle-nav { display: none; }
             .menu-toggle { display: block; }
-            .solutions-grid { grid-template-columns: 1fr; }
-            .exclusions-banner { grid-column: span 1; flex-direction: column; text-align: center; gap: 1rem; }
+            
+            /* Smartphone Smooth Touch Carousel Implementation[span_6](start_span)[span_6](end_span) */
+            .solutions-section {
+                padding: 60px 0;
+            }
+            .solutions-section .container {
+                padding: 0 0 0 1.5rem; /* Allows scrolling off screen flawlessly */
+                position: relative;
+            }
+            .solutions-section .section-header {
+                padding-right: 1.5rem;
+                margin-bottom: 40px;
+                text-align: left;
+            }
+            .solutions-grid {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                overflow-y: hidden;
+                gap: 1.25rem;
+                padding: 10px 1.5rem 30px 0;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none; /* Disables raw desktop bars */
+            }
+            .solutions-grid::-webkit-scrollbar {
+                display: none;
+            }
+            .solution-bento-card {
+                flex: 0 0 82vw; /* Balances glance visibility of next layout card */
+                max-width: 340px;
+                scroll-snap-align: start;
+                padding: 2.25rem;
+            }
+            .exclusions-banner {
+                flex: 0 0 82vw;
+                max-width: 340px;
+                scroll-snap-align: start;
+                margin-top: 0;
+                flex-direction: column;
+                text-align: left;
+                align-items: flex-start;
+                justify-content: center;
+                gap: 1rem;
+            }
+
             .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
             .footer-brand { grid-column: span 2; }
             .payment-strip { flex-direction: column; gap: 1.25rem; text-align: center; }
@@ -725,6 +804,7 @@
             </div>
         </section>
 
+        <!-- Overhauled Web Solutions Architecture Platform Component[span_7](start_span)[span_7](end_span) -->
         <section id="solutions" class="solutions-section">
             <div class="container">
                 <div class="section-header">
@@ -733,7 +813,8 @@
                 </div>
                 
                 <div class="solutions-grid">
-                    <div class="solution-bento-card">
+                    <!-- Portfolio Theme Mapping -->
+                    <div class="solution-bento-card portfolio-card">
                         <div>
                             <span class="solution-tag">Visual Authority</span>
                             <h3>Creative & Professional Portfolios</h3>
@@ -742,7 +823,8 @@
                         <div class="solution-wireframe"></div>
                     </div>
 
-                    <div class="solution-bento-card">
+                    <!-- Corporate Identity Theme Mapping -->
+                    <div class="solution-bento-card business-card">
                         <div>
                             <span class="solution-tag">Corporate Identity</span>
                             <h3>Business Profile Websites</h3>
@@ -751,7 +833,8 @@
                         <div class="solution-wireframe"></div>
                     </div>
 
-                    <div class="solution-bento-card">
+                    <!-- Conversion Optimized Theme Mapping -->
+                    <div class="solution-bento-card landing-card">
                         <div>
                             <span class="solution-tag">Conversion Optimized</span>
                             <h3>High-Performance Landing Pages</h3>
@@ -760,6 +843,7 @@
                         <div class="solution-wireframe"></div>
                     </div>
 
+                    <!-- Exclusions Banner Focus Area Card -->
                     <div class="exclusions-banner">
                         <div class="exclusions-left">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary); flex-shrink: 0;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
