@@ -20,7 +20,9 @@
             --grid-color: rgba(15, 23, 42, 0.04);
 
             /* Theme Specific Context Backgrounds */
-            --bg-whychooseus: linear-gradient(180deg, #fff5f5 0%, #ffebeb 100%);
+            /* FIXED: Why Choose Us light theme context transformed from pale red to white/green gradient */
+            --bg-whychooseus: linear-gradient(180deg, #ffffff 0%, #e6f4ea 100%);
+            
             --bg-portfolio: linear-gradient(135deg, #f0fdf4 0%, #e6f4ea 100%);
             --bg-business: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
             --bg-landing: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%);
@@ -56,7 +58,9 @@
             --grid-color: rgba(255, 255, 255, 0.02);
 
             /* Optimized Premium Dark Theme Context Backgrounds */
-            --bg-whychooseus: linear-gradient(180deg, #160d0d 0%, #0e0707 100%);
+            /* OPTIMIZED: Adjusted dark theme counterpart for absolute structural cohesion */
+            --bg-whychooseus: linear-gradient(180deg, #022c22 0%, #011c16 100%);
+            
             --bg-portfolio: linear-gradient(135deg, rgba(4, 47, 36, 0.25) 0%, rgba(1, 28, 22, 0.45) 100%);
             --bg-business: linear-gradient(135deg, rgba(23, 37, 84, 0.25) 0%, rgba(17, 24, 39, 0.45) 100%);
             --bg-landing: linear-gradient(135deg, rgba(67, 20, 117, 0.15) 0%, rgba(9, 13, 22, 0.5) 100%);
@@ -168,7 +172,7 @@
         .theme-toggle-btn .sun-icon { display: block; }
         .theme-toggle-btn .moon-icon { display: none; }
         [data-theme='dark'] .theme-toggle-btn .sun-icon { display: none; }
-        [data-theme='dark'] .theme-toggle-btn .moon-icon { display: block; }
+        [data-theme='dark'] .theme-toggle-btn .moon-icon { block; }
 
         .menu-toggle {
             display: none;
@@ -336,6 +340,10 @@
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             box-shadow: 0 4px 20px rgba(0,0,0,0.01);
+        }
+        [data-theme='dark'] .feature-card {
+            background: rgba(9, 13, 22, 0.6);
+            border-color: rgba(255,255,255,0.05);
         }
 
         .feature-card:hover {
