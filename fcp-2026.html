@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelancers Community Program 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(180deg, #fefce8 0%, #fef9c3 50%, #ffffff 100%);
+            --surface: #ffffff;
+            --text-main: #0f172a;
+            --text-sub: #475569;
+            --primary: #10b981;
+            --accent: #eab308;
+            --border: rgba(15, 23, 42, 0.08);
+            --container-bg: #0f172a;
+            --container-border: rgba(234, 179, 8, 0.3);
+            --grid-color: rgba(15, 23, 42, 0.03);
+            --bg-tutorials: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            letter-spacing: -0.02em;
+            position: relative;
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* Interactive Grid Backdrop */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px), linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* --- Floating Header Navigation --- */
+        header {
+            position: sticky;
+            top: 16px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin: 16px 1.5rem 0;
+            padding: 0.75rem 1.5rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        .btn-home {
+            text-decoration: none;
+            color: var(--text-sub);
+            font-size: 0.88rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--surface);
+            transition: all 0.2s ease;
+        }
+
+        .btn-home:hover {
+            color: var(--text-main);
+            border-color: var(--text-main);
+            transform: translateY(-1px);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: clamp(40px, 8vh, 100px) 0;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: var(--surface);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+
+        .badge::before {
+            content: '';
+            width: 6px; height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        h1 {
+            font-size: clamp(2.3rem, 6vw, 4.2rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+            color: var(--text-main);
+            max-width: 800px;
+        }
+
+        h1 span {
+            background: linear-gradient(to right, #eab308, #ca8a04);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+            color: var(--text-sub);
+            font-weight: 500;
+            max-width: 580px;
+            line-height: 1.6;
+        }
+
+        /* Announcement Container Block */
+        .announcement-container {
+            background: var(--container-bg);
+            border: 2px solid var(--container-border);
+            padding: 1.25rem 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            display: inline-flex;
+            position: relative;
+            overflow: hidden;
+            max-width: 90%;
+        }
+
+        .announcement-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--primary), var(--accent));
+            background-size: 200% auto;
+            animation: shine 4s linear infinite;
+        }
+
+        .announcement-text {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-weight: 700;
+            color: #fef08a;
+            text-shadow: 0 0 12px rgba(234, 179, 8, 0.3);
+            letter-spacing: -0.01em;
+        }
+
+        .btn-waitlist {
+            padding: 0.9rem 2.2rem;
+            font-weight: 700;
+            font-size: 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--text-main);
+            color: #ffffff;
+            border: 1px solid var(--text-main);
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.2);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-waitlist:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 35px -10px rgba(15, 23, 42, 0.3);
+            background: #1e293b;
+        }
+
+        /* --- Section Configurations --- */
+        section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .section-header {
+            max-width: 650px;
+            margin: 0 auto 50px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .section-subtitle {
+            color: var(--text-sub);
+            font-size: 1.05rem;
+        }
+
+        /* --- What is FC Program Section --- */
+        .about-program {
+            background: #ffffff;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .about-card {
+            background: var(--bg-gradient);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+        }
+
+        .about-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-main);
+        }
+
+        .about-card p {
+            color: var(--text-sub);
+            font-size: 0.98rem;
+            line-height: 1.6;
+        }
+
+        /* --- YouTube Videos Carousel Section --- */
+        .tutorials-section {
+            background: var(--bg-tutorials);
+        }
+        
+        .tutorials-section .section-title {
+            color: #ffffff;
+        }
+        
+        .tutorials-section .section-subtitle {
+            color: #94a3b8;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            padding: 10px 0 20px;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none; /* Firefox */
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 10px;
+        }
+
+        .carousel-track::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+
+        .video-wrapper {
+            flex: 0 0 85vw;
+            max-width: 360px;
+            scroll-snap-align: start;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            padding: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .video-wrapper:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+        }
+
+        .video-frame {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 12px;
+            border: none;
+            display: block;
+        }
+
+        .video-caption {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-top: 1rem;
+            padding: 0 4px;
+        }
+
+        /* Mobile Utility Swipe Indicator */
+        .swipe-indicator {
+            display: none;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            gap: 6px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.88rem;
+            color: var(--text-sub);
+            border-top: 1px solid var(--border);
+            background: #ffffff;
+        }
+
+        /* --- Animations --- */
+        @keyframes shine {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        /* --- Device Optimization Media Queries --- */
+        @media (max-width: 1024px) {
+            .carousel-track {
+                padding-left: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 0;
+            }
+            .swipe-indicator {
+                display: inline-flex;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Top Header Matrix Setup -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="brand">FC Matrix</a>
+                <!-- Back to Home Link Route Configuration -->
+                <a href="index.html" class="btn-home">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    Back to Home
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section Canvas -->
+        <section class="hero container">
+            <div class="badge">Early Access Active</div>
+            <h1>Freelancers Community <br><span>Program 2026</span></h1>
+            
+            <p class="subtitle">The community program for Freelancers in Kerala</p>
+            
+            <!-- Optimized Updated Black Text Container Placement -->
+            <div class="announcement-container">
+                <div class="announcement-text">The First announcement in September 25 2026</div>
+            </div>
+
+            <a href="join-waitlist-fcp2026.html" class="btn-waitlist">Join Waitlist</a>
+        </section>
+
+        <!-- New Section: What is FC Program? -->
+        <section id="about" class="about-program">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">What is FC Program?</h2>
+                    <p class="section-subtitle">An ecosystem engineered exclusively to build, scale, and accelerate high-performance independent creative pipelines in Kerala[span_2](start_span)[span_2](end_span).</p>
+                </div>
+                
+                <div class="about-grid">
+                    <div class="about-card">
+                        <h3>Collaborative Ecosystem</h3>
+                        <p>Connect with distributed remote tech specialists and creative minds across the state to handle scalable architecture tasks collectively[span_3](start_span)[span_3](end_span).</p>
+                    </div>
+                    <div class="about-card">
+                        <h3>Zero Liability Models</h3>
+                        <p>Engage in decentralised project frameworks and standalone development tasks completely free from restrictive retainer liability structures[span_4](start_span)[span_4](end_span).</p>
+                    </div>
+                    <div class="about-card">
+                        <h3>Resource Acceleration</h3>
+                        <p>Unlock sandbox deployment interfaces, enterprise blueprints, and optimized UI libraries tailored to elevate your standalone business presence[span_5](start_span)[span_5](end_span).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- YouTube Video Carousel Section Layout Pipeline -->
+        <section id="tutorials" class="tutorials-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Program Insights</h2>
+                    <p class="section-subtitle">Explore operational step-by-step documentation, toolkit setups, and overview walkthroughs[span_6](start_span)[span_6](end_span).</p>
+                </div>
+
+                <div class="carousel-container">
+                    <div class="carousel-track">
+                        <!-- Video Module 01 -->
+                        <div class="video-wrapper">
+                            <iframe class="video-frame" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <div class="video-caption">Ecosystem Introduction & Dashboard Overview[span_7](start_span)[span_7](end_span)</div>
+                        </div>
+                        <!-- Video Module 02 -->
+                        <div class="video-wrapper">
+                            <iframe class="video-frame" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <div class="video-caption">Scaling Freelance Channels Locally[span_8](start_span)[span_8](end_span)</div>
+                        </div>
+                        <!-- Video Module 03 -->
+                        <div class="video-wrapper">
+                            <iframe class="video-frame" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <div class="video-caption">Adaptive Workspace Architecture[span_9](start_span)[span_9](end_span)</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Swipe Hint for Mobile Viewports -->
+                    <div class="swipe-indicator">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        <span>Swipe to view more updates</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 The Mallu. Built in Kerala, scaled for the world[span_10](start_span)[span_10](end_span).</p>
+        </div>
+    </footer>
+
+</body>
+</html>
