@@ -7,21 +7,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Royal Premium Gold, Yellow, and White Color Architecture Matrix */
-            --bg-gradient: linear-gradient(135deg, #fffdf0 0%, #fef9c3 45%, #fffef9 100%);
+            /* Premium Royal Palette: Metallic Amber Gold, Rich Cream, and Warm Alabaster */
+            --bg-gradient: linear-gradient(135deg, #fffdf2 0%, #fffbeb 40%, #ffffff 100%);
             --surface: #ffffff;
-            --text-main: #1c1917;
-            --text-sub: #44403c;
-            --gold-primary: #ca8a04;
+            --text-main: #1e1b4b;
+            --text-sub: #475569;
+            --gold-primary: #d97706;
             --gold-light: #fef08a;
-            --gold-dark: #854d0e;
-            --royal-gold: linear-gradient(135deg, #eab308 0%, #ca8a04 50%, #854d0e 100%);
-            --border: rgba(133, 77, 14, 0.12);
-            --container-bg: #1c1917;
-            --container-border: rgba(234, 179, 8, 0.45);
-            --grid-color: rgba(202, 138, 4, 0.04);
-            --bg-tutorials: linear-gradient(180deg, #1e1b4b 0%, #0f0e17 100%);
-            --royal-glow: rgba(234, 179, 8, 0.15);
+            --gold-dark: #78350f;
+            --royal-gold: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #78350f 100%);
+            --border: rgba(217, 119, 6, 0.09);
+            --container-bg: #1e1b4b;
+            --container-border: rgba(245, 158, 11, 0.4);
+            --grid-color: rgba(217, 119, 6, 0.03);
+            --bg-tutorials: linear-gradient(180deg, #111026 0%, #070712 100%);
+            --royal-glow: rgba(245, 158, 11, 0.12);
         }
 
         * { 
@@ -38,19 +38,31 @@
             background: var(--bg-gradient);
             color: var(--text-main);
             font-family: 'Plus Jakarta Sans', sans-serif;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.02em;
             position: relative;
             overflow-x: hidden;
             line-height: 1.6;
         }
 
-        /* Subtle Decorative Backing */
+        /* Architectural Grid Overlay */
         body::before {
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: linear-gradient(var(--grid-color) 1px, transparent 1px), linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-            background-size: 30px 30px;
+            background-size: 40px 40px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Abstract Ambient Light Orbs */
+        .ambient-glow {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, transparent 70%);
+            top: -100px;
+            right: -100px;
             z-index: -1;
             pointer-events: none;
         }
@@ -61,21 +73,21 @@
             padding: 0 1.5rem;
         }
 
-        /* --- Floating Royal Header Navigation --- */
+        /* --- Sophisticated Floating Header --- */
         header {
             position: sticky;
             top: 16px;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 24px;
             margin: 16px auto 0;
             max-width: 1140px;
-            width: calc(100% - 3rem);
-            padding: 0.85rem 1.75rem;
-            box-shadow: 0 10px 30px -10px rgba(133, 77, 14, 0.08);
+            width: calc(100% - 2rem);
+            padding: 0.85rem 1.5rem;
+            box-shadow: 0 12px 40px -12px rgba(120, 53, 15, 0.06);
         }
 
         nav {
@@ -90,47 +102,47 @@
             text-decoration: none;
             color: var(--text-main);
             font-weight: 800;
-            font-size: 1.25rem;
-            letter-spacing: -0.03em;
+            font-size: 1.3rem;
+            letter-spacing: -0.04em;
         }
 
         .brand span {
             background: var(--royal-gold);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-left: 4px;
+            margin-left: 2px;
         }
 
         .btn-home {
             text-decoration: none;
             color: var(--text-sub);
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             font-weight: 700;
             display: inline-flex;
             align-items: center;
             gap: 8px;
             padding: 8px 16px;
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 14px;
             background: var(--surface);
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.25s ease;
         }
 
         .btn-home:hover {
             color: var(--gold-dark);
             border-color: var(--gold-primary);
-            background: #fffbeb;
+            background: #fffdf2;
             transform: translateY(-1px);
         }
 
-        /* --- Hero Section --- */
+        /* --- Ultra-Fresh Hero Layout --- */
         .hero {
-            padding: clamp(50px, 10vh, 120px) 0;
+            padding: clamp(60px, 12vh, 130px) 0 80px;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2.2rem;
+            gap: 2rem;
             position: relative;
         }
 
@@ -138,14 +150,14 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 6px 16px;
-            background: #fffbeb;
+            padding: 6px 14px;
+            background: #fffdef;
             color: var(--gold-dark);
-            border: 1px solid rgba(202, 138, 4, 0.3);
-            border-radius: 30px;
-            font-size: 0.78rem;
+            border: 1px solid rgba(217, 119, 6, 0.25);
+            border-radius: 100px;
+            font-size: 0.75rem;
             font-weight: 800;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
         }
 
@@ -159,12 +171,12 @@
         }
 
         h1 {
-            font-size: clamp(2.5rem, 6.5vw, 4.5rem);
+            font-size: clamp(2.4rem, 7vw, 4.6rem);
             font-weight: 800;
-            line-height: 1.08;
+            line-height: 1.05;
             letter-spacing: -0.04em;
             color: var(--text-main);
-            max-width: 850px;
+            max-width: 900px;
         }
 
         h1 span {
@@ -174,48 +186,37 @@
         }
 
         .subtitle {
-            font-size: clamp(1.15rem, 2.5vw, 1.4rem);
+            font-size: clamp(1.1rem, 2.5vw, 1.35rem);
             color: var(--text-sub);
             font-weight: 500;
-            max-width: 620px;
+            max-width: 580px;
             line-height: 1.6;
         }
 
-        /* Royal Announcement Container Box */
+        /* Liquid Neon Announcement Frame */
         .announcement-container {
             background: var(--container-bg);
-            border: 2px solid var(--container-border);
-            padding: 1.4rem 3rem;
-            border-radius: 24px;
-            box-shadow: 0 30px 60px -15px rgba(28, 25, 23, 0.25);
+            border: 1px solid var(--container-border);
+            padding: 1.25rem 2.5rem;
+            border-radius: 100px; /* Modern pill capsule design */
+            box-shadow: 0 20px 40px -10px rgba(30, 27, 75, 0.25);
             display: inline-flex;
             position: relative;
-            overflow: hidden;
-            max-width: 92%;
-        }
-
-        .announcement-container::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 4px;
-            background: linear-gradient(90deg, #ca8a04, #fef08a, #ca8a04);
-            background-size: 200% auto;
-            animation: shine 3s linear infinite;
+            max-width: 95%;
         }
 
         .announcement-text {
-            font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+            font-size: clamp(0.95rem, 2vw, 1.2rem);
             font-weight: 700;
             color: #fef08a;
-            text-shadow: 0 0 15px rgba(234, 179, 8, 0.4);
             letter-spacing: -0.01em;
         }
 
         .btn-waitlist {
-            padding: 1.1rem 3rem;
+            padding: 1.1rem 3.5rem;
             font-weight: 800;
-            font-size: 1.1rem;
-            border-radius: 16px;
+            font-size: 1.05rem;
+            border-radius: 18px;
             cursor: pointer;
             text-decoration: none;
             display: inline-flex;
@@ -224,33 +225,33 @@
             background: var(--royal-gold);
             color: #ffffff;
             border: none;
-            box-shadow: 0 15px 35px -5px rgba(133, 77, 14, 0.3);
+            box-shadow: 0 15px 35px -8px rgba(217, 119, 6, 0.35);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .btn-waitlist:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 25px 45px -10px rgba(133, 77, 14, 0.45);
-            filter: brightness(1.1);
+            transform: translateY(-2px);
+            box-shadow: 0 25px 50px -12px rgba(217, 119, 6, 0.5);
+            filter: brightness(1.05);
         }
 
-        /* --- Universal Section Structures --- */
+        /* --- Section Generic Formatting --- */
         section {
-            padding: 100px 0;
-            border-top: 1px solid var(--border);
+            padding: 90px 0;
+            position: relative;
         }
 
         .section-header {
-            max-width: 700px;
-            margin: 0 auto 60px;
+            max-width: 650px;
+            margin: 0 auto 55px;
             text-align: center;
         }
 
         .section-title {
-            font-size: clamp(2rem, 4.5vw, 3rem);
+            font-size: clamp(1.85rem, 4.5vw, 2.8rem);
             font-weight: 800;
             letter-spacing: -0.03em;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1rem;
             color: var(--text-main);
         }
 
@@ -262,44 +263,45 @@
 
         .section-subtitle {
             color: var(--text-sub);
-            font-size: 1.1rem;
-            line-height: 1.6;
+            font-size: 1.05rem;
         }
 
-        /* --- What is FC Program Section --- */
+        /* --- Premium "What is FC Program?" Section --- */
         .about-program {
             background: #ffffff;
-            position: relative;
+            border-top: 1px solid rgba(217, 119, 6, 0.06);
         }
 
         .about-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
         }
 
         .about-card {
-            background: linear-gradient(145deg, #ffffff 0%, #fffdf4 100%);
+            background: #fffdf9;
             border: 1px solid var(--border);
-            border-radius: 24px;
+            /* Asymmetric custom elegant curvature */
+            border-radius: 32px 12px 32px 32px; 
             padding: 3rem 2.2rem;
-            box-shadow: 0 10px 30px -15px rgba(133, 77, 14, 0.05);
             transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
         }
 
         .about-card:hover {
             transform: translateY(-6px);
             border-color: var(--gold-primary);
-            box-shadow: 0 25px 50px -20px var(--royal-glow);
+            background: #ffffff;
+            box-shadow: 0 25px 55px -20px var(--royal-glow);
         }
 
         .about-card-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
             background: #fffbeb;
-            border: 1px solid rgba(202, 138, 4, 0.2);
-            margin-bottom: 1.75rem;
+            border: 1px solid rgba(217, 119, 6, 0.18);
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -307,23 +309,23 @@
         }
 
         .about-card h3 {
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             font-weight: 800;
-            margin-bottom: 1rem;
+            margin-bottom: 0.85rem;
             color: var(--text-main);
             letter-spacing: -0.02em;
         }
 
         .about-card p {
             color: var(--text-sub);
-            font-size: 1rem;
+            font-size: 0.98rem;
             line-height: 1.65;
         }
 
-        /* --- YouTube Videos Carousel Section --- */
+        /* --- Deep Luxury Dark Carousel Section --- */
         .tutorials-section {
             background: var(--bg-tutorials);
-            position: relative;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
         
         .tutorials-section .section-title {
@@ -331,24 +333,23 @@
         }
         
         .tutorials-section .section-subtitle {
-            color: #a5b4fc;
+            color: #94a3b8;
         }
 
         .carousel-container {
             position: relative;
             width: 100%;
             overflow: hidden;
-            padding: 10px 0 30px;
         }
 
         .carousel-track {
             display: flex;
-            gap: 2rem;
+            gap: 1.75rem;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
-            scrollbar-width: none;
+            scrollbar-width: none; /* Hide scrollbars */
             -webkit-overflow-scrolling: touch;
-            padding: 10px 0 20px;
+            padding: 20px 0 30px;
         }
 
         .carousel-track::-webkit-scrollbar {
@@ -357,99 +358,94 @@
 
         .video-wrapper {
             flex: 0 0 85vw;
-            max-width: 380px;
+            max-width: 370px;
             scroll-snap-align: start;
-            background: rgba(30, 27, 75, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
-            padding: 14px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 28px;
+            padding: 12px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
             transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .video-wrapper:hover {
-            border-color: var(--accent);
-            transform: translateY(-5px);
-            background: rgba(30, 27, 75, 0.6);
-            box-shadow: 0 30px 50px rgba(234, 179, 8, 0.1);
+            border-color: rgba(245, 158, 11, 0.5);
+            transform: scale(1.02) translateY(-4px);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .video-frame {
             width: 100%;
             aspect-ratio: 16 / 9;
-            border-radius: 16px;
+            border-radius: 20px;
             border: none;
             display: block;
         }
 
         .video-caption {
-            font-size: 1rem;
+            font-size: 0.98rem;
             font-weight: 700;
             color: #ffffff;
-            margin-top: 1.25rem;
+            margin-top: 1.2rem;
             padding: 0 4px;
             letter-spacing: -0.01em;
         }
 
-        /* Touch UI Indicators */
+        /* Swipe Hint Interface */
         .swipe-indicator {
             display: none;
             text-align: center;
-            color: #6366f1;
-            font-size: 0.88rem;
+            color: #4b4b7c;
+            font-size: 0.85rem;
             font-weight: 600;
-            margin-top: 1.5rem;
-            gap: 8px;
+            margin-top: 1rem;
+            gap: 6px;
             justify-content: center;
             align-items: center;
         }
 
-        /* --- Premium Footer --- */
+        /* --- Footer Setup --- */
         footer {
-            padding: 50px 0;
+            padding: 45px 0;
             text-align: center;
-            font-size: 0.92rem;
+            font-size: 0.9rem;
             color: var(--text-sub);
-            border-top: 1px solid var(--border);
+            border-top: 1px solid rgba(217, 119, 6, 0.06);
             background: #ffffff;
             font-weight: 500;
         }
 
-        /* --- Keyframes --- */
-        @keyframes shine {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
-        }
-
-        /* --- High-Fidelity Device Scaling Adjustments --- */
+        /* --- Media Queries Optimized For Infinite viewports --- */
         @media (max-width: 1024px) {
-            .container { padding: 0 2rem; }
-            header { width: calc(100% - 4rem); margin: 16px 2rem 0; }
+            header { width: calc(100% - 3rem); margin: 16px 1.5rem 0; }
         }
 
         @media (max-width: 768px) {
-            section { padding: 75px 0; }
-            .video-wrapper { flex: 0 0 78vw; }
+            section { padding: 70px 0; }
+            .video-wrapper { flex: 0 0 75vw; }
             .swipe-indicator { display: inline-flex; }
+            .announcement-container { border-radius: 24px; padding: 1.1rem 1.75rem; } /* Compact pill layout on mobile */
         }
 
         @media (max-width: 480px) {
             .container { padding: 0 1.25rem; }
-            header { width: calc(100% - 2.5rem); margin: 16px 1.25rem 0; padding: 0.75rem 1.25rem; }
-            .video-wrapper { flex: 0 0 88vw; }
-            .announcement-container { padding: 1.25rem 1.5rem; }
+            header { width: calc(100% - 2rem); margin: 12px 1rem 0; padding: 0.75rem 1.25rem; }
+            .video-wrapper { flex: 0 0 85vw; }
+            .about-card { padding: 2.2rem 1.75rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Floating Top Header Setup -->
+    <div class="ambient-glow"></div>
+
+    <!-- Floating Glass Header Navigation -->
     <header>
         <div class="container">
             <nav>
                 <a href="index.html" class="brand">FCP<span>2026</span></a>
                 <a href="index.html" class="btn-home">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
                     Back to Home
                 </a>
             </nav>
@@ -457,86 +453,83 @@
     </header>
 
     <main>
-        <!-- Hero Branding Layout Canvas -->
+        <!-- Hero Section -->
         <section class="hero container">
             <div class="badge">Early Access Active</div>
             <h1>Freelancers Community <br><span>Program 2026</span></h1>
             
-            <p class="subtitle">The community program for Freelancers in Kerala</p>
+            <p class="subtitle">The community program for Freelancers in Kerala[span_2](start_span)[span_2](end_span)</p>
             
-            <!-- Royal Styled Text Announcement Wrapper -->
+            <!-- Capsule Styled Text Announcement -->
             <div class="announcement-container">
-                <div class="announcement-text">The First announcement in September 25 2026</div>
+                <div class="announcement-text">The First announcement in September 25 2026[span_3](start_span)[span_3](end_span)</div>
             </div>
 
-            <a href="join-waitlist-fcp2026.html" class="btn-waitlist">Join Waitlist</a>
+            <a href="join-waitlist-fcp2026.html" class="btn-waitlist">Join Waitlist[span_4](start_span)[span_4](end_span)</a>
         </section>
 
         <!-- What is FC Program Section -->
         <section id="about" class="about-program">
             <div class="container">
                 <div class="section-header">
-                    <h2 class="section-title">What is <span>FC Program?</span></h2>
-                    <p class="section-subtitle">A elite ecosystem engineered explicitly to coordinate, scale, and elevate high-performance independent creative development pipelines inside Kerala.</p>
+                    <h2 class="section-title">What is <span>FC Program?</span>[span_5](start_span)[span_5](end_span)</h2>
+                    <p class="section-subtitle">A elite ecosystem engineered explicitly to coordinate, scale, and elevate high-performance independent creative development pipelines inside Kerala[span_6](start_span)[span_6](end_span).</p>
                 </div>
                 
                 <div class="about-grid">
                     <div class="about-card">
                         <div class="about-card-icon">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                         </div>
                         <h3>Collaborative Matrix</h3>
-                        <p>Synchronize with high-caliber decentralized technical professionals state-wide to orchestrate enterprise-level architectures efficiently.</p>
+                        <p>Synchronize with high-caliber decentralized technical professionals state-wide to orchestrate enterprise-level architectures efficiently[span_7](start_span)[span_7](end_span).</p>
                     </div>
                     <div class="about-card">
                         <div class="about-card-icon">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                         </div>
                         <h3>Absolute Autonomy</h3>
-                        <p>Engage fluidly via specialized modular tasks built completely apart from rigid long-term operational overhead liabilities.</p>
+                        <p>Engage fluidly via specialized modular tasks built completely apart from rigid long-term operational overhead liabilities[span_8](start_span)[span_8](end_span).</p>
                     </div>
                     <div class="about-card">
                         <div class="about-card-icon">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2</polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2</polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
                         </div>
                         <h3>Resource Synergy</h3>
-                        <p>Gain direct configuration access to curated UI layout primitives, production-level toolsets, and deployment sandboxes.</p>
+                        <p>Gain direct configuration access to curated UI layout primitives, production-level toolsets, and deployment sandboxes[span_9](start_span)[span_9](end_span).</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- YouTube Video Carousel Pipeline Section -->
+        <!-- Video Carousel Section -->
         <section id="tutorials" class="tutorials-section">
             <div class="container">
                 <div class="section-header">
-                    <h2 class="section-title">Program Insights</h2>
-                    <p class="section-subtitle">Deep dive into operational walkthroughs, infrastructure documentation, and toolkit management guidelines.</p>
+                    <h2 class="section-title">Program Insights[span_10](start_span)[span_10](end_span)</h2>
+                    <p class="section-subtitle">Deep dive into operational walkthroughs, infrastructure documentation, and toolkit management guidelines[span_11](start_span)[span_11](end_span).</p>
                 </div>
 
                 <div class="carousel-container">
                     <div class="carousel-track">
-                        <!-- Video Item 01 -->
                         <div class="video-wrapper">
                             <iframe class="video-frame" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            <div class="video-caption">Ecosystem Core & Dashboard Walkthrough</div>
+                            <div class="video-caption">Ecosystem Core & Dashboard Walkthrough[span_12](start_span)[span_12](end_span)</div>
                         </div>
-                        <!-- Video Item 02 -->
                         <div class="video-wrapper">
                             <iframe class="video-frame" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            <div class="video-caption">Maximizing Freelance Channels Locally</div>
+                            <div class="video-caption">Maximizing Freelance Channels Locally[span_13](start_span)[span_13](end_span)</div>
                         </div>
-                        <!-- Video Item 03 -->
                         <div class="video-wrapper">
                             <iframe class="video-frame" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            <div class="video-caption">Flexible Workspace Technical Matrix</div>
+                            <div class="video-caption">Flexible Workspace Technical Matrix[span_14](start_span)[span_14](end_span)</div>
                         </div>
                     </div>
                     
-                    <!-- Mobile Gestures Swipe Prompt Element -->
+                    <!-- Swipe indicator for smaller displays -->
                     <div class="swipe-indicator">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                        <span>Swipe horizontally to browse updates</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        <span>Swipe to view more media updates</span>
                     </div>
                 </div>
             </div>
@@ -545,7 +538,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2026 The Mallu. Engineered in Kerala, scaled for global connectivity.</p>
+            <p>&copy; 2026 The Mallu. Engineered in Kerala, scaled for global connectivity[span_15](start_span)[span_15](end_span).</p>
         </div>
     </footer>
 
