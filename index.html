@@ -139,7 +139,7 @@
 
         nav { display: flex; justify-content: space-between; align-items: center; position: relative; }
 
-        .brand { display: flex; align-items: center; text-decoration: none; transition: opacity 0.2s; }
+        .brand { display: flex; align-items: center; text-decoration: none; transition: opacity 0.2s; min-height: 44px; }
         .brand:hover { opacity: 0.85; }
         .logo-img { height: 26px; width: auto; display: block; }
         [data-theme='dark'] .logo-img { filter: invert(1) brightness(2); }
@@ -152,6 +152,10 @@
             font-size: 0.9rem;
             font-weight: 500;
             transition: color 0.2s ease;
+            display: inline-block;
+            padding: 0.5rem 0;
+            min-height: 44px;
+            line-height: 28px;
         }
         .nav-links a:hover { color: var(--text); }
         
@@ -161,8 +165,8 @@
             background: var(--surface);
             border: 1px solid var(--border);
             color: var(--text);
-            width: 38px;
-            height: 38px;
+            width: 44px;
+            height: 44px;
             border-radius: 10px;
             cursor: pointer;
             display: flex;
@@ -185,8 +189,8 @@
             background: transparent;
             border: 1px solid var(--border);
             color: var(--text);
-            width: 38px;
-            height: 38px;
+            width: 44px;
+            height: 44px;
             cursor: pointer;
             border-radius: 10px;
             align-items: center;
@@ -196,7 +200,7 @@
 
         /* --- Reengineered Ultra-Professional Hero Section --- */
         .hero-section {
-            padding: clamp(80px, 12vh, 140px) 0 clamp(60px, 10vh, 120px);
+            padding: clamp(60px, 12vh, 140px) 0 clamp(40px, 10vh, 120px);
             position: relative;
         }
 
@@ -236,7 +240,7 @@
         }
 
         .hero-content h1 {
-            font-size: clamp(2.8rem, 4.8vw, 4rem);
+            font-size: clamp(2.4rem, 4.8vw, 4rem);
             line-height: 1.15;
             font-weight: 800;
             letter-spacing: -0.03em;
@@ -285,6 +289,7 @@
             display: inline-flex; 
             align-items: center;
             justify-content: center;
+            min-height: 44px;
         }
 
         .btn-primary { background: var(--accent); color: var(--bg); border: 1px solid var(--accent); box-shadow: var(--shadow-sm); }
@@ -364,7 +369,7 @@
         }
 
         .section-title {
-            font-size: clamp(2.2rem, 4vw, 2.8rem);
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
             font-weight: 800;
             letter-spacing: -0.02em;
             margin-bottom: 1rem;
@@ -378,7 +383,7 @@
 
         .features-grid {
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
             gap: 2rem;
         }
 
@@ -546,7 +551,7 @@
         }
 
         .customizable-content h2 {
-            font-size: clamp(2rem, 4.5vw, 2.8rem);
+            font-size: clamp(1.8rem, 4.5vw, 2.8rem);
             font-weight: 800;
             letter-spacing: -0.02em;
             line-height: 1.15;
@@ -725,6 +730,7 @@
             padding: 1.5rem;
             user-select: none;
             outline: none;
+            min-height: 44px;
         }
         .faq-item summary::-webkit-details-marker { display: none; }
 
@@ -810,6 +816,8 @@
             color: var(--sub-text);
             font-size: 0.9rem;
             transition: color 0.15s ease;
+            display: inline-block;
+            min-height: 44px;
         }
         .footer-links a:hover { color: var(--text); }
 
@@ -852,7 +860,7 @@
         .privacy-text a { color: var(--text); text-decoration: none; font-weight: 600; }
         .privacy-text a:hover { text-decoration: underline; }
         .privacy-actions { display: flex; gap: 8px; }
-        .btn-small { flex: 1; padding: 8px 14px; font-size: 0.85rem; font-weight: 600; border-radius: 10px; cursor: pointer; transition: 0.2s; }
+        .btn-small { flex: 1; padding: 8px 14px; font-size: 0.85rem; font-weight: 600; border-radius: 10px; cursor: pointer; transition: 0.2s; min-height: 44px; }
         .btn-accept { background-color: var(--accent); color: var(--bg); border: 1px solid var(--accent); }
         .btn-ignore { background: transparent; color: var(--text); border: 1px solid var(--border); }
         .btn-ignore:hover { background: var(--bg); }
@@ -897,7 +905,7 @@
             background: rgba(15, 23, 42, 0.04);
             border: 1px solid rgba(15, 23, 42, 0.06);
             color: var(--text-announce);
-            width: 32px; height: 32px;
+            width: 36px; height: 36px;
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             font-size: 1.25rem;
@@ -953,7 +961,7 @@
                 box-shadow: var(--shadow-md);
             }
             .nav-menu.active { display: flex; }
-            .nav-links { flex-direction: column; align-items: flex-start; width: 100%; gap: 1rem; }
+            .nav-links { flex-direction: column; align-items: flex-start; width: 100%; gap: 0.5rem; }
             .nav-actions { width: 100%; justify-content: space-between; padding-top: 1rem; border-top: 1px solid var(--border); }
             .menu-toggle { display: flex; }
 
@@ -964,25 +972,22 @@
             .hero-visual { order: -1; }
 
             .solutions-section, .tutorials-section, .why-choose-us, .customizable-section, .vacancies-section, .faq-section { padding: 60px 0; }
-            .solutions-section .container, .tutorials-section .container { padding: 0 0 0 1.5rem; }
-            .solutions-section .section-header, .tutorials-section .section-header { padding-right: 1.5rem; margin-bottom: 30px; text-align: left; }
+            .solutions-section .container, .tutorials-section .container { padding: 0 1.5rem; }
+            .solutions-section .section-header, .tutorials-section .section-header { padding-right: 0; margin-bottom: 30px; text-align: center; }
             
             .solutions-grid, .tutorials-grid {
-                display: flex;
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                gap: 1.25rem;
-                padding: 4px 1.5rem 24px 0;
-                scroll-snap-type: x mandatory;
-                scrollbar-width: none;
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
-            .solutions-grid::-webkit-scrollbar, .tutorials-grid::-webkit-scrollbar { display: none; }
-            .solution-bento-card, .video-wrapper { flex: 0 0 280px; scroll-snap-align: start; padding: 2rem 1.5rem; }
+            .solution-bento-card, .video-wrapper { padding: 2rem 1.5rem; }
             .video-wrapper { padding: 8px; }
             
             .exclusions-banner {
-                flex: 0 0 280px; scroll-snap-align: start; margin-top: 0;
-                flex-direction: column; text-align: left; align-items: flex-start; gap: 1rem;
+                grid-column: span 1;
+                flex-direction: column; 
+                text-align: left; 
+                align-items: flex-start; 
+                gap: 1rem;
             }
 
             .customizable-section { text-align: center; }
@@ -1000,6 +1005,7 @@
             .container { padding: 0 1.25rem; }
             .announcement-card { padding: 2.25rem 1.5rem; }
             .hero-metrics { flex-direction: column; gap: 1.5rem; align-items: center; }
+            .architecture-canvas { padding: 1.25rem; }
         }
     </style>
 </head>
@@ -1288,4 +1294,231 @@
                         <p>Deploy specialized capabilities instantly on adaptive design micro-projects. Reduce structural resource requirements and optimize development velocity through modular team building.</p>
                         <a href="#" class="btn btn-outline">View More</a>
                     </div>
-                    <div class="
+                    <div class="vacancy-card">
+                        <h3>Open-Source Matrix</h3>
+                        <p>Contribute core architectural framework variations directly to the ecosystem repository. Collaborate alongside top-tier UI developers to shape scalable digital experiences.</p>
+                        <a href="#" class="btn btn-outline">View More</a>
+                    </div>
+                    <div class="vacancy-card">
+                        <h3>Creative Frontier Access</h3>
+                        <p>Bypass legacy corporate deployment bottlenecks. Test early-alpha interface structures and experiment with glassmorphic layouts inside production environments.</p>
+                        <a href="#" class="btn btn-outline">View More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Frequently Asked Questions</h2>
+                </div>
+                <div class="faq-container">
+                    <details class="faq-item">
+                        <summary>What is included in the base pricing?</summary>
+                        <div class="faq-content">The base package includes a fully responsive design, secure hosting setup, SSL certification, and basic SEO optimization to get your business online quickly.</div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>How fast can my website be live?</summary>
+                        <div class="faq-content">Standard professional websites are typically deployed within 3 to 5 business days once all content and requirements are finalized.</div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Can I update the content myself?</summary>
+                        <div class="faq-content">Yes, we provide a streamlined management interface that allows you to update text and images easily without needing any technical knowledge.</div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Is hosting included in the 2599₹ starting price?</summary>
+                        <div class="faq-content">The starting price covers the professional build and deployment. Hosting plans are available as monthly or annual subscriptions depending on your traffic needs.</div>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Will my website work on mobile devices?</summary>
+                        <div class="faq-content">Every project we build is mobile-responsive by default, ensuring a perfect user experience across smartphones, tablets, and desktops.</div>
+                    </details>
+                </div>
+                <div class="faq-footer">
+                    <a href="support.html" class="btn btn-outline">View More Help</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="payment-strip">
+                <p>SUPPORTED CLEARING NETWORKS</p>
+                <div class="payment-icons">
+                    <span>UPI</span>
+                    <span>VISA</span>
+                    <span>MASTERCARD</span>
+                    <span>RUPAY</span>
+                </div>
+            </div>
+
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="brand">
+                        <img src="mallulogo.png" alt="The Mallu Logo" class="logo-img">
+                    </a>
+                    <p>High-performance web architecture engineered for the modern digital era. Built in Kerala, scaled for the world.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#templates">Templates</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="support.html">Support</a></li>
+                        <li><a href="#features">Dashboard</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Collab</h4>
+                    <ul>
+                        <li><a href="#">Advertise with us</a></li>
+                        <li><a href="#">SEO Outsource</a></li>
+                        <li><a href="#">Marketing</a></li>
+                        <li><a href="#">Campaigns</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Community</h4>
+                    <ul>
+                        <li><a href="#">Developers</a></li>
+                        <li><a href="#">Clients</a></li>
+                        <li><a href="#">Sales</a></li>
+                        <li><a href="#">Marketing</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2026 The Mallu. A unit of Jeswin Jose Innovations & Technology.</p>
+                </div>
+                <div class="location">
+                    <p>Thrissur, Kerala, India.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Aura Glow Tracking Controller
+        const glowAura = document.getElementById('glowAura');
+        window.addEventListener('mousemove', (e) => {
+            glowAura.style.left = e.clientX + 'px';
+            glowAura.style.top = e.clientY + 'px';
+        });
+
+        // Theme Switcher Persistence
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        applyTheme(savedTheme);
+
+        // Responsive Dropdown Menu Toggle Handler
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.remove('active');
+        }
+
+        // Privacy Consent Engine
+        window.onload = function() {
+            checkPrivacyConsent();
+            checkProgramAnnouncement();
+        }
+
+        function checkPrivacyConsent() {
+            const consentData = localStorage.getItem('privacy_consent_accepted');
+            const popupElement = document.getElementById('privacy-popup');
+
+            if (consentData) {
+                try {
+                    const parsedData = JSON.parse(consentData);
+                    const now = new Date().getTime();
+
+                    if (now > parsedData.expiry) {
+                        localStorage.removeItem('privacy_consent_accepted');
+                        displayPrivacyBanner(popupElement);
+                    }
+                } catch (e) {
+                    localStorage.removeItem('privacy_consent_accepted');
+                    displayPrivacyBanner(popupElement);
+                }
+            } else {
+                displayPrivacyBanner(popupElement);
+            }
+        }
+
+        function displayPrivacyBanner(element) {
+            setTimeout(function() {
+                element.classList.add('show');
+            }, 1000);
+        }
+
+        function acceptPrivacyAndReload() {
+            const duration = 30 * 24 * 60 * 60 * 1000; 
+            const expiration = new Date().getTime() + duration;
+
+            localStorage.setItem('privacy_consent_accepted', JSON.stringify({ accepted: true, expiry: expiration }));
+            document.getElementById('privacy-popup').classList.remove('show');
+            window.location.reload();
+        }
+
+        function closePrivacy() {
+            document.getElementById('privacy-popup').classList.remove('show');
+        }
+
+        // Announcement Handling Lifecycle
+        function checkProgramAnnouncement() {
+            const isAnnounceClosed = sessionStorage.getItem('announce_modal_dismissed');
+            if (!isAnnounceClosed) {
+                setTimeout(function() {
+                    document.getElementById('announceOverlay').classList.add('active');
+                }, 2200); 
+            }
+        }
+
+        function closeAnnounceModal() {
+            document.getElementById('announceOverlay').classList.remove('active');
+            sessionStorage.setItem('announce_modal_dismissed', 'true');
+        }
+
+        // Smooth Scrolling Anchors
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
