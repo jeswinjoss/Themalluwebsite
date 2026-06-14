@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Mallu | High-Performance Web Architecture & Solutions</title>
+    <title>The Mallu | Independent Tech, Business & Lifestyle Journal</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -123,7 +123,6 @@
 
         .container { max-width: 1240px; margin: 0 auto; padding: 0 2rem; }
 
-        /* --- Normal Header Navigation Architecture --- */
         header {
             position: sticky;
             top: 0;
@@ -158,6 +157,7 @@
             line-height: 28px;
         }
         .nav-links a:hover { color: var(--text); }
+        .nav-links a.active { color: var(--primary); font-weight: 700; }
         
         .nav-actions { display: flex; align-items: center; gap: 1rem; }
 
@@ -198,192 +198,183 @@
         }
         .menu-toggle svg { width: 16px; height: 16px; fill: currentColor; }
 
-        /* --- Reengineered Ultra-Professional Hero Section --- */
+        /* --- News Layout Infrastructure --- */
         .hero-section {
-            padding: clamp(60px, 12vh, 140px) 0 clamp(40px, 10vh, 120px);
+            padding: clamp(30px, 5vh, 60px) 0;
             position: relative;
         }
 
-        .hero-grid {
+        .news-grid-magazine {
             display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 60px;
-            align-items: center;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 30px;
+            margin-bottom: 40px;
         }
 
-        .hero-content { position: relative; }
-
-        .hero-announcement {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 6px 14px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 100px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: var(--text);
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .hero-announcement .pill {
-            background: var(--primary);
-            color: #ffffff;
-            padding: 2px 8px;
-            border-radius: 100px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .hero-content h1 {
-            font-size: clamp(2.4rem, 4.8vw, 4rem);
-            line-height: 1.15;
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            color: var(--text);
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-content h1 span {
-            display: block;
-            background: linear-gradient(135deg, var(--text) 30%, var(--sub-text) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        [data-theme='dark'] .hero-content h1 span {
-            background: linear-gradient(135deg, #ffffff 40%, #94a3b8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-content h1 em {
-            font-style: normal;
-            color: var(--primary);
-            background: linear-gradient(135deg, var(--primary) 0%, #34d399 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-content p {
-            font-size: 1.15rem;
-            color: var(--sub-text);
-            line-height: 1.6;
-            margin-bottom: 2.5rem;
-            max-width: 580px;
-        }
-
-        .cta-group { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
-
-        .btn { 
-            padding: 0.85rem 1.75rem; 
-            font-weight: 600; 
-            font-size: 0.95rem; 
-            border-radius: 10px; 
-            cursor: pointer; 
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); 
-            text-decoration: none; 
-            display: inline-flex; 
-            align-items: center;
-            justify-content: center;
-            min-height: 44px;
-        }
-
-        .btn-primary { background: var(--accent); color: var(--bg); border: 1px solid var(--accent); box-shadow: var(--shadow-sm); }
-        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: var(--shadow-md); }
-        .btn-outline { border: 1px solid var(--border); color: var(--text); background: var(--surface); }
-        .btn-outline:hover { background: var(--bg); border-color: var(--border-hover); transform: translateY(-1px); }
-
-        .hero-metrics {
-            margin-top: 3.5rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-            display: flex;
-            gap: 3rem;
-        }
-
-        .metric-item { display: flex; flex-direction: column; gap: 4px; }
-        .metric-value { font-size: 1.75rem; font-weight: 800; color: var(--text); letter-spacing: -0.02em; }
-        .metric-label { font-size: 0.85rem; color: var(--sub-text); font-weight: 500; }
-
-        /* Hero Right Architecture Graphic Presentation */
-        .hero-visual { position: relative; width: 100%; display: flex; justify-content: center; }
-        
-        .architecture-canvas {
-            position: relative;
-            width: 100%;
-            max-width: 480px;
-            aspect-ratio: 1 / 1;
+        .main-story-card {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 24px;
-            padding: 2rem;
-            box-shadow: var(--shadow-lg);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-md);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .main-story-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); border-color: var(--border-hover); }
+
+        .story-tag {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(16, 185, 129, 0.08);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+            align-self: flex-start;
         }
 
-        .canvas-header { display: flex; justify-content: space-between; align-items: center; }
-        .canvas-dots { display: flex; gap: 6px; }
-        .canvas-dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
-        .canvas-status { font-size: 0.75rem; font-weight: 600; color: var(--primary); display: flex; align-items: center; gap: 6px; }
-        .canvas-status::before { content: ''; width: 6px; height: 6px; background: var(--primary); border-radius: 50%; }
-
-        .canvas-mockup {
-            width: 100%;
-            height: auto;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            display: block;
-            box-shadow: var(--shadow-md);
+        .main-story-card h1 {
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            line-height: 1.2;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text);
+            margin-bottom: 1.25rem;
         }
 
-        .canvas-footer {
+        .main-story-card p {
+            font-size: 1.1rem;
+            color: var(--sub-text);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .story-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: var(--sub-text);
+            border-top: 1px solid var(--border);
+            padding-top: 1.5rem;
+        }
+
+        .meta-author { font-weight: 600; color: var(--text); }
+
+        /* --- Sidebar News Stack --- */
+        .sidebar-news-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sidebar-title {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 700;
+            border-bottom: 2px solid var(--text);
+            padding-bottom: 8px;
+            margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 10px 16px;
+            align-items: center;
         }
-        .canvas-footer-item { display: flex; flex-direction: column; gap: 2px; }
-        .canvas-footer-item span:first-child { font-size: 0.65rem; text-transform: uppercase; color: var(--sub-text); font-weight: 700; letter-spacing: 0.05em; }
-        .canvas-footer-item span:last-child { font-size: 0.85rem; color: var(--text); font-weight: 700; }
+        .sidebar-title span::after {
+            content: '';
+            display: inline-block;
+            width: 8px; height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            margin-left: 8px;
+        }
 
-        /* --- Bento Features Section --- */
-        .why-choose-us {
-            padding: 100px 0;
+        .mini-news-row {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+        .mini-news-row:hover { border-color: var(--border-hover); background: var(--bg-whychooseus); }
+        .mini-news-row h3 { font-size: 1rem; font-weight: 700; line-height: 1.4; letter-spacing: -0.01em; }
+        .mini-news-row .time { font-size: 0.75rem; color: var(--sub-text); font-weight: 500; }
+
+        /* --- Category Switcher Row --- */
+        .category-bar-section {
             border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: var(--surface);
+            padding: 1rem 0;
+            position: sticky;
+            top: 85px;
+            z-index: 900;
+        }
+        .category-scroll-container {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+        }
+        .category-scroll-container::-webkit-scrollbar { display: none; }
+        
+        .cat-tab {
+            padding: 6px 16px;
+            border-radius: 100px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--sub-text);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .cat-tab:hover, .cat-tab.active {
+            background: var(--accent);
+            color: var(--bg);
+            border-color: var(--accent);
+        }
+
+        /* --- Bento Feed Matrix --- */
+        .why-choose-us {
+            padding: 60px 0;
             background: var(--bg-whychooseus); 
         }
 
         .section-header {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto 60px;
+            text-align: left;
+            margin-bottom: 40px;
+            border-left: 4px solid var(--primary);
+            padding-left: 15px;
         }
 
         .section-title {
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
             font-weight: 800;
             letter-spacing: -0.02em;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
 
         .section-subtitle {
             color: var(--sub-text);
-            font-size: 1.05rem;
-            line-height: 1.5;
+            font-size: 1rem;
         }
 
         .features-grid {
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
             gap: 2rem;
         }
 
@@ -391,10 +382,12 @@
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 24px;
-            padding: 2.5rem;
+            padding: 2rem;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
             box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .feature-card:hover {
@@ -407,27 +400,28 @@
             font-size: 0.75rem;
             font-weight: 700;
             color: var(--primary);
-            margin-bottom: 1.25rem;
+            margin-bottom: 1rem;
             display: block;
-            letter-spacing: 0.05em;
+            text-transform: uppercase;
         }
 
         .feature-card h3 {
             margin-bottom: 0.75rem; 
-            font-size: 1.25rem; 
+            font-size: 1.2rem; 
             font-weight: 700;
-            letter-spacing: -0.01em;
+            line-height: 1.4;
         }
 
         .feature-card p {
             color: var(--sub-text);
             font-size: 0.95rem;
             line-height: 1.6;
+            margin-bottom: 1.5rem;
         }
 
-        /* --- Design Frameworks Layout --- */
+        /* --- Creative News Analysis --- */
         .solutions-section {
-            padding: 100px 0;
+            padding: 60px 0;
             background-color: var(--bg);
             border-top: 1px solid var(--border);
         }
@@ -441,12 +435,11 @@
         .solution-bento-card {
             border: 1px solid var(--border);
             border-radius: 24px;
-            padding: 2.5rem;
+            padding: 2rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             position: relative;
-            overflow: hidden;
             box-shadow: var(--shadow-sm);
             transition: all 0.3s ease;
         }
@@ -455,10 +448,7 @@
         .solution-bento-card.business-card { background: var(--bg-business); border-color: var(--border-business); }
         .solution-bento-card.landing-card { background: var(--bg-landing); border-color: var(--border-landing); }
 
-        .solution-bento-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-        }
+        .solution-bento-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
 
         .solution-tag {
             font-size: 0.7rem;
@@ -471,34 +461,42 @@
             padding: 4px 10px;
             border-radius: 8px;
             align-self: flex-start;
-            margin-bottom: 1.75rem;
-            backdrop-filter: blur(4px);
+            margin-bottom: 1.5rem;
         }
         [data-theme='dark'] .solution-tag { background: rgba(0, 0, 0, 0.4); }
 
         .solution-bento-card h3 {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 700;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.01em;
             margin-bottom: 0.75rem;
+            line-height: 1.4;
         }
 
         .solution-bento-card p {
             color: var(--sub-text);
             font-size: 0.95rem;
             line-height: 1.55;
-            margin-bottom: 1.5rem;
         }
 
-        .solution-wireframe {
-            height: 40px;
-            width: 100%;
-            background: linear-gradient(90deg, var(--border) 1px, transparent 1px);
-            background-size: 20px 100%;
-            border-top: 1px solid var(--border);
-            opacity: 0.3;
-            margin-top: auto;
+        .btn { 
+            padding: 0.65rem 1.5rem; 
+            font-weight: 600; 
+            font-size: 0.9rem; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); 
+            text-decoration: none; 
+            display: inline-flex; 
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
         }
+
+        .btn-primary { background: var(--accent); color: var(--bg); border: 1px solid var(--accent); }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-outline { border: 1px solid var(--border); color: var(--text); background: var(--surface); }
+        .btn-outline:hover { background: var(--bg); border-color: var(--border-hover); }
 
         .exclusions-banner {
             grid-column: span 3;
@@ -510,29 +508,78 @@
             justify-content: space-between;
             align-items: center;
             margin-top: 0.5rem;
+        }
+
+        .exclusions-left { display: flex; align-items: center; gap: 16px; }
+        .exclusions-left h4 { font-size: 0.95rem; font-weight: 600; color: var(--text); }
+        .exclusions-left p { font-size: 0.9rem; color: var(--sub-text); }
+
+        /* --- Video & Broadcast Reports --- */
+        .tutorials-section {
+            padding: 60px 0;
+            background: var(--bg-tutorials);
+            border-top: 1px solid var(--border);
+        }
+        
+        .tutorials-section .section-title { color: #ffffff !important; }
+        .tutorials-section .section-subtitle, .tutorials-section .video-caption { color: #94a3b8 !important; }
+
+        .tutorials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .video-wrapper {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 10px;
+            transition: all 0.3s ease;
+        }
+        .video-wrapper:hover { transform: translateY(-4px); border-color: rgba(16, 185, 129, 0.3); }
+
+        .video-frame { width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; border: none; display: block; }
+        .video-caption { font-size: 0.9rem; font-weight: 600; margin-top: 1rem; padding: 0 4px; }
+        
+        .btn-tutorials-outline { border-color: rgba(255, 255, 255, 0.15) !important; color: #ffffff !important; background: transparent; }
+
+        /* --- Ticker / Sliding Carousel Track --- */
+        .vacancies-section {
+            padding: 60px 0;
+            background: var(--bg-vacancies);
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .vacancies-carousel-container { width: 100%; overflow: hidden; padding: 10px 0; position: relative; }
+        .vacancies-track { display: flex; gap: 2rem; width: max-content; animation: infiniteScroll 40s linear infinite; }
+        .vacancies-track:hover { animation-play-state: paused; }
+
+        .vacancy-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 2rem;
+            width: 360px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             box-shadow: var(--shadow-sm);
         }
+        [data-theme='dark'] .vacancy-card { background: #0f1422; }
+        .vacancy-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text); }
+        .vacancy-card p { color: var(--sub-text); font-size: 0.9rem; line-height: 1.5; margin-bottom: 1.5rem; flex-grow: 1; }
 
-        .exclusions-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
+        @keyframes infiniteScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 1rem)); }
         }
 
-        .exclusions-left h4 {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--text);
-        }
-
-        .exclusions-left p {
-            font-size: 0.9rem;
-            color: var(--sub-text);
-        }
-
-        /* --- Customizable Canvas Section --- */
+        /* --- Newsletter Engagement Panel --- */
         .customizable-section {
-            padding: 100px 0;
+            padding: 80px 0;
             background: var(--bg-customizable);
             border-top: 1px solid var(--border);
         }
@@ -551,245 +598,52 @@
         }
 
         .customizable-content h2 {
-            font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 800;
             letter-spacing: -0.02em;
-            line-height: 1.15;
+            line-height: 1.2;
             margin-bottom: 1.25rem;
-            max-width: 720px;
         }
-
-        .customizable-content h2 span { color: var(--primary); }
 
         .customizable-content p {
             font-size: 1.05rem;
             color: var(--sub-text);
             max-width: 660px;
-            line-height: 1.65;
-            margin-bottom: 2.25rem;
-        }
-
-        /* --- Video Tutorials Layout --- */
-        .tutorials-section {
-            padding: 100px 0;
-            background: var(--bg-tutorials);
-            border-top: 1px solid var(--border);
-        }
-        
-        .tutorials-section .section-title { color: #ffffff !important; }
-        .tutorials-section .section-subtitle, .tutorials-section .video-caption { color: #94a3b8 !important; }
-
-        .tutorials-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .video-wrapper {
-            background: rgba(15, 23, 42, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            padding: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-        }
-        .video-wrapper:hover {
-            transform: translateY(-4px);
-            border-color: rgba(16, 185, 129, 0.3);
-            background: rgba(15, 23, 42, 0.6);
-        }
-
-        .video-frame {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            border-radius: 12px;
-            border: none;
-            display: block;
-        }
-
-        .video-caption {
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-top: 1rem;
-            padding: 0 4px;
-        }
-        
-        .btn-tutorials-outline {
-            border-color: rgba(255, 255, 255, 0.15) !important;
-            color: #ffffff !important; 
-            background: transparent;
-        }
-        .btn-tutorials-outline:hover {
-            background: rgba(255, 255, 255, 0.06) !important;
-            border-color: rgba(255, 255, 255, 0.3) !important;
-        }
-
-        /* --- Sliding Carousel Pipeline Track --- */
-        .vacancies-section {
-            padding: 100px 0;
-            background: var(--bg-vacancies);
-            border-bottom: 1px solid var(--border);
-            overflow: hidden;
-        }
-
-        .vacancies-section .section-title { color: var(--text) !important; }
-
-        .vacancies-carousel-container {
-            width: 100%;
-            overflow: hidden;
-            padding: 10px 0;
-            position: relative;
-        }
-
-        .vacancies-track {
-            display: flex;
-            gap: 2rem;
-            width: max-content;
-            animation: infiniteScroll 40s linear infinite;
-        }
-
-        .vacancies-track:hover { animation-play-state: paused; }
-
-        .vacancy-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 2.5rem;
-            width: 360px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.2s ease;
-        }
-        [data-theme='dark'] .vacancy-card { background: #0f1422; }
-
-        .vacancy-card:hover { border-color: var(--primary); transform: scale(1.01); }
-
-        .vacancy-card h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            letter-spacing: -0.01em;
-            margin-bottom: 0.75rem;
-            color: var(--text);
-        }
-
-        .vacancy-card p {
-            color: var(--sub-text);
-            font-size: 0.95rem;
-            line-height: 1.55;
-            margin-bottom: 1.75rem;
-            flex-grow: 1;
-        }
-
-        .vacancy-card .btn {
-            align-self: flex-start;
-            padding: 0.55rem 1.25rem;
-            font-size: 0.85rem;
-            border-radius: 10px;
-        }
-
-        @keyframes infiniteScroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-50% - 1rem)); }
-        }
-
-        /* --- Accordion FAQ Interface --- */
-        .faq-section {
-            padding: 100px 0;
-            background-color: var(--bg);
-            border-top: 1px solid var(--border);
-        }
-
-        .faq-container {
-            max-width: 760px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .faq-item {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            transition: all 0.2s ease;
-            box-shadow: var(--shadow-sm);
-        }
-        .faq-item:hover { border-color: var(--border-hover); }
-
-        .faq-item summary {
-            list-style: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1rem;
-            padding: 1.5rem;
-            user-select: none;
-            outline: none;
-            min-height: 44px;
-        }
-        .faq-item summary::-webkit-details-marker { display: none; }
-
-        .faq-item summary::after {
-            content: "";
-            width: 14px; height: 14px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M12 4.5v15m7.5-7.5h-15'/%3E%3C/svg%3E");
-            background-size: contain;
-            background-repeat: no-repeat;
-            transition: transform 0.2s ease;
-        }
-
-        .faq-item[open] summary::after {
-            transform: rotate(45deg);
-        }
-
-        .faq-content {
-            padding: 0 1.5rem 1.5rem;
-            color: var(--sub-text);
-            font-size: 0.95rem;
             line-height: 1.6;
-            border-top: 1px solid transparent;
+            margin-bottom: 2rem;
         }
 
-        .faq-footer { text-align: center; margin-top: 3.5rem; }
+        .newsletter-form {
+            display: flex;
+            gap: 12px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 0 1rem;
+            border-radius: 10px;
+            font-family: inherit;
+            color: var(--text);
+            outline: none;
+        }
+        .newsletter-input:focus { border-color: var(--primary); }
 
         /* --- Enterprise Footer Setup --- */
         footer {
             background-color: var(--surface);
             border-top: 1px solid var(--border);
-            padding: 80px 0 40px; 
+            padding: 60px 0 40px; 
         }
-
-        .payment-strip {
-            border: 1px solid var(--border);
-            background: var(--bg);
-            padding: 1.25rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-radius: 16px;
-            margin-bottom: 4rem;
-        }
-
-        .payment-strip p {
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--sub-text);
-            letter-spacing: 0.08em;
-        }
-
-        .payment-icons { display: flex; flex-wrap: wrap; gap: 2rem; color: var(--text); }
-        .payment-icons span { font-weight: 700; font-size: 0.8rem; letter-spacing: 0.05em; opacity: 0.75; }
 
         .footer-grid {
             display: grid;
             grid-template-columns: 2fr repeat(4, 1fr); 
             gap: 40px;
-            margin-bottom: 60px;
+            margin-bottom: 40px;
         }
 
         .footer-brand p {
@@ -857,13 +711,10 @@
 
         #privacy-popup.show { visibility: visible; opacity: 1; transform: translateY(0); }
         .privacy-text { font-size: 0.88rem; color: var(--sub-text); line-height: 1.5; }
-        .privacy-text a { color: var(--text); text-decoration: none; font-weight: 600; }
-        .privacy-text a:hover { text-decoration: underline; }
         .privacy-actions { display: flex; gap: 8px; }
-        .btn-small { flex: 1; padding: 8px 14px; font-size: 0.85rem; font-weight: 600; border-radius: 10px; cursor: pointer; transition: 0.2s; min-height: 44px; }
+        .btn-small { flex: 1; padding: 8px 14px; font-size: 0.85rem; font-weight: 600; border-radius: 10px; cursor: pointer; min-height: 44px; display: inline-flex; align-items: center; justify-content: center;}
         .btn-accept { background-color: var(--accent); color: var(--bg); border: 1px solid var(--accent); }
         .btn-ignore { background: transparent; color: var(--text); border: 1px solid var(--border); }
-        .btn-ignore:hover { background: var(--bg); }
 
         /* --- Program Acquisition Modal --- */
         .announcement-overlay {
@@ -891,9 +742,7 @@
             border-radius: 28px;
             width: 100%;
             max-width: 480px;
-            box-shadow: var(--shadow-lg);
             position: relative;
-            overflow: hidden;
             transform: translateY(20px) scale(0.98);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -909,49 +758,19 @@
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             font-size: 1.25rem;
-            font-weight: 300;
             cursor: pointer;
-            z-index: 10;
             transition: all 0.2s ease;
         }
-        [data-theme='dark'] .announce-close { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.08); }
-        .announce-close:hover { transform: rotate(90deg); background: rgba(234, 179, 8, 0.15); border-color: transparent; }
 
-        .announcement-card h2 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            line-height: 1.25;
-            margin-bottom: 1rem;
-            padding-right: 1.5rem;
-        }
-
-        .announcement-card p {
-            color: var(--sub-announce);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 2rem;
-        }
-
-        .btn-announce {
-            width: 100%;
-            padding: 0.9rem 1.5rem;
-            font-size: 0.95rem;
-            background: var(--text-announce);
-            color: var(--bg);
-            border: 1px solid var(--text-announce);
-        }
-        .btn-announce:hover { opacity: 0.95; transform: translateY(-1px); }
+        .btn-announce { width: 100%; padding: 0.9rem 1.5rem; text-align: center; font-size: 0.95rem; background: var(--text-announce); color: var(--bg); border: 1px solid var(--text-announce); }
         [data-theme='dark'] .btn-announce { background: linear-gradient(135deg, #fef08a 0%, #facc15 100%); color: #030712; border: none; }
 
-        /* --- Pure CSS Toggle & Adaptive Layout Media Rules --- */
+        /* --- Adaptive Layout Media Rules --- */
         @media (max-width: 1024px) {
             .nav-menu {
                 display: none;
                 position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
+                top: 100%; left: 0; width: 100%;
                 background: var(--surface);
                 border-bottom: 1px solid var(--border);
                 padding: 1.5rem;
@@ -965,47 +784,21 @@
             .nav-actions { width: 100%; justify-content: space-between; padding-top: 1rem; border-top: 1px solid var(--border); }
             .menu-toggle { display: flex; }
 
-            .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 40px; }
-            .hero-content p { margin: 0 auto 2rem; }
-            .cta-group { justify-content: center; }
-            .hero-metrics { justify-content: center; gap: 2rem; }
-            .hero-visual { order: -1; }
-
-            .solutions-section, .tutorials-section, .why-choose-us, .customizable-section, .vacancies-section, .faq-section { padding: 60px 0; }
-            .solutions-section .container, .tutorials-section .container { padding: 0 1.5rem; }
-            .solutions-section .section-header, .tutorials-section .section-header { padding-right: 0; margin-bottom: 30px; text-align: center; }
-            
-            .solutions-grid, .tutorials-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-            .solution-bento-card, .video-wrapper { padding: 2rem 1.5rem; }
-            .video-wrapper { padding: 8px; }
-            
-            .exclusions-banner {
-                grid-column: span 1;
-                flex-direction: column; 
-                text-align: left; 
-                align-items: flex-start; 
-                gap: 1rem;
-            }
-
-            .customizable-section { text-align: center; }
-            .customizable-content p { margin: 0 auto 2rem; }
-            .vacancy-card { width: 290px; padding: 2rem 1.5rem; }
-
+            .news-grid-magazine { grid-template-columns: 1fr; gap: 30px; }
+            .solutions-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .exclusions-banner { grid-column: span 1; flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .tutorials-grid { grid-template-columns: 1fr; gap: 1.5rem; }
             .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
             .footer-brand { grid-column: span 2; }
-            .payment-strip { flex-direction: column; gap: 1rem; text-align: center; padding: 1.25rem; }
+            .category-bar-section { top: 80px; }
         }
 
         @media (max-width: 640px) {
             .footer-grid { grid-template-columns: 1fr; }
             .footer-brand { grid-column: span 1; }
             .container { padding: 0 1.25rem; }
-            .announcement-card { padding: 2.25rem 1.5rem; }
-            .hero-metrics { flex-direction: column; gap: 1.5rem; align-items: center; }
-            .architecture-canvas { padding: 1.25rem; }
+            .newsletter-form { flex-direction: column; }
+            .newsletter-input { min-height: 44px; }
         }
     </style>
 </head>
@@ -1016,9 +809,9 @@
     <div class="announcement-overlay" id="announceOverlay">
         <div class="announcement-card">
             <button class="announce-close" onclick="closeAnnounceModal()">&times;</button>
-            <h2>Our FC program talent acquisition is coming soon...</h2>
-            <p>Our FC program's (Freelancers community programs 2026) first tier talent acquisition is coming soon. Join our waitlist and get a slot in our FC PROGRAM 2026.</p>
-            <a href="fcp-2026.html" class="btn btn-announce">Join waitlist</a>
+            <h2>Breaking: FC Community Registration opens soon</h2>
+            <p>Our Freelancers Community Program (FCP 2026) first-tier intelligence pipeline launches next month. Secure private sandbox access codes early.</p>
+            <a href="fcp-2026.html" class="btn btn-announce">Join Journalism Waitlist</a>
         </div>
     </div>
 
@@ -1031,10 +824,10 @@
                 
                 <div class="nav-menu" id="navMenu">
                     <ul class="nav-links">
-                        <li><a href="#features" onclick="closeMenu()">Dashboard</a></li>
-                        <li><a href="#solutions" onclick="closeMenu()">Web Ecosystems</a></li>
-                        <li><a href="#templates" onclick="closeMenu()">Our Pricing</a></li>
-                        <li><a href="#enterprise" onclick="closeMenu()">Support</a></li>
+                        <li><a href="#" class="active">Home Feed</a></li>
+                        <li><a href="freelancers.html">Tech Ecosystem</a></li>
+                        <li><a href="#broadcasts">Video Reports</a></li>
+                        <li><a href="#newsletter">Subscribe</a></li>
                     </ul>
                     
                     <div class="nav-actions">
@@ -1054,141 +847,153 @@
 
     <div id="privacy-popup">
         <div class="privacy-text">
-            We use essential files to personalize your deployment architecture. Read our <a href="links.html">Privacy Policy</a>.
+            We track technical telemetry to maintain server balancing across core news nodes. Read our <a href="#">Privacy Policy</a>.
         </div>
         <div class="privacy-actions">
             <button class="btn-small btn-ignore" onclick="closePrivacy()">Ignore</button>
-            <button class="btn-small btn-accept" onclick="acceptPrivacyAndReload()">Accept All</button>
+            <button class="btn-small btn-accept" onclick="acceptPrivacyAndReload()">Acknowledge</button>
+        </div>
+    </div>
+
+    <!-- Category Bar Filter System -->
+    <div class="category-bar-section">
+        <div class="container">
+            <div class="category-scroll-container">
+                <button class="cat-tab active">All Stories</button>
+                <button class="cat-tab">Tech & Engineering</button>
+                <button class="cat-tab">Business Intelligence</button>
+                <button class="cat-tab">Ecosystem Matrix</button>
+                <button class="cat-tab">Regional Updates</button>
+                <button class="cat-tab">Open-Source Log</button>
+            </div>
         </div>
     </div>
 
     <main>
+        <!-- Top Editorial Magazine Layout -->
         <section class="hero-section">
             <div class="container">
-                <div class="hero-grid">
-                    <div class="hero-content">
-                        <div class="hero-announcement">
-                            <span class="pill">Limited Offer</span> Establish your authority online.
+                <div class="news-grid-magazine">
+                    
+                    <div class="main-story-card">
+                        <div>
+                            <span class="story-tag">Exclusive Report</span>
+                            <h1>The Rise of Adaptive Fluid UI Scaling Frameworks in Modern Decentralized Systems</h1>
+                            <p>As standard rendering pipelines shift toward edge-heavy processing architecture, engineering teams are completely discarding rigid UI canvas parameters in favor of semantic, dynamic structural layouts.</p>
                         </div>
-                        <h1>
-                            <span>Next-Gen Web Solutions</span>
-                            <em>Starting at 2599₹*</em>
-                        </h1>
-                        <p>We build production-ready, lightning-fast storefronts and modern portfolio systems tailor-made to position your brand at the absolute cutting edge.</p>
+                        <div class="story-meta">
+                            <span class="meta-author">By Senior Architecture Editor</span>
+                            <span>&bull;</span>
+                            <span>June 14, 2026</span>
+                            <span>&bull;</span>
+                            <span>5 min read</span>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-news-stack">
+                        <div class="sidebar-title"><span>Trending Now</span></div>
                         
-                        <div class="cta-group">
-                            <a href="#" class="btn btn-primary">Launch Project</a>
-                            <a href="#" class="btn btn-outline">Explore Blueprints</a>
-                        </div>
-
-                        <div class="hero-metrics">
-                            <div class="metric-item">
-                                <span class="metric-value">99.9%</span>
-                                <span class="metric-label">Uptime Architecture</span>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-value">3-5 Days</span>
-                                <span class="metric-label">Rapid Delivery Pipeline</span>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-value">100%</span>
-                                <span class="metric-label">Adaptive Fluid Scaling</span>
-                            </div>
-                        </div>
+                        <a href="#" class="mini-news-row">
+                            <span class="time">Fintech Strategy &bull; 2 hours ago</span>
+                            <h3>How Next-Gen Web Solutions are driving down regional deployment costs to 2599₹ base thresholds</h3>
+                        </a>
+                        
+                        <a href="#" class="mini-news-row">
+                            <span class="time">Infrastructure &bull; 5 hours ago</span>
+                            <h3>Achieving 99.9% Production Uptime Architecture utilizing automated edge networks</h3>
+                        </a>
+                        
+                        <a href="#" class="mini-news-row">
+                            <span class="time">Global Talent &bull; 1 day ago</span>
+                            <h3>Decentralized execution models emerge as alternatives to legacy operational retainers</h3>
+                        </a>
                     </div>
 
-                    <div class="hero-visual">
-                        <div class="architecture-canvas">
-                            <div class="canvas-header">
-                                <div class="canvas-dots">
-                                    <span></span><span></span><span></span>
-                                </div>
-                                <div class="canvas-status">System Active</div>
-                            </div>
-                            <img src="hero-web.png" alt="Ecosystem Mockup Framework" class="canvas-mockup">
-                            <div class="canvas-footer">
-                                <div class="canvas-footer-item">
-                                    <span>Framework</span>
-                                    <span>Semantic HTML5</span>
-                                </div>
-                                <div class="canvas-footer-item">
-                                    <span>Optimized</span>
-                                    <span>Core Web Vitals</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
 
+        <!-- Fresh News Cards Feed -->
         <section id="features" class="why-choose-us">
             <div class="container">
                 <div class="section-header">
-                    <h2 class="section-title">Why Choose Us?</h2>
-                    <p class="section-subtitle">Engineered architectural pipelines customized to scale your commercial reach efficiently.</p>
+                    <h2 class="section-title">Ecosystem Wire Log</h2>
+                    <p class="section-subtitle">Real-time technical tracking and analytical breakdowns across product loops.</p>
                 </div>
                 <div class="features-grid">
                     <div class="feature-card">
-                        <span class="feature-num">// MODULE 01</span>
-                        <h3>Enterprise-Grade Quality</h3>
-                        <p>We deliver architectural excellence at a competitive price point, ensuring your brand stands out with a sophisticated, performance-optimized digital presence.</p>
+                        <div>
+                            <span class="feature-num">Module 01 &bull; Engineering</span>
+                            <h3>Deploying Core Web Vitals to Outpace Traditional Analytics</h3>
+                            <p>Proactive performance tuning and architectural excellence ensure modern digital storefronts maintain audience retention levels over legacy structures.</p>
+                        </div>
+                        <div class="story-meta">
+                            <span>By Core Team &bull; 4 Min Read</span>
+                        </div>
                     </div>
                     <div class="feature-card">
-                        <span class="feature-num">// MODULE 02</span>
-                        <h3>Seamless Management</h3>
-                        <p>Experience hassle-free operations with our fully managed ecosystem. We handle technical deployment and maintenance so you can focus on core business growth.</p>
+                        <div>
+                            <span class="feature-num">Module 02 &bull; Operations</span>
+                            <h3>Bypassing Corporate Bottlenecks via Fully Managed Digital Layouts</h3>
+                            <p>An inside look at how micro-businesses are shifting to managed hosting systems to preserve operational bandwidth and protect rapid delivery loops.</p>
+                        </div>
+                        <div class="story-meta">
+                            <span>By System Ops &bull; 6 Min Read</span>
+                        </div>
                     </div>
                     <div class="feature-card">
-                        <span class="feature-num">// MODULE 03</span>
-                        <h3>Dedicated Evolution</h3>
-                        <p>Our partnership doesn't end at launch. Benefit from proactive feature enhancements and rigorous bug resolution to keep your site at the cutting edge.</p>
+                        <div>
+                            <span class="feature-num">Module 03 &bull; Evolution</span>
+                            <h3>Continuous Feature Enhancements vs Static Code Replicas</h3>
+                            <p>Why aggressive bug resolution pipelines and iterative layout shifts are essential to surviving long-term search updates.</p>
+                        </div>
+                        <div class="story-meta">
+                            <span>By UI Labs &bull; 3 Min Read</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Structural Deep-Dives Layout -->
         <section id="solutions" class="solutions-section">
             <div class="container">
                 <div class="section-header">
-                    <h2 class="section-title">Core Design Frameworks</h2>
-                    <p class="section-subtitle">We craft custom structural layouts geared toward authority positioning and high audience retention.</p>
+                    <h2 class="section-title">Deep-Dive Blueprints</h2>
+                    <p class="section-subtitle">Long-form thematic architectural breakdowns of online authority positioning.</p>
                 </div>
                 
                 <div class="solutions-grid">
                     <div class="solution-bento-card portfolio-card">
                         <div>
                             <span class="solution-tag">Visual Authority</span>
-                            <h3>Creative & Professional Portfolios</h3>
-                            <p>Sleek, minimalist architectures explicitly customized for agencies, developers, artists, and executives. Designed to display projects with responsive layout transitions that capture leads seamlessly.</p>
+                            <h3>Minimalist Portfolios as Client Acquisition Frameworks</h3>
+                            <p>How modern software engineers, executive directors, and independent specialists use clean layout transitions to capture high-value inbound operations.</p>
                         </div>
-                        <div class="solution-wireframe"></div>
                     </div>
 
                     <div class="solution-bento-card business-card">
                         <div>
                             <span class="solution-tag">Corporate Identity</span>
-                            <h3>Business Profile Websites</h3>
-                            <p>Digital representations engineered for local enterprises and corporations. Designed to lay out services, structural timelines, brand values, and validation metrics cleanly.</p>
+                            <h3>Mapping Enterprise Timelines & Validation Metrics Cleanly</h3>
+                            <p>Analyzing corporate structural designs that successfully convey core regional brand values without introduction of heavy interface friction.</p>
                         </div>
-                        <div class="solution-wireframe"></div>
                     </div>
 
                     <div class="solution-bento-card landing-card">
                         <div>
-                            <span class="solution-tag">Conversion Optimized</span>
-                            <h3>High-Performance Landing Pages</h3>
-                            <p>Hyper-focused single-page funnels engineered with precise layout hierarchies. Perfect for targeted campaigns, marketing rollouts, product previews, and client acquisition.</p>
+                            <span class="solution-tag">Conversion Tuning</span>
+                            <h3>The Math Behind Hyper-Focused Single-Page Funnels</h3>
+                            <p>An exact layout hierarchy breakdown optimizing campaign traffic distribution points for product previews and alpha sign-up tracks.</p>
                         </div>
-                        <div class="solution-wireframe"></div>
                     </div>
 
                     <div class="exclusions-banner">
                         <div class="exclusions-left">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary); flex-shrink: 0;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                             <div>
-                                <h4>Streamlined Architecture Focus</h4>
-                                <p>To protect performance speeds and keep engineering pricing highly accessible, we focus strictly on high-conversion presentation sites (No heavy e-commerce/retail systems built).</p>
+                                <h4>Editorial Policy Directive</h4>
+                                <p>To protect computational speed overheads across all device targets, our journal limits execution of scripts inside technical write-ups (Zero bloated asset tracking models allowed).</p>
                             </div>
                         </div>
                     </div>
@@ -1196,147 +1001,88 @@
             </div>
         </section>
 
-        <section class="customizable-section">
-            <div class="container">
-                <div class="customizable-content">
-                    <div class="custom-badge">Tailored Engineering</div>
-                    <h2>100% <span>Customizable Designs</span> Built Around Your Vision</h2>
-                    <p>No generic templates, rigid layouts, or restrictive styling limits. Every aspect of our architectural canvas can be adapted to mirror your exclusive brand aesthetic. From complex grid behaviors to personalized content hierarchies, we construct digital spaces that scale exactly how you choose.</p>
-                    <div class="cta-group">
-                        <a href="#" class="btn btn-primary">Design Yours</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="tutorials-section">
+        <!-- Video Broadcast Section -->
+        <section id="broadcasts" class="tutorials-section">
             <div class="container">
                 <div class="section-header">
-                    <h2 class="section-title">Watch and Do</h2>
-                    <p class="section-subtitle">Master your digital toolkit with our step-by-step video walk-throughs engineered for effortless operations.</p>
+                    <h2 class="section-title">Video Briefings & Broadcasts</h2>
+                    <p class="section-subtitle">Step-by-step visual reports from our media desk regarding complex platform deployment.</p>
                 </div>
                 
                 <div class="tutorials-grid">
                     <div class="video-wrapper">
                         <iframe class="video-frame" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        <div class="video-caption">Getting Started with Your Dashboard</div>
+                        <div class="video-caption">Broadcast: Controlling Decentralized Telemetry Panels</div>
                     </div>
 
                     <div class="video-wrapper">
                         <iframe class="video-frame" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        <div class="video-caption">Customizing Layout Structures</div>
+                        <div class="video-caption">Report: Re-engineering Legacy CSS Layout Canvas</div>
                     </div>
 
                     <div class="video-wrapper">
                         <iframe class="video-frame" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        <div class="video-caption">Deploying Updates & Media</div>
+                        <div class="video-caption">Pipeline Analysis: Rapid Sandbox Deployment Mechanics</div>
                     </div>
-                </div>
-
-                <div class="faq-footer">
-                    <a href="tutorials.html" class="btn btn-outline btn-tutorials-outline">Watch More Tutorials</a>
                 </div>
             </div>
         </section>
 
+        <!-- Continuous Ticker Feed Track -->
         <section class="vacancies-section">
             <div class="container">
                 <div class="section-header">
-                    <h2 class="section-title">Fill the vacant spaces</h2>
-                    <p class="section-subtitle" style="color: var(--text-vacancies);">Explore dynamic micro-roles and sandbox collaboration parameters designed to accelerate collective tech scaling.</p>
+                    <h2 class="section-title">Global Micro-Log Wire</h2>
+                    <p class="section-subtitle" style="color: var(--text-vacancies);">Unfiltered decentralized status tickers regarding modern tech sprints.</p>
                 </div>
             </div>
             
             <div class="vacancies-carousel-container">
                 <div class="vacancies-track">
                     <div class="vacancy-card">
-                        <h3>Join our freelance community</h3>
-                        <p>Connect with high-performance creative pipelines globally. Scale out independent development tasks, access sandbox tooling configurations, and coordinate remotely with verified specialists.</p>
-                        <a href="#" class="btn btn-outline">View More</a>
+                        <h3>Community Update #104</h3>
+                        <p>Freelance hubs observe unprecedented interest in modular layout assignments globally. Remote team configuration boundaries are breaking down completely.</p>
                     </div>
                     
                     <div class="vacancy-card">
-                        <h3>No agreement, no liability</h3>
-                        <p>Work on modular micro-sprints under decentralized execution models. Bypass restrictive long-term operational retainers, manage flexible assignments, and maintain absolute structural independence.</p>
-                        <a href="#" class="btn btn-outline">View More</a>
+                        <h3>Zero Liability Protocols</h3>
+                        <p>Independent engineers opt out of ancient standard enterprise frameworks, favoring decoupled modular micro-sprints without long-term legal friction points.</p>
                     </div>
                     
                     <div class="vacancy-card">
-                        <h3>Zero Overhead Scaling</h3>
-                        <p>Deploy specialized capabilities instantly on adaptive design micro-projects. Reduce structural resource requirements and optimize development velocity through modular team building.</p>
-                        <a href="#" class="btn btn-outline">View More</a>
+                        <h3>Resource Load Trends</h3>
+                        <p>Latest performance logs show that teams reducing initial structural canvas overhead optimize layout calculation velocities by up to 40% margin.</p>
                     </div>
                     
                     <div class="vacancy-card">
-                        <h3>Open-Source Matrix</h3>
-                        <p>Contribute core architectural framework variations directly to the ecosystem repository. Collaborate alongside top-tier UI developers to shape scalable digital experiences.</p>
-                        <a href="#" class="btn btn-outline">View More</a>
-                    </div>
-                    
-                    <div class="vacancy-card">
-                        <h3>Creative Frontier Access</h3>
-                        <p>Bypass legacy corporate deployment bottlenecks. Test early-alpha interface structures and experiment with glassmorphic layouts inside production environments.</p>
-                        <a href="#" class="btn btn-outline">View More</a>
+                        <h3>UI Design Matrix Shift</h3>
+                        <p>Glassmorphic structural variables transition from experimental branches into core master style modules across major open-source web ecosystems.</p>
                     </div>
 
                     <div class="vacancy-card">
-                        <h3>Join our freelance community</h3>
-                        <p>Connect with high-performance creative pipelines globally. Scale out independent development tasks, access sandbox tooling configurations, and coordinate remotely with verified specialists.</p>
-                        <a href="#" class="btn btn-outline">View More</a>
+                        <h3>Community Update #104</h3>
+                        <p>Freelance hubs observe unprecedented interest in modular layout assignments globally. Remote team configuration boundaries are breaking down completely.</p>
                     </div>
                     <div class="vacancy-card">
-                        <h3>No agreement, no liability</h3>
-                        <p>Work on modular micro-sprints under decentralized execution models. Bypass restrictive long-term operational retainers, manage flexible assignments, and maintain absolute structural independence.</p>
-                        <a href="#" class="btn btn-outline">View More</a>
-                    </div>
-                    <div class="vacancy-card">
-                        <h3>Zero Overhead Scaling</h3>
-                        <p>Deploy specialized capabilities instantly on adaptive design micro-projects. Reduce structural resource requirements and optimize development velocity through modular team building.</p>
-                        <a href="#" class="btn btn-outline">View More</a>
-                    </div>
-                    <div class="vacancy-card">
-                        <h3>Open-Source Matrix</h3>
-                        <p>Contribute core architectural framework variations directly to the ecosystem repository. Collaborate alongside top-tier UI developers to shape scalable digital experiences.</p>
-                        <a href="#" class="btn btn-outline">View More</a>
-                    </div>
-                    <div class="vacancy-card">
-                        <h3>Creative Frontier Access</h3>
-                        <p>Bypass legacy corporate deployment bottlenecks. Test early-alpha interface structures and experiment with glassmorphic layouts inside production environments.</p>
-                        <a href="#" class="btn btn-outline">View More</a>
+                        <h3>Zero Liability Protocols</h3>
+                        <p>Independent engineers opt out of ancient standard enterprise frameworks, favoring decoupled modular micro-sprints without long-term legal friction points.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="faq-section">
+        <!-- Subscription / Lead Capture Section -->
+        <section id="newsletter" class="customizable-section">
             <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Frequently Asked Questions</h2>
-                </div>
-                <div class="faq-container">
-                    <details class="faq-item">
-                        <summary>What is included in the base pricing?</summary>
-                        <div class="faq-content">The base package includes a fully responsive design, secure hosting setup, SSL certification, and basic SEO optimization to get your business online quickly.</div>
-                    </details>
-                    <details class="faq-item">
-                        <summary>How fast can my website be live?</summary>
-                        <div class="faq-content">Standard professional websites are typically deployed within 3 to 5 business days once all content and requirements are finalized.</div>
-                    </details>
-                    <details class="faq-item">
-                        <summary>Can I update the content myself?</summary>
-                        <div class="faq-content">Yes, we provide a streamlined management interface that allows you to update text and images easily without needing any technical knowledge.</div>
-                    </details>
-                    <details class="faq-item">
-                        <summary>Is hosting included in the 2599₹ starting price?</summary>
-                        <div class="faq-content">The starting price covers the professional build and deployment. Hosting plans are available as monthly or annual subscriptions depending on your traffic needs.</div>
-                    </details>
-                    <details class="faq-item">
-                        <summary>Will my website work on mobile devices?</summary>
-                        <div class="faq-content">Every project we build is mobile-responsive by default, ensuring a perfect user experience across smartphones, tablets, and desktops.</div>
-                    </details>
-                </div>
-                <div class="faq-footer">
-                    <a href="support.html" class="btn btn-outline">View More Help</a>
+                <div class="customizable-content">
+                    <div class="custom-badge">Journal Access</div>
+                    <h2>Subscribe to our <span>Intelligence Briefing</span></h2>
+                    <p>No generic spam blocks or rigid marketing funnels. Just pure, clean markdown intelligence covering systemic grid architecture, code updates, and decentralized economy models delivered directly to your node.</p>
+                    
+                    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed to feed updates!');">
+                        <input type="email" class="newsletter-input" placeholder="Enter node address (Email)..." required>
+                        <button type="submit" class="btn btn-primary">Connect Feed</button>
+                    </form>
                 </div>
             </div>
         </section>
@@ -1344,61 +1090,51 @@
 
     <footer>
         <div class="container">
-            <div class="payment-strip">
-                <p>SUPPORTED CLEARING NETWORKS</p>
-                <div class="payment-icons">
-                    <span>UPI</span>
-                    <span>VISA</span>
-                    <span>MASTERCARD</span>
-                    <span>RUPAY</span>
-                </div>
-            </div>
-
             <div class="footer-grid">
                 <div class="footer-brand">
                     <a href="/" class="brand">
                         <img src="mallulogo.png" alt="The Mallu Logo" class="logo-img">
                     </a>
-                    <p>High-performance web architecture engineered for the modern digital era. Built in Kerala, scaled for the world.</p>
+                    <p>High-performance web architecture journalism engineered for the modern digital era. Built in Kerala, scaled for the world.</p>
                 </div>
 
                 <div class="footer-links">
-                    <h4>Resources</h4>
+                    <h4>Categories</h4>
                     <ul>
-                        <li><a href="#templates">Templates</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="support.html">Support</a></li>
-                        <li><a href="#features">Dashboard</a></li>
+                        <li><a href="#">Engineering Log</a></li>
+                        <li><a href="#">Fintech Track</a></li>
+                        <li><a href="#">Ecosystem Wire</a></li>
+                        <li><a href="#">Broadcast Desk</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-links">
-                    <h4>Legal</h4>
+                    <h4>Legal & Trust</h4>
                     <ul>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Cookie Policy</a></li>
-                        <li><a href="#">Refund Policy</a></li>
+                        <li><a href="#">Privacy Engine</a></li>
+                        <li><a href="#">Terms of Feed</a></li>
+                        <li><a href="#">Telemetry Policy</a></li>
+                        <li><a href="#">Editorial Standard</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-links">
-                    <h4>Collab</h4>
+                    <h4>Syndication</h4>
                     <ul>
-                        <li><a href="#">Advertise with us</a></li>
-                        <li><a href="#">SEO Outsource</a></li>
-                        <li><a href="#">Marketing</a></li>
-                        <li><a href="#">Campaigns</a></li>
+                        <li><a href="#">Advertise Feed</a></li>
+                        <li><a href="#">Media Assets</a></li>
+                        <li><a href="#">Press Terminal</a></li>
+                        <li><a href="#">API Documentation</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-links">
-                    <h4>Community</h4>
+                    <h4>Nodes</h4>
                     <ul>
                         <li><a href="#">Developers</a></li>
-                        <li><a href="#">Clients</a></li>
-                        <li><a href="#">Sales</a></li>
-                        <li><a href="#">Marketing</a></li>
+                        <li><a href="#">Contributors</a></li>
+                        <li><a href="#">Open Repository</a></li>
+                        <li><a href="#">System State</a></li>
                     </ul>
                 </div>
             </div>
@@ -1442,52 +1178,29 @@
             navMenu.classList.toggle('active');
         }
 
-        function closeMenu() {
-            const navMenu = document.getElementById('navMenu');
-            navMenu.classList.remove('active');
-        }
-
         // Privacy Consent Engine
         window.onload = function() {
             checkPrivacyConsent();
             checkProgramAnnouncement();
+            setupCategoryFilters();
         }
 
         function checkPrivacyConsent() {
             const consentData = localStorage.getItem('privacy_consent_accepted');
             const popupElement = document.getElementById('privacy-popup');
 
-            if (consentData) {
-                try {
-                    const parsedData = JSON.parse(consentData);
-                    const now = new Date().getTime();
-
-                    if (now > parsedData.expiry) {
-                        localStorage.removeItem('privacy_consent_accepted');
-                        displayPrivacyBanner(popupElement);
-                    }
-                } catch (e) {
-                    localStorage.removeItem('privacy_consent_accepted');
-                    displayPrivacyBanner(popupElement);
-                }
-            } else {
-                displayPrivacyBanner(popupElement);
+            if (!consentData) {
+                setTimeout(function() {
+                    popupElement.classList.add('show');
+                }, 1000);
             }
-        }
-
-        function displayPrivacyBanner(element) {
-            setTimeout(function() {
-                element.classList.add('show');
-            }, 1000);
         }
 
         function acceptPrivacyAndReload() {
             const duration = 30 * 24 * 60 * 60 * 1000; 
             const expiration = new Date().getTime() + duration;
-
             localStorage.setItem('privacy_consent_accepted', JSON.stringify({ accepted: true, expiry: expiration }));
             document.getElementById('privacy-popup').classList.remove('show');
-            window.location.reload();
         }
 
         function closePrivacy() {
@@ -1509,16 +1222,16 @@
             sessionStorage.setItem('announce_modal_dismissed', 'true');
         }
 
-        // Smooth Scrolling Anchors
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
+        // Category Filter Navigation Toggling Simulator
+        function setupCategoryFilters() {
+            const tabs = document.querySelectorAll('.cat-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                });
             });
-        });
+        }
     </script>
 </body>
 </html>
