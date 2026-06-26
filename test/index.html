@@ -37,27 +37,28 @@
         .progress-bar { height: 100%; width: 0; background: linear-gradient(90deg, var(--honey-yellow), var(--honey-dark)); animation: fillProgress 5s linear forwards; }
         @keyframes fillProgress { 0% { width: 0%; } 100% { width: 100%; } }
 
-        /* --- Main Content Styles --- */
-        #main-content { opacity: 0; transition: opacity 1s ease-in 0.5s; text-align: center; min-height: 100vh; display: flex; flex-direction: column; }
+        /* --- Main Content & Navigation --- */
+        #main-content { opacity: 0; transition: opacity 1s ease-in 0.5s; min-height: 100vh; }
         body.loaded #main-content { opacity: 1; }
         
-        /* Hero Section (Decorations Removed) */
-        .hero {
-            padding: 80px 20px 40px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; background: var(--white); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .nav-logo { width: 80px; }
+        
+        nav ul { display: flex; list-style: none; gap: 30px; margin: 0; }
+        nav a { text-decoration: none; color: var(--text-dark); font-weight: 600; }
+        
+        /* Mobile Menu */
+        .menu-icon { display: none; cursor: pointer; font-size: 24px; }
+        #side-nav { position: fixed; right: -250px; top: 0; width: 250px; height: 100%; background: var(--white); box-shadow: -2px 0 5px rgba(0,0,0,0.1); transition: 0.3s; padding-top: 60px; z-index: 1000; }
+        #side-nav ul { flex-direction: column; padding: 20px; }
+        
+        @media (max-width: 768px) {
+            nav ul { display: none; }
+            .menu-icon { display: block; }
         }
 
-        .hero-logo {
-            width: 180px;
-            height: auto;
-            margin-bottom: 10px;
-        }
-
-        main { flex-grow: 1; padding: 20px; max-width: 800px; margin: 0 auto; }
-        h2 { font-size: 2.2rem; color: var(--text-dark); margin-bottom: 20px; }
-        .subtitle { font-size: 1.25rem; color: #555; margin-bottom: 40px; line-height: 1.6; }
+        main { padding: 80px 20px; max-width: 800px; margin: 0 auto; text-align: center; }
+        h2 { font-size: 2.2rem; margin-bottom: 20px; }
         .btn { display: inline-block; padding: 16px 40px; font-weight: bold; background-color: var(--honey-yellow); color: var(--white); text-decoration: none; border-radius: 30px; }
     </style>
 </head>
@@ -66,25 +67,44 @@
     <div id="loader">
         <div class="loader-content">
              <img id="loading-logo" src="https://dxtcuekuplihhijepqww.supabase.co/storage/v1/object/public/Assets/20260627_000257.png" alt="ChuBee Logo">
-             <div class="progress-container">
-                 <div class="progress-bar"></div>
-             </div>
+             <div class="progress-container"><div class="progress-bar"></div></div>
              <p class="loader-quote">You deserve a space that celebrates you</p>
         </div>
     </div>
 
     <div id="main-content">
-        <section class="hero">
-            <img class="hero-logo" src="https://dxtcuekuplihhijepqww.supabase.co/storage/v1/object/public/Assets/20260627_000257.png" alt="ChuBee Logo">
-        </section>
+        <header>
+            <img class="nav-logo" src="https://dxtcuekuplihhijepqww.supabase.co/storage/v1/object/public/Assets/20260627_000257.png" alt="Logo">
+            <div class="menu-icon" onclick="toggleMenu()">☰</div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">How this work?</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div id="side-nav">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">How this work?</a></li>
+            </ul>
+        </div>
+
         <main>
             <h2>Welcome to the Hive of Acceptance</h2>
-            <p class="subtitle">The ultimate dating and friend-finder platform engineered specifically for the plus-size community.</p>
+            <p>The ultimate platform for the plus-size community.</p>
             <a href="#" class="btn">Find Your Swarm</a>
         </main>
     </div>
 
     <script>
+        function toggleMenu() {
+            const nav = document.getElementById('side-nav');
+            nav.style.right = nav.style.right === '0px' ? '-250px' : '0px';
+        }
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const loader = document.getElementById('loader');
