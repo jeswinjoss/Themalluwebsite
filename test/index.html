@@ -21,7 +21,7 @@
             height: 100%;
         }
 
-        /* --- Loading Screen Styles (Kept as requested) --- */
+        /* --- Loading Screen Styles --- */
         #loader {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background-color: var(--white); z-index: 9999;
@@ -38,33 +38,19 @@
         @keyframes fillProgress { 0% { width: 0%; } 100% { width: 100%; } }
 
         /* --- Main Content Styles --- */
-        #main-content { opacity: 0; transition: opacity 1s ease-in 0.5s; text-align: center; min-height: 100vh; display: flex; flex-direction: column; position: relative; }
+        #main-content { opacity: 0; transition: opacity 1s ease-in 0.5s; text-align: center; min-height: 100vh; display: flex; flex-direction: column; }
         body.loaded #main-content { opacity: 1; }
         
-        /* Updated Hero Section with Honey Decorations */
+        /* Hero Section (Decorations Removed) */
         .hero {
             padding: 80px 20px 40px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            position: relative;
-            z-index: 1;
         }
-        
-        /* Honey Decorative Elements */
-        .hero::before, .hero::after {
-            content: '';
-            position: absolute;
-            background-color: var(--honey-yellow);
-            opacity: 0.3;
-            border-radius: 50%;
-            z-index: -1;
-        }
-        .hero::before { width: 200px; height: 200px; top: 10px; left: 10%; filter: blur(40px); }
-        .hero::after { width: 150px; height: 150px; top: 50px; right: 10%; filter: blur(30px); }
 
         .hero-logo {
-            width: 180px; /* Increased size */
+            width: 180px;
             height: auto;
             margin-bottom: 10px;
         }
