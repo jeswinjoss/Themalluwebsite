@@ -21,7 +21,7 @@
             height: 100%;
         }
 
-        /* --- Updated Loading Screen Styles --- */
+        /* --- Loading Screen Styles --- */
         #loader {
             position: fixed;
             top: 0;
@@ -47,19 +47,18 @@
             align-items: center;
             justify-content: center;
             width: 80%;
-            max-width: 300px; /* Logo and bar width constrained together */
+            max-width: 300px;
             gap: 20px;
             text-align: center;
         }
 
         #loading-logo {
-            width: 100%; /* Bigger size, fills container */
+            width: 100%;
             max-width: 220px; 
             object-fit: contain;
             animation: fadeIn 1.5s ease-in forwards;
         }
 
-        /* Professional Quote Styling */
         .loader-quote {
             font-family: 'Georgia', serif;
             color: #5d4037;
@@ -75,9 +74,8 @@
             to { opacity: 1; }
         }
 
-        /* Progress Bar proportional to logo width */
         .progress-container {
-            width: 100%; /* Matches container width */
+            width: 100%;
             height: 4px;
             background-color: #eee;
             border-radius: 2px;
@@ -107,9 +105,24 @@
         }
         body.loaded #main-content { opacity: 1; }
         
-        header { background-color: var(--honey-yellow); padding: 40px 20px; border-radius: 0 0 40px 40px; }
-        h1 { font-size: 3.5rem; margin: 0; color: var(--white); }
-        main { flex-grow: 1; padding: 60px 20px; max-width: 800px; margin: 0 auto; }
+        /* New Hero Section */
+        .hero {
+            padding: 60px 20px 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .hero-logo {
+            width: 120px; /* Adjusted size for top-of-page hero */
+            height: auto;
+        }
+
+        main { flex-grow: 1; padding: 20px; max-width: 800px; margin: 0 auto; }
+        h2 { font-size: 2.2rem; color: var(--text-dark); margin-bottom: 20px; }
+        .subtitle { font-size: 1.25rem; color: #555; margin-bottom: 40px; line-height: 1.6; }
+        
         .btn { display: inline-block; padding: 16px 40px; font-weight: bold; background-color: var(--honey-yellow); color: var(--white); text-decoration: none; border-radius: 30px; }
     </style>
 </head>
@@ -126,9 +139,9 @@
     </div>
 
     <div id="main-content">
-        <header>
-            <h1>🐝 ChuBee</h1>
-        </header>
+        <section class="hero">
+            <img class="hero-logo" src="https://dxtcuekuplihhijepqww.supabase.co/storage/v1/object/public/Assets/20260627_000257.png" alt="ChuBee Logo">
+        </section>
         <main>
             <h2>Welcome to the Hive of Acceptance</h2>
             <p class="subtitle">The ultimate dating and friend-finder platform engineered specifically for the plus-size community.</p>
