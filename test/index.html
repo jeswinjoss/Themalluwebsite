@@ -21,42 +21,72 @@
             height: 100%;
         }
 
-        /* --- Gif Loading Screen Styles --- */
+        /* --- Logo & Progress Bar Loading Screen Styles --- */
         #loader {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: #000000; /* Black background for cleaner blending */
+            background-color: var(--white); /* Changed to white for clean logo blending */
             z-index: 9999;
             transition: opacity 0.8s ease-out, visibility 0.8s;
-            /* Flexbox to keep the inner wrapper perfectly centered */
             display: flex;
             justify-content: center;
             align-items: center;
         }
+        
         #loader.hidden {
             opacity: 0;
             visibility: hidden;
         }
 
-        /* Smart Aspect-Ratio Wrapper */
-        .video-wrapper {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            max-width: calc(100vh * 16 / 9);
-            max-height: calc(100vw * 9 / 16);
-            overflow: hidden; 
+        .loader-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            width: 80%;
+            max-width: 320px;
         }
 
-        #loading-video {
+        #loading-logo {
             width: 100%;
+            max-width: 180px;
+            object-fit: contain;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        /* Polished Progress Bar Container */
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background-color: #f0f0f0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        /* Animated Yellow Progress Bar */
+        .progress-bar {
             height: 100%;
-            object-fit: cover;
-            /* Prevent any accidental taps/swipes on mobile */
-            pointer-events: none; 
+            width: 0;
+            background: linear-gradient(90deg, var(--honey-yellow), var(--honey-dark));
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(255, 193, 7, 0.6);
+            /* Synced strictly to 5 seconds */
+            animation: fillProgress 5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes fillProgress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         /* --- Main Content Styles --- */
@@ -69,14 +99,27 @@
             flex-direction: column;
         }
         body.loaded #main-content { opacity: 1; }
+        
         header {
-            background-color: var(--honey-yellow); padding: 40px 20px;
-            border-radius: 0 0 40px 40px; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+            background-color: var(--honey-yellow); 
+            padding: 40px 20px;
+            border-radius: 0 0 40px 40px; 
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
         }
-        h1 { font-size: 3.5rem; margin: 0; color: var(--white); text-shadow: 2px 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; gap: 15px; }
+        h1 { 
+            font-size: 3.5rem; 
+            margin: 0; 
+            color: var(--white); 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 15px; 
+        }
         main { flex-grow: 1; padding: 60px 20px; max-width: 800px; margin: 0 auto; }
         h2 { font-size: 2.2rem; color: var(--text-dark); margin-bottom: 20px; }
         p.subtitle { font-size: 1.25rem; color: #555; margin: 20px auto 40px auto; line-height: 1.8; }
+        
         .btn {
             display: inline-block; padding: 16px 40px; font-size: 1.2rem; font-weight: bold;
             background-color: var(--honey-yellow); color: var(--white); text-decoration: none;
@@ -88,14 +131,15 @@
 </head>
 <body>
 
-    <!-- Loading Screen (Gif Only) -->
     <div id="loader">
-        <div class="video-wrapper">
-             <img id="loading-video" src="https://media.giphy.com/media/26gs7fLOmp6NU0peE/giphy.gif" alt="Bee loading animation">
+        <div class="loader-content">
+             <img id="loading-logo" src="https://dxtcuekuplihhijepqww.supabase.co/storage/v1/object/public/Assets/20260627_000257.png" alt="ChuBee Loading Logo">
+             <div class="progress-container">
+                 <div class="progress-bar"></div>
+             </div>
         </div>
     </div>
 
-    <!-- Main Content -->
     <div id="main-content">
         <header>
             <h1>🐝 ChuBee</h1>
@@ -111,7 +155,7 @@
 
     <script>
         window.addEventListener('load', () => {
-            // Keep the 10-second loading duration before revealing the site
+            // Loading duration updated to strictly 5 seconds (5000ms)
             setTimeout(() => {
                 const loader = document.getElementById('loader');
                 loader.classList.add('hidden');
@@ -120,7 +164,7 @@
                 setTimeout(() => {
                     loader.style.display = 'none';
                 }, 800);
-            }, 10000); 
+            }, 5000); 
         });
     </script>
 </body>
