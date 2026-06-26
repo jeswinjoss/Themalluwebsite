@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChuBee | The Hive of Acceptance</title>
+    <style>
+        :root {
+            --honey-yellow: #FFC107;
+            --honey-dark: #FF6F00;
+            --white: #FFFFFF;
+            --text-dark: #3E2723;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--white);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            height: 100%;
+        }
+        
+        /* --- Video Loading Screen Styles --- */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000000; /* Black background for cleaner video blending */
+            z-index: 9999;
+            transition: opacity 0.8s ease-out, visibility 0.8s;
+            overflow: hidden; /* Prevents scrollbars when scaling the video */
+        }
+        #loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Full Screen Video Background */
+        #loading-video {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            /* Zoom in slightly to crop out baked-in watermarks (like the Gemini logo) at the edges */
+            transform: scale(1.15);
+            /* Prevent any accidental taps/swipes on mobile from pausing or interacting with the video */
+            pointer-events: none; 
+        }
+
+        /* --- Main Content Styles --- */
+        #main-content {
+            opacity: 0;
+            transition: opacity 1s ease-in 0.5s;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        body.loaded #main-content { opacity: 1; }
+        header {
+            background-color: var(--honey-yellow); padding: 40px 20px;
+            border-radius: 0 0 40px 40px; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+        }
+        h1 { font-size: 3.5rem; margin: 0; color: var(--white); text-shadow: 2px 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; gap: 15px; }
+        main { flex-grow: 1; padding: 60px 20px; max-width: 800px; margin: 0 auto; }
+        h2 { font-size: 2.2rem; color: var(--text-dark); margin-bottom: 20px; }
+        p.subtitle { font-size: 1.25rem; color: #555; margin: 20px auto 40px auto; line-height: 1.8; }
+        .btn {
+            display: inline-block; padding: 16px 40px; font-size: 1.2rem; font-weight: bold;
+            background-color: var(--honey-yellow); color: var(--white); text-decoration: none;
+            border-radius: 30px; box-shadow: 0 6px 12px rgba(255, 193, 7, 0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 16px rgba(255, 193, 7, 0.6); background-color: var(--honey-dark); }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen (Video Only) -->
+    <div id="loader">
+        <video id="loading-video" autoplay loop muted playsinline disablePictureInPicture>
+            <source src="https://dxtcuekuplihhijepqww.supabase.co/storage/v1/object/public/Assets/Make_the_bee_flying_from_outsi.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content">
+        <header>
+            <h1>🐝 ChuBee</h1>
+        </header>
+        <main>
+            <h2>Welcome to the Hive of Acceptance</h2>
+            <p class="subtitle">
+                The ultimate dating and friend-finder platform engineered specifically for the plus-size community. Zero judgment, zero trolls, just genuine connections.
+            </p>
+            <a href="#" class="btn">Find Your Swarm</a>
+        </main>
+    </div>
+
+    <script>
+        window.addEventListener('load', () => {
+            // Keep the 10-second loading duration before revealing the site
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.classList.add('hidden');
+                document.body.classList.add('loaded');
+                
+                // Pause the video once hidden to save resources
+                document.getElementById('loading-video').pause();
+                
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 800);
+            }, 10000); 
+        });
+    </script>
+</body>
+</html>"""
+
+with open('index.html', 'w', encoding='utf-8') as f:
+    f.write(html_content)
+
+print("Updated index.html to video only, scaled for watermarks, and mobile optimized.")
