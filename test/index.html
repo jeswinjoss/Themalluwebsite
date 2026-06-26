@@ -21,7 +21,7 @@
             height: 100%;
         }
 
-        /* --- Loading Screen Styles --- */
+        /* --- Updated Loading Screen Styles --- */
         #loader {
             position: fixed;
             top: 0;
@@ -46,24 +46,28 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 90%;
-            max-width: 400px;
-            gap: 25px;
+            width: 80%;
+            max-width: 300px; /* Logo and bar width constrained together */
+            gap: 20px;
             text-align: center;
         }
 
         #loading-logo {
-            width: 150px;
+            width: 100%; /* Bigger size, fills container */
+            max-width: 220px; 
             object-fit: contain;
-            /* Fade-in animation */
             animation: fadeIn 1.5s ease-in forwards;
         }
 
+        /* Professional Quote Styling */
         .loader-quote {
-            font-style: italic;
-            color: #777;
-            font-size: 1rem;
+            font-family: 'Georgia', serif;
+            color: #5d4037;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
             margin-top: 10px;
+            opacity: 0.8;
         }
 
         @keyframes fadeIn {
@@ -71,12 +75,12 @@
             to { opacity: 1; }
         }
 
-        /* Polished Progress Bar */
+        /* Progress Bar proportional to logo width */
         .progress-container {
-            width: 100%;
-            height: 6px;
-            background-color: #f0f0f0;
-            border-radius: 20px;
+            width: 100%; /* Matches container width */
+            height: 4px;
+            background-color: #eee;
+            border-radius: 2px;
             overflow: hidden;
         }
 
@@ -103,18 +107,10 @@
         }
         body.loaded #main-content { opacity: 1; }
         
-        header {
-            background-color: var(--honey-yellow); 
-            padding: 40px 20px;
-            border-radius: 0 0 40px 40px; 
-        }
+        header { background-color: var(--honey-yellow); padding: 40px 20px; border-radius: 0 0 40px 40px; }
         h1 { font-size: 3.5rem; margin: 0; color: var(--white); }
         main { flex-grow: 1; padding: 60px 20px; max-width: 800px; margin: 0 auto; }
-        .btn {
-            display: inline-block; padding: 16px 40px; font-weight: bold;
-            background-color: var(--honey-yellow); color: var(--white); text-decoration: none;
-            border-radius: 30px;
-        }
+        .btn { display: inline-block; padding: 16px 40px; font-weight: bold; background-color: var(--honey-yellow); color: var(--white); text-decoration: none; border-radius: 30px; }
     </style>
 </head>
 <body>
@@ -125,7 +121,7 @@
              <div class="progress-container">
                  <div class="progress-bar"></div>
              </div>
-             <p class="loader-quote">you deserve a space that celebrates you</p>
+             <p class="loader-quote">You deserve a space that celebrates you</p>
         </div>
     </div>
 
