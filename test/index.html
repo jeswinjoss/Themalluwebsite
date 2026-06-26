@@ -34,13 +34,16 @@
         .loader-quote { font-family: 'Georgia', serif; color: #5d4037; font-size: 0.95rem; letter-spacing: 0.05em; text-transform: uppercase; margin-top: 10px; opacity: 0.8; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .progress-container { width: 100%; height: 4px; background-color: #eee; border-radius: 2px; overflow: hidden; }
-        .progress-bar { height: 100%; width: 0; background: linear-gradient(90deg, var(--honey-yellow), var(--honey-dark)); animation: fillProgress 5s linear forwards; }
+        
+        /* Duration updated to 3.5s */
+        .progress-bar { height: 100%; width: 0; background: linear-gradient(90deg, var(--honey-yellow), var(--honey-dark)); animation: fillProgress 3.5s linear forwards; }
         @keyframes fillProgress { 0% { width: 0%; } 100% { width: 100%; } }
 
         /* --- Main Content & Navigation --- */
         #main-content { opacity: 0; transition: opacity 1s ease-in 0.5s; min-height: 100vh; }
         body.loaded #main-content { opacity: 1; }
         
+        /* Header structure: Logo left, Menu icon right */
         header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; background: var(--white); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .nav-logo { width: 80px; }
         
@@ -48,7 +51,7 @@
         nav a { text-decoration: none; color: var(--text-dark); font-weight: 600; }
         
         /* Mobile Menu */
-        .menu-icon { display: none; cursor: pointer; font-size: 28px; z-index: 1001; }
+        .menu-icon { display: none; cursor: pointer; font-size: 28px; z-index: 1001; order: 2; }
         #side-nav { position: fixed; right: -250px; top: 0; width: 250px; height: 100%; background: var(--white); box-shadow: -2px 0 5px rgba(0,0,0,0.1); transition: 0.3s; padding-top: 80px; z-index: 1000; }
         #side-nav ul { display: flex; flex-direction: column; list-style: none; padding: 0 20px; gap: 20px; }
         #side-nav a { text-decoration: none; color: var(--text-dark); font-size: 1.2rem; font-weight: 600; display: block; }
@@ -104,16 +107,16 @@
     <script>
         function toggleMenu() {
             const nav = document.getElementById('side-nav');
-            // Check current style or computed style to toggle
             nav.style.right = (nav.style.right === '0px') ? '-250px' : '0px';
         }
         window.addEventListener('load', () => {
+            // Updated to 3.5 seconds (3500ms)
             setTimeout(() => {
                 const loader = document.getElementById('loader');
                 loader.classList.add('hidden');
                 document.body.classList.add('loaded');
                 setTimeout(() => { loader.style.display = 'none'; }, 800);
-            }, 5000); 
+            }, 3500); 
         });
     </script>
 </body>
