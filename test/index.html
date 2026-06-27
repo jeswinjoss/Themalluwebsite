@@ -3,14 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ChuBee - The Hive of Acceptance. A body-positive dating and friend-finder platform.">
     <title>ChuBee | The Hive of Acceptance</title>
+    <!-- Preload the main logo to render it faster -->
+    <link rel="preload" href="https://dxtcuekuplihhijepqww.supabase.co/storage/v1/object/public/Assets/20260627_000257.png" as="image">
+    
     <style>
         :root {
             --honey-yellow: #FFC107;
             --honey-dark: #FF6F00;
+            --honey-light: #FFF8E1;
             --white: #FFFFFF;
             --text-dark: #3E2723;
+            --text-muted: #5D4037;
         }
+        
         body, html {
             margin: 0;
             padding: 0;
@@ -23,52 +30,340 @@
 
         /* --- Loading Screen Styles --- */
         #loader {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: var(--white); z-index: 9999;
-            transition: opacity 0.8s ease-out, visibility 0.8s;
-            display: flex; justify-content: center; align-items: center;
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100vw; 
+            height: 100vh;
+            background-color: var(--white); 
+            z-index: 9999;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
         }
-        #loader.hidden { opacity: 0; visibility: hidden; }
-        .loader-content { display: flex; flex-direction: column; align-items: center; width: 80%; max-width: 300px; gap: 20px; text-align: center; }
-        #loading-logo { width: 100%; max-width: 220px; object-fit: contain; animation: fadeIn 1.5s ease-in forwards; }
-        .loader-quote { font-family: 'Georgia', serif; color: #5d4037; font-size: 0.95rem; letter-spacing: 0.05em; text-transform: uppercase; margin-top: 10px; opacity: 0.8; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .progress-container { width: 100%; height: 4px; background-color: #eee; border-radius: 2px; overflow: hidden; }
         
-        /* Duration updated to 3.5s */
-        .progress-bar { height: 100%; width: 0; background: linear-gradient(90deg, var(--honey-yellow), var(--honey-dark)); animation: fillProgress 3.5s linear forwards; }
-        @keyframes fillProgress { 0% { width: 0%; } 100% { width: 100%; } }
+        #loader.hidden { 
+            opacity: 0; 
+            visibility: hidden; 
+        }
+        
+        .loader-content { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            width: 80%; 
+            max-width: 300px; 
+            gap: 20px; 
+            text-align: center; 
+        }
+        
+        #loading-logo { 
+            width: 100%; 
+            max-width: 220px; 
+            object-fit: contain; 
+            animation: fadeIn 1s ease-in forwards; 
+        }
+        
+        .loader-quote { 
+            font-family: 'Georgia', serif; 
+            color: var(--text-muted); 
+            font-size: 0.95rem; 
+            letter-spacing: 0.05em; 
+            text-transform: uppercase; 
+            margin-top: 10px; 
+            opacity: 0.8; 
+        }
+        
+        @keyframes fadeIn { 
+            from { opacity: 0; } 
+            to { opacity: 1; } 
+        }
+        
+        .progress-container { 
+            width: 100%; 
+            height: 4px; 
+            background-color: #eee; 
+            border-radius: 2px; 
+            overflow: hidden; 
+        }
+        
+        .progress-bar { 
+            height: 100%; 
+            width: 0; 
+            background: linear-gradient(90deg, var(--honey-yellow), var(--honey-dark)); 
+            animation: fillProgress 1s ease-out forwards; 
+        }
+        
+        @keyframes fillProgress { 
+            0% { width: 0%; } 
+            100% { width: 100%; } 
+        }
 
         /* --- Main Content & Navigation --- */
-        #main-content { opacity: 0; transition: opacity 1s ease-in 0.5s; min-height: 100vh; }
-        body.loaded #main-content { opacity: 1; }
+        #main-content { 
+            opacity: 0; 
+            transition: opacity 0.8s ease-in; 
+            min-height: 100vh; 
+            display: flex;
+            flex-direction: column;
+        }
         
-        /* Header structure: Logo left, Menu icon right */
-        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; background: var(--white); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .nav-logo { width: 80px; }
+        body.loaded #main-content { 
+            opacity: 1; 
+        }
         
-        nav ul { display: flex; list-style: none; gap: 30px; margin: 0; }
-        nav a { text-decoration: none; color: var(--text-dark); font-weight: 600; }
+        header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 20px 40px; 
+            background: var(--white); 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
         
-        /* Mobile Menu */
-        .menu-icon { display: none; cursor: pointer; font-size: 28px; z-index: 1001; order: 2; }
-        #side-nav { position: fixed; right: -250px; top: 0; width: 250px; height: 100%; background: var(--white); box-shadow: -2px 0 5px rgba(0,0,0,0.1); transition: 0.3s; padding-top: 80px; z-index: 1000; }
-        #side-nav ul { display: flex; flex-direction: column; list-style: none; padding: 0 20px; gap: 20px; }
-        #side-nav a { text-decoration: none; color: var(--text-dark); font-size: 1.2rem; font-weight: 600; display: block; }
+        .nav-logo { 
+            width: 80px; 
+            height: auto;
+        }
         
-        @media (max-width: 768px) {
-            nav ul { display: none; }
-            .menu-icon { display: block; }
+        nav ul { 
+            display: flex; 
+            list-style: none; 
+            gap: 30px; 
+            margin: 0; 
+            padding: 0;
+            align-items: center; 
+        }
+        
+        nav a { 
+            text-decoration: none; 
+            color: var(--text-dark); 
+            font-weight: 600; 
+            transition: color 0.2s;
+        }
+        
+        nav a:hover, nav a:focus {
+            color: var(--honey-dark);
+        }
+        
+        /* Mobile Controls in Header */
+        .mobile-controls {
+            display: none;
+            align-items: center;
+            gap: 15px;
         }
 
-        main { padding: 80px 20px; max-width: 800px; margin: 0 auto; text-align: center; }
-        h2 { font-size: 2.2rem; margin-bottom: 20px; }
-        .btn { display: inline-block; padding: 16px 40px; font-weight: bold; background-color: var(--honey-yellow); color: var(--white); text-decoration: none; border-radius: 30px; }
+        .menu-icon { 
+            cursor: pointer; 
+            font-size: 28px; 
+            background: none;
+            border: none;
+            color: var(--text-dark);
+            padding: 0;
+        }
+        
+        /* Side Navigation */
+        #side-nav { 
+            position: fixed; 
+            right: -250px; 
+            top: 0; 
+            width: 250px; 
+            height: 100%; 
+            background: var(--white); 
+            box-shadow: -2px 0 15px rgba(0,0,0,0.1); 
+            transition: right 0.3s ease-in-out; 
+            padding-top: 80px; 
+            z-index: 1000; 
+        }
+        
+        #side-nav.open {
+            right: 0;
+        }
+        
+        #side-nav ul { 
+            display: flex; 
+            flex-direction: column; 
+            list-style: none; 
+            padding: 0 20px; 
+            gap: 20px; 
+        }
+        
+        #side-nav a { 
+            text-decoration: none; 
+            color: var(--text-dark); 
+            font-size: 1.2rem; 
+            font-weight: 600; 
+            display: block; 
+        }
+        
+        /* --- Buttons --- */
+        .btn { 
+            display: inline-block; 
+            padding: 16px 40px; 
+            font-weight: bold; 
+            background-color: var(--honey-yellow); 
+            color: var(--text-dark); 
+            text-decoration: none; 
+            border-radius: 30px; 
+            transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover, .btn:focus {
+            background-color: var(--honey-dark);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(255, 111, 0, 0.3);
+        }
+
+        .btn-small {
+            padding: 10px 24px;
+            font-size: 0.95rem;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--honey-yellow);
+            color: var(--text-dark);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--honey-yellow);
+            color: var(--text-dark);
+        }
+        
+        /* --- Hero Section Redesign --- */
+        .hero-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            flex: 1;
+        }
+
+        .hero-content {
+            flex: 1;
+            text-align: left;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background-color: var(--honey-light);
+            color: var(--honey-dark);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin: 0 0 20px 0;
+            color: var(--text-dark);
+        }
+
+        .hero-content h1 span {
+            color: var(--honey-dark);
+        }
+
+        .hero-content p {
+            font-size: 1.15rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .hero-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+            background: linear-gradient(135deg, var(--honey-light) 0%, #FFE082 100%);
+            border-radius: 40px 10px 40px 10px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(255, 193, 7, 0.15);
+        }
+
+        /* Placeholder text inside the visual box */
+        .hero-visual::after {
+            content: 'Community Image / Mockup Placeholder';
+            color: var(--honey-dark);
+            font-weight: bold;
+            opacity: 0.6;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        /* --- Mobile Optimization --- */
+        @media (max-width: 900px) {
+            .hero-section {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 20px;
+                gap: 40px;
+            }
+            .hero-content {
+                text-align: center;
+            }
+            .hero-actions {
+                justify-content: center;
+                flex-direction: column;
+                width: 100%;
+            }
+            .hero-actions .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            .hero-visual {
+                width: 100%;
+                min-height: 300px;
+            }
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul { display: none; } 
+            
+            /* Show Mobile Controls */
+            .mobile-controls { display: flex; }
+            header { padding: 15px 20px; }
+            
+            .mobile-waitlist-btn {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+
+            .hero-content h1 { font-size: 2.4rem; } 
+            .hero-content p { font-size: 1.05rem; }
+        }
     </style>
 </head>
 <body>
 
-    <div id="loader">
+    <!-- Loading Screen -->
+    <div id="loader" aria-hidden="false">
         <div class="loader-content">
              <img id="loading-logo" src="https://dxtcuekuplihhijepqww.supabase.co/storage/v1/object/public/Assets/20260627_000257.png" alt="ChuBee Logo">
              <div class="progress-container"><div class="progress-bar"></div></div>
@@ -76,47 +371,85 @@
         </div>
     </div>
 
+    <!-- Main Content -->
     <div id="main-content">
         <header>
-            <img class="nav-logo" src="https://dxtcuekuplihhijepqww.supabase.co/storage/v1/object/public/Assets/20260627_000257.png" alt="Logo">
-            <div class="menu-icon" onclick="toggleMenu()">☰</div>
+            <img class="nav-logo" src="https://dxtcuekuplihhijepqww.supabase.co/storage/v1/object/public/Assets/20260627_000257.png" alt="ChuBee Logo">
+            
+            <!-- Desktop Navigation -->
             <nav>
                 <ul>
                     <li><a href="#">Home</a></li>
                     <li><a href="#">About</a></li>
-                    <li><a href="#">How this work?</a></li>
+                    <li><a href="#">How this works</a></li>
+                    <li><a href="link.html" class="btn btn-small">Join the waitlist</a></li>
                 </ul>
             </nav>
+
+            <!-- Mobile Controls (Waitlist + Hamburger) -->
+            <div class="mobile-controls">
+                <a href="link.html" class="btn mobile-waitlist-btn">Join waitlist</a>
+                <button class="menu-icon" aria-label="Toggle navigation menu" aria-expanded="false" onclick="toggleMenu()">☰</button>
+            </div>
         </header>
 
-        <div id="side-nav">
+        <!-- Mobile Side Menu -->
+        <nav id="side-nav" aria-hidden="true">
             <ul>
                 <li><a href="#">Home</a></li>
                 <li><a href="#">About</a></li>
-                <li><a href="#">How this work?</a></li>
+                <li><a href="#">How this works</a></li>
+                <li><a href="link.html">Join the waitlist</a></li>
             </ul>
-        </div>
+        </nav>
 
-        <main>
-            <h2>Welcome to the Hive of Acceptance</h2>
-            <p>The ultimate platform for the plus-size community.</p>
-            <a href="#" class="btn">Find Your Swarm</a>
+        <!-- Redesigned Hero Section -->
+        <main class="hero-section">
+            <div class="hero-content">
+                <span class="hero-tag">The Hive of Acceptance</span>
+                <h1>Find your people. <br><span>Find your swarm.</span></h1>
+                
+                <p>ChuBee is a body-positive dating and friend-finder platform engineered specifically for plus-size individuals and those who genuinely celebrate them[span_0](start_span)[span_0](end_span). We blend the playful warmth of being "chubby" with the vibrant, collaborative essence of a "bee[span_1](start_span)"[span_1](end_span).</p>
+                
+                <p><strong>Log in, be completely yourself, and belong.</strong></p>
+                
+                <div class="hero-actions">
+                    <a href="link.html" class="btn">Join the Waitlist</a>
+                    <a href="#" class="btn btn-outline">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Placeholder for a friendly community illustration or app mockup -->
+            <div class="hero-visual" aria-hidden="true">
+                <!-- Insert <img> tag here in the future -->
+            </div>
         </main>
     </div>
 
     <script>
         function toggleMenu() {
             const nav = document.getElementById('side-nav');
-            nav.style.right = (nav.style.right === '0px') ? '-250px' : '0px';
+            const menuBtn = document.querySelector('.menu-icon');
+            
+            nav.classList.toggle('open');
+            
+            const isOpen = nav.classList.contains('open');
+            menuBtn.setAttribute('aria-expanded', isOpen);
+            nav.setAttribute('aria-hidden', !isOpen);
         }
+
         window.addEventListener('load', () => {
-            // Updated to 3.5 seconds (3500ms)
+            const loader = document.getElementById('loader');
+            
             setTimeout(() => {
-                const loader = document.getElementById('loader');
                 loader.classList.add('hidden');
+                loader.setAttribute('aria-hidden', 'true');
                 document.body.classList.add('loaded');
-                setTimeout(() => { loader.style.display = 'none'; }, 800);
-            }, 3500); 
+                
+                setTimeout(() => { 
+                    loader.style.display = 'none'; 
+                }, 500);
+            }, 500); 
         });
     </script>
 </body>
