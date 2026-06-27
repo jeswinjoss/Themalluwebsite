@@ -8,10 +8,12 @@
     
     <!-- Preload the main logo to render it faster -->
     <link rel="preload" href="https://dxtcuekuplihhijepqww.supabase.co/storage/v1/object/public/Assets/20260627_000257.png" as="image">
+    
     <!-- Google Fonts for Professional & Beautiful Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Added Montserrat for a very bold, modern, and professional hero font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Playfair+Display:wght@600;700&family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -26,39 +28,30 @@
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--white); /* White background as requested */
+            background-color: var(--white); 
             color: var(--text-dark);
             overflow-x: hidden;
             height: 100%;
+            scroll-behavior: smooth;
         }
 
         /* --- Loading Screen Styles --- */
         #loader {
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100vw; 
-            height: 100vh;
-            background-color: var(--white); 
-            z-index: 9999;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: var(--white); z-index: 9999;
             transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
+            display: flex; justify-content: center; align-items: center;
         }
-        
         #loader.hidden { opacity: 0; visibility: hidden; }
         
         .loader-content { 
             display: flex; flex-direction: column; align-items: center; 
             width: 80%; max-width: 300px; gap: 20px; text-align: center; 
         }
-        
         #loading-logo { 
             width: 100%; max-width: 220px; object-fit: contain; 
             animation: fadeIn 1s ease-in forwards; 
         }
-        
         .loader-quote { 
             font-family: 'Georgia', serif; color: var(--text-muted); 
             font-size: 0.95rem; letter-spacing: 0.05em; text-transform: uppercase; 
@@ -67,26 +60,16 @@
         
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         
-        .progress-container { 
-            width: 100%; height: 4px; background-color: #eee; 
-            border-radius: 2px; overflow: hidden; 
-        }
-        
-        /* Progress bar synced to 3.5 seconds */
+        .progress-container { width: 100%; height: 4px; background-color: #eee; border-radius: 2px; overflow: hidden; }
         .progress-bar { 
             height: 100%; width: 0; 
             background: linear-gradient(90deg, var(--honey-yellow), var(--honey-dark)); 
             animation: fillProgress 3.5s linear forwards; 
         }
-        
         @keyframes fillProgress { 0% { width: 0%; } 100% { width: 100%; } }
 
         /* --- Main Content & Navigation --- */
-        #main-content { 
-            opacity: 0; transition: opacity 0.8s ease-in; 
-            min-height: 100vh; display: flex; flex-direction: column;
-        }
-        
+        #main-content { opacity: 0; transition: opacity 0.8s ease-in; display: flex; flex-direction: column; }
         body.loaded #main-content { opacity: 1; }
         
         header { 
@@ -95,30 +78,16 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
             position: sticky; top: 0; z-index: 100;
         }
-        
         .nav-logo { width: 80px; height: auto; }
         
-        nav ul { 
-            display: flex; list-style: none; gap: 30px; margin: 0; 
-            padding: 0; align-items: center; 
-        }
-        
-        nav a { 
-            text-decoration: none; color: var(--text-dark); 
-            font-weight: 600; transition: color 0.2s;
-        }
-        
+        nav ul { display: flex; list-style: none; gap: 30px; margin: 0; padding: 0; align-items: center; }
+        nav a { text-decoration: none; color: var(--text-dark); font-weight: 600; transition: color 0.2s; }
         nav a:hover, nav a:focus { color: var(--honey-dark); }
         
         .mobile-controls { display: none; align-items: center; gap: 15px; }
-
-        .menu-icon { 
-            cursor: pointer; font-size: 28px; background: none;
-            border: none; color: var(--text-dark); padding: 0;
-        }
+        .menu-icon { cursor: pointer; font-size: 28px; background: none; border: none; color: var(--text-dark); padding: 0; }
         
-        /* --- Redesigned Mobile Menu Slider --- */
-        /* Background Overlay for Mobile Menu */
+        /* --- Mobile Menu Slider --- */
         #menu-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(0,0,0,0.4); z-index: 999;
@@ -130,33 +99,23 @@
             position: fixed; right: -320px; top: 0; width: 280px; 
             height: 100%; background: var(--white); box-shadow: -5px 0 25px rgba(0,0,0,0.15); 
             transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
-            padding-top: 80px; z-index: 1000; 
-            display: flex; flex-direction: column;
+            padding-top: 80px; z-index: 1000; display: flex; flex-direction: column;
         }
-        
         #side-nav.open { right: 0; }
         
         .close-btn {
             position: absolute; top: 20px; right: 25px;
             font-size: 2.5rem; line-height: 1; color: var(--text-dark);
-            background: none; border: none; cursor: pointer;
-            transition: color 0.2s, transform 0.2s;
+            background: none; border: none; cursor: pointer; transition: color 0.2s, transform 0.2s;
         }
-        
         .close-btn:hover { color: var(--honey-dark); transform: scale(1.1); }
 
-        #side-nav ul { 
-            display: flex; flex-direction: column; list-style: none; 
-            padding: 0 30px; gap: 25px; margin: 0;
-        }
-        
+        #side-nav ul { display: flex; flex-direction: column; list-style: none; padding: 0 30px; gap: 25px; margin: 0; }
         #side-nav a { 
             text-decoration: none; color: var(--text-dark); 
             font-size: 1.3rem; font-weight: 600; display: block; 
-            border-bottom: 1px solid #eee; padding-bottom: 10px;
-            transition: color 0.2s;
+            border-bottom: 1px solid #eee; padding-bottom: 10px; transition: color 0.2s;
         }
-        
         #side-nav a:hover { color: var(--honey-dark); }
         
         /* --- Buttons --- */
@@ -167,60 +126,89 @@
             transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
             text-align: center; border: none; cursor: pointer;
         }
-        
         .btn:hover, .btn:focus {
             background-color: var(--honey-dark); color: var(--white);
             transform: translateY(-2px); box-shadow: 0 8px 15px rgba(255, 111, 0, 0.3);
         }
-
         .btn-small { padding: 10px 24px; font-size: 0.95rem; }
         
         /* --- Clean White Hero Section --- */
         .hero-section {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 80px 20px;
-            background-color: var(--white);
+            min-height: calc(100vh - 90px); /* Takes full screen minus header */
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding: 60px 20px 40px 20px; background-color: var(--white);
+            position: relative;
         }
 
         .hero-title {
-            font-family: 'Playfair Display', serif; /* Professional and beautiful font */
-            font-size: 4.5rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin: 0 0 40px 0;
-            max-width: 1000px;
-            line-height: 1.2;
-            animation: fadeIn 1s ease-out;
+            font-family: 'Montserrat', sans-serif; /* Highly professional bold font */
+            font-size: 4.8rem; font-weight: 800; color: var(--text-dark);
+            margin: 0 0 30px 0; max-width: 1000px; line-height: 1.1;
+            animation: fadeIn 1s ease-out; letter-spacing: -0.02em;
         }
 
+        /* Updated to Theme Yellow with subtle shadow for readability on white */
         .hero-title span {
-            color: var(--honey-dark);
+            color: var(--honey-yellow);
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.05); 
         }
 
         .hero-logo-large {
-            width: 100%;
-            max-width: 450px; /* Big size for web view */
-            height: auto;
-            object-fit: contain;
-            margin-bottom: 50px;
-            animation: fadeIn 1.2s ease-out;
+            width: 100%; max-width: 450px; height: auto; object-fit: contain;
+            margin-bottom: 40px; animation: fadeIn 1.2s ease-out;
             filter: drop-shadow(0 15px 25px rgba(0,0,0,0.05));
         }
 
-        .hero-actions { 
-            display: flex; gap: 15px; align-items: center; justify-content: center;
-            animation: fadeIn 1.4s ease-out;
+        .hero-actions { display: flex; gap: 15px; align-items: center; justify-content: center; animation: fadeIn 1.4s ease-out; margin-bottom: 50px; }
+
+        /* --- Animated Scroll Indicator Lines --- */
+        .scroll-indicator {
+            margin-top: auto; /* Pushes it to the bottom */
+            display: flex; flex-direction: column; align-items: center;
+            animation: fadeIn 2s ease-out; opacity: 0.7; cursor: pointer;
+        }
+        
+        .scroll-indicator span { font-size: 0.85rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 10px; }
+
+        .chevron {
+            width: 24px; height: 24px; border-right: 4px solid var(--honey-dark); border-bottom: 4px solid var(--honey-dark);
+            transform: rotate(45deg); animation: slideDown 2s infinite; margin-top: -12px;
+        }
+        .chevron:nth-child(2) { animation-delay: 0.2s; }
+        .chevron:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes slideDown {
+            0% { opacity: 0; transform: translateY(-15px) rotate(45deg); }
+            50% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(15px) rotate(45deg); }
+        }
+
+        /* --- NEW: What is ChuBee Section --- */
+        .about-section {
+            background-color: var(--honey-yellow); /* Yellow background as requested */
+            padding: 100px 20px;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+        }
+
+        .about-card {
+            background: var(--white);
+            padding: 60px 40px; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 800px; width: 100%;
+        }
+
+        .about-section h2 {
+            font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--text-dark); margin: 0 0 25px 0;
+        }
+
+        .about-section p {
+            font-size: 1.15rem; line-height: 1.8; color: var(--text-muted); margin: 0; font-weight: 400;
         }
 
         /* --- Mobile Optimization --- */
         @media (max-width: 900px) {
             .hero-title { font-size: 3.5rem; }
             .hero-logo-large { max-width: 350px; }
+            .about-section h2 { font-size: 2.5rem; }
         }
 
         @media (max-width: 768px) {
@@ -229,11 +217,15 @@
             header { padding: 15px 20px; }
             .mobile-waitlist-btn { padding: 8px 16px; font-size: 0.85rem; }
 
-            .hero-section { padding: 50px 20px; }
-            .hero-title { font-size: 2.8rem; margin-bottom: 30px; } 
-            .hero-logo-large { max-width: 280px; margin-bottom: 40px; } /* Scaled for mobile */
-            
+            .hero-section { padding: 40px 20px; min-height: 85vh; }
+            .hero-title { font-size: 2.6rem; margin-bottom: 25px; } 
+            .hero-logo-large { max-width: 280px; margin-bottom: 30px; } 
             .hero-actions .btn { width: 100%; max-width: 300px; }
+            
+            .about-section { padding: 60px 15px; }
+            .about-card { padding: 40px 20px; }
+            .about-section h2 { font-size: 2.2rem; }
+            .about-section p { font-size: 1.05rem; }
         }
     </style>
 </head>
@@ -256,7 +248,7 @@
             <nav>
                 <ul>
                     <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
+                    <li><a href="#about">About</a></li>
                     <li><a href="#">How this works</a></li>
                     <li><a href="link.html" class="btn btn-small">Join the waitlist</a></li>
                 </ul>
@@ -273,23 +265,43 @@
         <nav id="side-nav" aria-hidden="true">
             <button class="close-btn" aria-label="Close navigation menu" onclick="toggleMenu()">&times;</button>
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">How this works</a></li>
+                <li><a href="#" onclick="toggleMenu()">Home</a></li>
+                <li><a href="#about" onclick="toggleMenu()">About</a></li>
+                <li><a href="#" onclick="toggleMenu()">How this works</a></li>
                 <li><a href="link.html" style="color: var(--honey-dark);">Join the waitlist</a></li>
             </ul>
         </nav>
 
         <!-- Clean, White Hero Section -->
         <main class="hero-section">
-            <h1 class="hero-title">Welcome to <span>ChuBee Initiative</span></h1>
+            <h1 class="hero-title">Welcome to <br><span>ChuBee Initiative</span></h1>
             
             <img class="hero-logo-large" src="https://dxtcuekuplihhijepqww.supabase.co/storage/v1/object/public/Assets/20260627_000257.png" alt="ChuBee Large Logo">
             
             <div class="hero-actions">
                 <a href="link.html" class="btn">Join the Waitlist</a>
             </div>
+
+            <!-- Animated Lines to indicate sliding -->
+            <div class="scroll-indicator" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">
+                <span>Discover More</span>
+                <div class="chevron"></div>
+                <div class="chevron"></div>
+                <div class="chevron"></div>
+            </div>
         </main>
+
+        <!-- What is ChuBee? Section -->
+        <section id="about" class="about-section">
+            <div class="about-card">
+                <h2>What is ChuBee?</h2>
+                <p>
+                    <strong>ChuBee</strong> is a body-positive dating and friend-finder platform engineered specifically for plus-size individuals and those who genuinely celebrate them. 
+                    <br><br>
+                    We blend the playful warmth of being <em>"chubby"</em> with the vibrant, collaborative essence of a <em>"bee"</em>—evoking a sweet, active, and deeply connected hive where everyone belongs. Log in, be completely yourself, and find your swarm.
+                </p>
+            </div>
+        </section>
     </div>
 
     <script>
