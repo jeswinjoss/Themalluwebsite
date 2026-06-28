@@ -2,17 +2,287 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>You're on the list! | ChuBee</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Welcome to the Hive | ChuBee</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Segoe+UI:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #FDFBF7; text-align: center; }
-        .container { background: white; padding: 40px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        :root{
+            --honey-yellow:#FFC107;
+            --honey-dark:#FF6F00;
+            --honey-light:rgba(255,193,7,.08);
+            --text-dark:#3E2723;
+            --text-muted:#6D4C41;
+            --white:#ffffff;
+        }
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family:'Segoe UI',sans-serif;
+            background:linear-gradient(135deg,#FFFDF8,#FFF7E3);
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:25px;
+            overflow:hidden;
+        }
+
+        /* Floating Honey Blobs */
+
+        .blob{
+            position:absolute;
+            border-radius:50%;
+            background:rgba(255,193,7,.12);
+            animation:float 8s ease-in-out infinite;
+            z-index:0;
+        }
+
+        .blob:nth-child(1){
+            width:180px;
+            height:180px;
+            top:-60px;
+            left:-60px;
+        }
+
+        .blob:nth-child(2){
+            width:120px;
+            height:120px;
+            bottom:40px;
+            right:40px;
+            animation-delay:2s;
+        }
+
+        .blob:nth-child(3){
+            width:90px;
+            height:90px;
+            top:20%;
+            right:-30px;
+            animation-delay:4s;
+        }
+
+        @keyframes float{
+            0%,100%{
+                transform:translateY(0);
+            }
+            50%{
+                transform:translateY(-18px);
+            }
+        }
+
+        .card{
+            position:relative;
+            z-index:2;
+
+            width:100%;
+            max-width:620px;
+
+            background:white;
+            border-radius:35px;
+
+            padding:60px 45px;
+
+            text-align:center;
+
+            box-shadow:
+            0 25px 60px rgba(0,0,0,.08);
+
+            animation:fadeUp .8s ease;
+        }
+
+        @keyframes fadeUp{
+            from{
+                opacity:0;
+                transform:translateY(40px);
+            }
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        .logo{
+            width:150px;
+            margin-bottom:25px;
+        }
+
+        .check{
+            width:90px;
+            height:90px;
+            margin:auto;
+            border-radius:50%;
+            background:linear-gradient(135deg,var(--honey-yellow),var(--honey-dark));
+            color:white;
+            font-size:42px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            margin-bottom:30px;
+            box-shadow:0 12px 30px rgba(255,111,0,.3);
+        }
+
+        h1{
+            font-family:'Montserrat',sans-serif;
+            font-size:2.6rem;
+            color:var(--text-dark);
+            margin-bottom:18px;
+        }
+
+        h1 span{
+            color:var(--honey-dark);
+        }
+
+        p{
+            color:var(--text-muted);
+            font-size:1.08rem;
+            line-height:1.8;
+            margin-bottom:18px;
+        }
+
+        .highlight{
+            background:var(--honey-light);
+            border-left:5px solid var(--honey-yellow);
+            border-radius:16px;
+            padding:18px;
+            margin:35px 0;
+            font-weight:600;
+            color:var(--text-dark);
+        }
+
+        .buttons{
+            display:flex;
+            justify-content:center;
+            gap:18px;
+            flex-wrap:wrap;
+            margin-top:35px;
+        }
+
+        .btn{
+            text-decoration:none;
+            padding:16px 32px;
+            border-radius:40px;
+            font-weight:700;
+            transition:.3s;
+            display:inline-block;
+        }
+
+        .primary{
+            background:var(--honey-yellow);
+            color:var(--text-dark);
+        }
+
+        .primary:hover{
+            background:var(--honey-dark);
+            color:white;
+            transform:translateY(-4px);
+            box-shadow:0 12px 25px rgba(255,111,0,.3);
+        }
+
+        .secondary{
+            background:white;
+            color:var(--honey-dark);
+            border:2px solid var(--honey-yellow);
+        }
+
+        .secondary:hover{
+            background:var(--honey-dark);
+            color:white;
+            border-color:var(--honey-dark);
+            transform:translateY(-4px);
+            box-shadow:0 12px 25px rgba(255,111,0,.25);
+        }
+
+        footer{
+            margin-top:40px;
+            color:#888;
+            font-size:.9rem;
+        }
+
+        @media(max-width:600px){
+
+            .card{
+                padding:45px 25px;
+            }
+
+            h1{
+                font-size:2rem;
+            }
+
+            .buttons{
+                flex-direction:column;
+            }
+
+            .btn{
+                width:100%;
+            }
+
+            .logo{
+                width:120px;
+            }
+
+        }
+
     </style>
+
 </head>
+
 <body>
-    <div class="container">
-        <h1>Welcome to the Swarm!</h1>
-        <p>Your details have been saved successfully.</p>
-        <a href="index.html">Back to Home</a>
+
+<div class="blob"></div>
+<div class="blob"></div>
+<div class="blob"></div>
+
+<div class="card">
+
+    <img class="logo"
+    src="https://dxtcuekuplihhijepqww.supabase.co/storage/v1/object/public/Assets/20260627_000257.png"
+    alt="ChuBee Logo">
+
+    <div class="check">
+        ✓
     </div>
+
+    <h1>Welcome to the <span>Hive!</span></h1>
+
+    <p>
+        🎉 Congratulations! Your waitlist registration has been successfully completed.
+    </p>
+
+    <p>
+        You're now one of the early members of the ChuBee community. We can't wait to welcome you into a safe, body-positive space where genuine connections bloom.
+    </p>
+
+    <div class="highlight">
+        🐝 Keep an eye on your email. We'll notify you first when ChuBee officially launches and you'll receive exclusive early access.
+    </div>
+
+    <div class="buttons">
+
+        <a href="index.html" class="btn primary">
+            🏠 Back to Home
+        </a>
+
+        <a href="link.html" class="btn secondary">
+            📢 Follow Us for More Updates
+        </a>
+
+    </div>
+
+    <footer>
+        © 2026 ChuBee • The Hive of Acceptance
+    </footer>
+
+</div>
+
 </body>
 </html>
