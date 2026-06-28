@@ -62,12 +62,13 @@
         }
         .nav-logo { width: 80px; height: auto; }
         
-        nav ul { display: flex; list-style: none; gap: 30px; margin: 0; padding: 0; align-items: center; }
-        nav a { text-decoration: none; color: var(--text-dark); font-weight: 600; transition: color 0.2s; }
+        nav ul { display: flex; list-style: none; gap: 25px; margin: 0; padding: 0; align-items: center; }
+        nav a { text-decoration: none; color: var(--text-dark); font-weight: 600; transition: color 0.2s; font-size: 0.95rem; }
         nav a:hover, nav a:focus { color: var(--honey-dark); }
         
         .mobile-controls { display: none; align-items: center; gap: 15px; }
-        .menu-icon { cursor: pointer; font-size: 28px; background: none; border: none; color: var(--text-dark); padding: 0; }
+        .menu-icon { cursor: pointer; font-size: 28px; background: none; border: none; color: var(--text-dark); padding: 0; transition: color 0.2s; }
+        .menu-icon:hover { color: var(--honey-dark); }
         
         /* --- Buttons --- */
         .btn { 
@@ -108,9 +109,8 @@
             border-bottom: 4px solid var(--honey-dark);
             transform: rotate(45deg); 
             animation: animateArrows 2s infinite; 
-            margin: -5px 0; /* Creates perfect spacing without overlapping bounds */
+            margin: -5px 0;
         }
-        /* Negative delays start the animation smoothly in sync immediately */
         .chevron:nth-child(1) { animation-delay: -0.4s; }
         .chevron:nth-child(2) { animation-delay: -0.2s; }
         .chevron:nth-child(3) { animation-delay: 0s; }
@@ -171,42 +171,128 @@
             margin-bottom: 35px; font-weight: 500;
         }
 
-        /* --- Why Choose Us Section --- */
+        /* --- FLOWCHART: Why Choose Us Section --- */
         .features-section {
-            background-color: #FDFBF7; /* Soft, warm off-white */
+            background-color: #FDFBF7;
             padding: 100px 40px;
             text-align: center;
+            overflow: hidden;
         }
-        .features-header {
-            margin-bottom: 60px;
-        }
+        .features-header { margin-bottom: 70px; }
         .features-header h2 {
             font-family: 'Montserrat', sans-serif; font-size: 3.2rem; font-weight: 800;
             color: var(--text-dark); margin: 0; line-height: 1.1; letter-spacing: -0.02em;
         }
         .features-header h2 span { color: var(--honey-dark); }
-        
-        .features-grid {
-            max-width: 1200px; margin: 0 auto;
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;
+
+        .features-flowchart {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
         }
-        .feature-card {
-            background: var(--white); padding: 40px 30px; border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.04);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        @media (min-width: 900px) {
+            .features-flowchart {
+                flex-direction: row;
+                gap: 0;
+            }
         }
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 45px rgba(255,111,0,0.1);
+
+        .flow-step {
+            flex: 1;
+            position: relative;
+            padding: 0 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .feature-icon {
-            font-size: 3rem; margin-bottom: 20px;
+
+        /* Connecting flowchart lines for Desktop */
+        @media (min-width: 900px) {
+            .flow-step::after {
+                content: '';
+                position: absolute;
+                top: 30px; /* Center of the 60px circle */
+                left: 50%;
+                width: 100%;
+                height: 4px;
+                background-color: rgba(255, 111, 0, 0.2);
+                z-index: 1;
+            }
+            .flow-step:last-child::after { display: none; }
         }
-        .feature-card h3 {
-            font-size: 1.4rem; color: var(--text-dark); margin: 0 0 15px 0; font-weight: 700;
+
+        /* Connecting flowchart lines for Mobile */
+        @media (max-width: 899px) {
+            .flow-step {
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 25px;
+                padding: 0;
+                text-align: left;
+            }
+            .flow-step::after {
+                content: '';
+                position: absolute;
+                top: 60px;
+                left: 28px; /* Center of the 60px circle */
+                width: 4px;
+                height: calc(100% + 30px);
+                background-color: rgba(255, 111, 0, 0.2);
+                z-index: 1;
+            }
+            .flow-step:last-child::after { display: none; }
         }
-        .feature-card p {
-            font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin: 0;
+
+        .step-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--white);
+            border: 4px solid var(--honey-yellow);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.4rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: var(--honey-dark);
+            z-index: 2;
+            box-shadow: 0 0 0 10px #FDFBF7; /* Creates cutout effect for line */
+            flex-shrink: 0;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 899px) {
+            .step-circle { margin-bottom: 0; }
+        }
+
+        .step-content {
+            background: var(--white);
+            padding: 35px 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            border-top: 4px solid transparent;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            width: 100%;
+            z-index: 2;
+            text-align: left;
+        }
+
+        .step-content:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(255,111,0,0.1);
+            border-top-color: var(--honey-dark);
+        }
+
+        .step-content h3 {
+            font-size: 1.3rem; color: var(--text-dark); margin: 0 0 12px 0; font-weight: 700;
+        }
+        .step-content p {
+            font-size: 0.98rem; color: var(--text-muted); line-height: 1.6; margin: 0;
         }
 
         /* --- Footer --- */
@@ -228,27 +314,63 @@
         
         .footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 20px; text-align: center; font-size: 0.85rem; opacity: 0.6; }
 
-        /* --- Mobile Menu & Optimizations --- */
-        #menu-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.4); z-index: 999; opacity: 0; visibility: hidden; transition: 0.3s; }
+        /* --- REDESIGNED: Mobile Menu & Slider Optimizations --- */
+        #menu-overlay { 
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
+            background: rgba(0,0,0,0.4); backdrop-filter: blur(4px);
+            z-index: 999; opacity: 0; visibility: hidden; transition: 0.3s ease; 
+        }
         #menu-overlay.show { opacity: 1; visibility: visible; }
         
         #side-nav { 
-            position: fixed; right: -320px; top: 0; width: 280px; height: 100%; background: var(--white); 
-            box-shadow: -5px 0 25px rgba(0,0,0,0.15); transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
-            padding-top: 80px; z-index: 1000; display: flex; flex-direction: column; overflow-y: auto;
+            position: fixed; right: -350px; top: 0; width: 300px; height: 100%; 
+            background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(15px);
+            box-shadow: -10px 0 40px rgba(0,0,0,0.1); 
+            transition: right 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); 
+            z-index: 1000; display: flex; flex-direction: column; overflow-y: auto;
+            border-radius: 30px 0 0 30px;
         }
         #side-nav.open { right: 0; }
         
-        .close-btn { position: absolute; top: 20px; right: 25px; font-size: 2.5rem; line-height: 1; color: var(--text-dark); background: none; border: none; cursor: pointer; }
+        .side-nav-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 30px 25px 20px 30px; border-bottom: 1px solid rgba(0,0,0,0.05); margin-bottom: 20px;
+        }
+        .side-nav-logo { width: 85px; height: auto; }
+        .close-btn { 
+            font-size: 2.8rem; line-height: 1; color: var(--text-dark); 
+            background: none; border: none; cursor: pointer; transition: 0.2s; 
+        }
+        .close-btn:hover { color: var(--honey-dark); transform: scale(1.1); }
         
-        #side-nav .main-links { display: flex; flex-direction: column; list-style: none; padding: 0 30px; gap: 20px; margin: 0 0 30px 0; }
-        #side-nav .main-links a { text-decoration: none; color: var(--text-dark); font-size: 1.3rem; font-weight: 600; display: block; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        #side-nav .main-links { 
+            list-style: none; padding: 0 20px; display: flex; flex-direction: column; gap: 8px; margin: 0;
+        }
+        #side-nav .main-links a { 
+            text-decoration: none; color: var(--text-dark); font-size: 1.15rem; font-weight: 600; 
+            display: block; padding: 15px 25px; border-radius: 15px; transition: all 0.3s ease; 
+        }
+        #side-nav .main-links a:hover, #side-nav .main-links a:focus { 
+            background-color: var(--honey-light); color: var(--honey-dark); padding-left: 32px;
+        }
         
-        /* New Sub-menu for legal links in mobile */
-        #side-nav .sub-links { list-style: none; padding: 0 30px 30px 30px; margin: auto 0 0 0; background-color: #fafafa; border-top: 1px solid #eee; }
-        #side-nav .sub-links-title { font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); font-weight: bold; margin: 20px 0 15px 0; letter-spacing: 0.05em; }
-        #side-nav .sub-links li { margin-bottom: 12px; }
-        #side-nav .sub-links a { text-decoration: none; color: var(--text-muted); font-size: 0.95rem; }
+        #side-nav .side-nav-btn {
+            margin: 25px 20px; display: block; text-align: center;
+        }
+
+        #side-nav .sub-links { 
+            list-style: none; padding: 30px; margin: auto 0 0 0; 
+            background-color: rgba(0,0,0,0.02); border-top: 1px solid rgba(0,0,0,0.05); 
+        }
+        #side-nav .sub-links-title { 
+            font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); 
+            font-weight: bold; margin: 0 0 15px 0; letter-spacing: 0.05em; 
+        }
+        #side-nav .sub-links li { margin-bottom: 15px; }
+        #side-nav .sub-links a { 
+            text-decoration: none; color: var(--text-muted); font-size: 0.95rem; transition: 0.2s;
+        }
+        #side-nav .sub-links a:hover { color: var(--honey-dark); }
 
         @media (max-width: 900px) {
             .hero-title { font-size: 3.5rem; }
@@ -292,38 +414,46 @@
     <div id="main-content">
         <header>
             <img class="nav-logo" src="https://dxtcuekuplihhijepqww.supabase.co/storage/v1/object/public/Assets/20260627_000257.png" alt="ChuBee Logo">
+            <!-- Updated Desktop Menu Navigation -->
             <nav>
                 <ul>
-                    <li><a href="#">Home</a></li>
+                    <li><a href="index.html">Home</a></li>
                     <li><a href="#about">About</a></li>
-                    <li><a href="#">How this works</a></li>
-                    <li><a href="link.html" class="btn btn-small">Join the waitlist</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="referral.html">Referral</a></li>
+                    <li><a href="support.html">Support</a></li>
+                    <li><a href="waitlist.html" class="btn btn-small">Join the waitlist</a></li>
                 </ul>
             </nav>
             <div class="mobile-controls">
-                <a href="link.html" class="btn mobile-waitlist-btn btn-small">Join waitlist</a>
+                <a href="waitlist.html" class="btn mobile-waitlist-btn btn-small">Join waitlist</a>
                 <button class="menu-icon" aria-label="Open navigation menu" onclick="toggleMenu()">☰</button>
             </div>
         </header>
 
-        <!-- Redesigned Mobile Slider with Legal Links -->
+        <!-- Redesigned Mobile Slider -->
         <div id="menu-overlay" onclick="toggleMenu()"></div>
         <nav id="side-nav" aria-hidden="true">
-            <button class="close-btn" aria-label="Close menu" onclick="toggleMenu()">&times;</button>
+            <div class="side-nav-header">
+                <img src="https://dxtcuekuplihhijepqww.supabase.co/storage/v1/object/public/Assets/20260627_000257.png" alt="ChuBee Logo" class="side-nav-logo">
+                <button class="close-btn" aria-label="Close menu" onclick="toggleMenu()">&times;</button>
+            </div>
             
             <ul class="main-links">
-                <li><a href="#" onclick="toggleMenu()">Home</a></li>
+                <li><a href="index.html" onclick="toggleMenu()">Home</a></li>
                 <li><a href="#about" onclick="toggleMenu()">About</a></li>
-                <li><a href="#" onclick="toggleMenu()">How this works</a></li>
-                <li><a href="link.html" style="color: var(--honey-dark);">Join the waitlist</a></li>
+                <li><a href="pricing.html" onclick="toggleMenu()">Pricing</a></li>
+                <li><a href="referral.html" onclick="toggleMenu()">Referral</a></li>
+                <li><a href="support.html" onclick="toggleMenu()">Support</a></li>
             </ul>
+            
+            <a href="waitlist.html" class="btn side-nav-btn">Join the waitlist</a>
 
             <ul class="sub-links">
                 <div class="sub-links-title">Legal & Support</div>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Terms of Service</a></li>
-                <li><a href="#">Disclosure</a></li>
-                <li><a href="#">Report an Issue</a></li>
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="terms-of-service.html">Terms of Service</a></li>
+                <li><a href="disclosure.html">Disclosure</a></li>
             </ul>
         </nav>
 
@@ -332,7 +462,7 @@
             <img class="hero-logo-large" src="https://dxtcuekuplihhijepqww.supabase.co/storage/v1/object/public/Assets/20260627_000257.png" alt="ChuBee Large Logo">
             
             <div class="hero-actions">
-                <a href="link.html" class="btn">Join the Waitlist</a>
+                <a href="waitlist.html" class="btn">Join the Waitlist</a>
             </div>
 
             <!-- Flawlessly Animated Scroll Indicator -->
@@ -346,7 +476,7 @@
             </div>
         </main>
 
-        <!-- Redesigned About Section (Split Layout & Bold Format) -->
+        <!-- About Section -->
         <section id="about" class="about-section">
             <div class="about-container">
                 <div class="about-content">
@@ -360,7 +490,7 @@
                         Our mission is to create a safe, inclusive, and empowering space where everyone can find meaningful connections without fear of judgment. Whether you are looking for romance, deep friendships, or simply a community that understands and values you, ChuBee is designed to foster authentic relationships built on mutual respect and body positivity.
                     </p>
 
-                    <a href="link.html" class="btn btn-small" style="margin-top: 15px;">Know more</a>
+                    <a href="about.html" class="btn btn-small" style="margin-top: 15px;">Know more</a>
                 </div>
             </div>
         </section>
@@ -372,39 +502,51 @@
                 <p>
                     Our hive is growing rapidly! Over 250 amazing individuals have already claimed their spot, eagerly awaiting a community built purely on body positivity and acceptance. Join the early adopters today and secure your place in a swarm where everyone truly belongs before we officially launch.
                 </p>
-                <a href="link.html" class="btn">Join the Swarm</a>
+                <a href="waitlist.html" class="btn">Join the Swarm</a>
             </div>
         </section>
 
-        <!-- Why Choose Us Section -->
+        <!-- Redesigned Flowchart: Why Choose Us Section -->
         <section class="features-section">
             <div class="features-header">
                 <h2>Why <span>choose us?</span></h2>
             </div>
-            <div class="features-grid">
-                <!-- Feature 1 -->
-                <div class="feature-card">
-                    <div class="feature-icon">✨</div>
-                    <h3>Completely Free</h3>
-                    <p>Now we're completely free for all. Enjoy full access to our community without hidden costs or premium paywalls.</p>
+            
+            <div class="features-flowchart">
+                <!-- Step 1 -->
+                <div class="flow-step">
+                    <div class="step-circle">1</div>
+                    <div class="step-content">
+                        <h3>Completely Free</h3>
+                        <p>Now we're completely free for all. Enjoy full access to our community without hidden costs or premium paywalls.</p>
+                    </div>
                 </div>
-                <!-- Feature 2 -->
-                <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3>Secure Environment</h3>
-                    <p>Connect with peace of mind. Our platform is built with top-tier privacy and security measures to protect you.</p>
+                
+                <!-- Step 2 -->
+                <div class="flow-step">
+                    <div class="step-circle">2</div>
+                    <div class="step-content">
+                        <h3>Secure Environment</h3>
+                        <p>Connect with peace of mind. Our platform is built with top-tier privacy and security measures to protect you.</p>
+                    </div>
                 </div>
-                <!-- Feature 3 -->
-                <div class="feature-card">
-                    <div class="feature-icon">🤝</div>
-                    <h3>Community Initiative</h3>
-                    <p>Built by us, for us. This isn't just an app; it's a movement dedicated to body positivity and deep connections.</p>
+                
+                <!-- Step 3 -->
+                <div class="flow-step">
+                    <div class="step-circle">3</div>
+                    <div class="step-content">
+                        <h3>Community Initiative</h3>
+                        <p>Built by us, for us. This isn't just an app; it's a movement dedicated to body positivity and deep connections.</p>
+                    </div>
                 </div>
-                <!-- Feature 4 -->
-                <div class="feature-card">
-                    <div class="feature-icon">🦋</div>
-                    <h3>Transformation Kits</h3>
-                    <p>Access powerful transformation kits and resources designed to empower your journey and boost your self-love.</p>
+                
+                <!-- Step 4 -->
+                <div class="flow-step">
+                    <div class="step-circle">4</div>
+                    <div class="step-content">
+                        <h3>Transformation Kits</h3>
+                        <p>Access powerful transformation kits and resources designed to empower your journey and boost your self-love.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -419,19 +561,20 @@
                 <div class="footer-links">
                     <h4>Platform</h4>
                     <ul>
-                        <li><a href="#">Home</a></li>
+                        <li><a href="index.html">Home</a></li>
                         <li><a href="#about">About Us</a></li>
-                        <li><a href="#">How it Works</a></li>
-                        <li><a href="link.html">Join Waitlist</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="referral.html">Referral</a></li>
+                        <li><a href="support.html">Support</a></li>
+                        <li><a href="waitlist.html">Join Waitlist</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
-                    <h4>Legal & Support</h4>
+                    <h4>Legal</h4>
                     <ul>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Disclosure</a></li>
-                        <li><a href="#">Report an Issue</a></li>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-of-service.html">Terms of Service</a></li>
+                        <li><a href="disclosure.html">Disclosure</a></li>
                     </ul>
                 </div>
             </div>
