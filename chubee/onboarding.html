@@ -3,224 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Join the ChuBee Waitlist - The Hive of Acceptance.">
     <title>Join Waitlist | ChuBee</title>
-    
-    <link rel="preload" href="https://dxtcuekuplihhijepqww.supabase.co/storage/v1/object/public/Assets/20260627_000257.png" as="image">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Segoe+UI:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --honey-yellow: #FFC107;
-            --honey-dark: #FF6F00;
-            --honey-light: rgba(255, 193, 7, 0.1);
-            --white: #FFFFFF;
-            --text-dark: #3E2723;
-            --text-muted: #5D4037;
-            --bg-color: #FDFBF7;
-        }
+        :root { --honey-yellow: #FFC107; --honey-dark: #FF6F00; --white: #FFFFFF; --text-dark: #3E2723; --bg-color: #FDFBF7; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); }
         
-        body, html {
-            margin: 0; padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color); 
-            color: var(--text-dark);
-            height: 100%; display: flex; flex-direction: column;
-        }
-
-        /* --- Header --- */
+        /* Updated Header */
         header { 
-            display: flex; justify-content: center; align-items: center; 
-            padding: 20px 40px; background: rgba(255, 255, 255, 0.98); 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100;
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 20px 40px; background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-        .nav-logo { width: 100px; height: auto; cursor: pointer; }
+        .nav-logo { width: 80px; }
+        .header-text { font-family: 'Montserrat', sans-serif; font-weight: 800; color: var(--text-dark); }
+        .home-icon { font-size: 1.5rem; text-decoration: none; color: var(--text-dark); }
 
-        /* --- Main Onboarding Container --- */
-        .onboarding-wrapper {
-            flex: 1; display: flex; justify-content: center; align-items: center;
-            padding: 40px 20px;
-        }
-        
-        .onboarding-container {
-            background-color: var(--white);
-            max-width: 550px; width: 100%;
-            padding: 50px 40px;
-            border-radius: 30px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.06);
-            border-top: 5px solid var(--honey-yellow);
-        }
+        /* Professional Container */
+        .onboarding-wrapper { max-width: 600px; margin: 60px auto; padding: 40px; background: var(--white); border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .full-width { grid-column: span 2; }
+        input, select { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 12px; box-sizing: border-box; margin-top: 5px; }
+        .btn-submit { width: 100%; padding: 18px; background: var(--honey-yellow); border: none; border-radius: 30px; font-weight: bold; cursor: pointer; margin-top: 20px; }
 
-        .onboarding-header { text-align: center; margin-bottom: 35px; }
-        .onboarding-header h1 {
-            font-family: 'Montserrat', sans-serif; font-size: 2.2rem; font-weight: 800; 
-            color: var(--text-dark); margin: 0 0 15px 0; line-height: 1.2;
-        }
-        .onboarding-header h1 span { color: var(--honey-dark); }
-        .onboarding-header p {
-            font-size: 1.05rem; color: var(--text-muted); line-height: 1.6; margin: 0;
-        }
-
-        /* --- Form Styles --- */
-        .form-group { margin-bottom: 20px; }
-        .form-group label {
-            display: block; font-weight: 600; margin-bottom: 8px; color: var(--text-dark); font-size: 0.95rem;
-        }
-        .form-group input {
-            width: 100%; padding: 15px; border: 2px solid #E0E0E0; border-radius: 12px;
-            font-size: 1rem; font-family: inherit; color: var(--text-dark);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            box-sizing: border-box;
-        }
-        .form-group input:focus {
-            outline: none; border-color: var(--honey-yellow);
-            box-shadow: 0 0 0 4px var(--honey-light);
-        }
-
-        /* --- Button --- */
-        .btn-submit { 
-            display: block; width: 100%; padding: 18px; font-weight: bold; font-size: 1.1rem;
-            background-color: var(--honey-yellow); color: var(--text-dark); 
-            border: none; border-radius: 30px; cursor: pointer; margin-top: 30px;
-            transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
-        }
-        .btn-submit:hover { 
-            background-color: var(--honey-dark); color: var(--white); 
-            transform: translateY(-2px); box-shadow: 0 8px 15px rgba(255, 111, 0, 0.3); 
-        }
-
-        /* --- Loading Overlay --- */
-        #submit-loader {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: rgba(255, 255, 255, 0.95); z-index: 9999;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-        #submit-loader.show { opacity: 1; visibility: visible; }
-        
-        .spinner {
-            width: 50px; height: 50px; border: 5px solid var(--honey-light);
-            border-top: 5px solid var(--honey-dark); border-radius: 50%;
-            animation: spin 1s linear infinite; margin-bottom: 20px;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        .loader-text {
-            font-family: 'Montserrat', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--text-dark);
-        }
-
-        @media (max-width: 600px) {
-            .onboarding-container { padding: 40px 25px; border-radius: 20px; }
-            .onboarding-header h1 { font-size: 1.8rem; }
-        }
+        /* Footer Import from Index */
+        footer { background-color: #2C1A14; color: #EFEBE9; padding: 60px 40px 20px; margin-top: 60px; }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="index.html">
-            <img class="nav-logo" src="https://dxtcuekuplihhijepqww.supabase.co/storage/v1/object/public/Assets/20260627_000257.png" alt="ChuBee Logo">
-        </a>
+        <img src="https://dxtcuekuplihhijepqww.supabase.co/storage/v1/object/public/Assets/20260627_000257.png" class="nav-logo">
+        <h2 class="header-text">Join the Waitlist</h2>
+        <a href="index.html" class="home-icon">⌂</a>
     </header>
 
     <main class="onboarding-wrapper">
-        <div class="onboarding-container">
-            <div class="onboarding-header">
-                <h1>Join the <span>ChuBee</span> Hive</h1>
-                <p>Welcome to ChuBee.in, a safe and empowering space designed purely for plus-size individuals and those who celebrate them. Join our waitlist today to find authentic friendships, meaningful connections, and a community built on body positivity.</p>
+        <form id="waitlistForm">
+            <div class="form-grid">
+                <div class="full-width"><label>Full Name</label><input type="text" id="fullName" required></div>
+                <div><label>Date of Birth</label><input type="date" id="dob" required></div>
+                <div><label>Email</label><input type="email" id="email" required></div>
+                <div><label>State</label><input type="text" id="state" required></div>
+                <div><label>District</label><input type="text" id="district" required></div>
+                <div class="full-width"><label>City</label><input type="text" id="city" required></div>
             </div>
-
-            <form id="waitlistForm">
-                <div class="form-group">
-                    <label for="fullName">Full Name</label>
-                    <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="dob">Date of Birth</label>
-                    <input type="date" id="dob" name="dob" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="place">Place (City/Location)</label>
-                    <input type="text" id="place" name="place" placeholder="E.g. New York, NY" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" placeholder="you@example.com" required>
-                </div>
-
-                <button type="submit" class="btn-submit">Create Account</button>
-            </form>
-        </div>
+            <button type="submit" class="btn-submit">Create Account</button>
+        </form>
     </main>
 
-    <div id="submit-loader">
-        <div class="spinner"></div>
-        <div class="loader-text">Creating account...</div>
-    </div>
+    <footer>
+        <div style="max-width: 1200px; margin: auto;">
+            <p>&copy; 2026 ChuBee. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+        const supabase = createClient('https://dxtcuekuplihhijepqww.supabase.co', 'YOUR_ANON_KEY');
 
-        // Initialize Supabase - REPLACE THESE WITH YOUR ACTUAL KEYS
-        const supabaseUrl = 'https://dxtcuekuplihhijepqww.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR4dGN1ZWt1cGxpaGhpamVwcXd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0ODgxOTQsImV4cCI6MjA5ODA2NDE5NH0.OTBpuZJrr15tVUhih1JMrV_yk5FiSR5-PLB2G9DVOZs';
-        const supabase = createClient(supabaseUrl, supabaseKey);
-
-        const form = document.getElementById('waitlistForm');
-        const loader = document.getElementById('submit-loader');
-
-        form.addEventListener('submit', async (e) => {
+        document.getElementById('waitlistForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-
-            // Show loading animation
-            loader.classList.add('show');
-
-            // Get form data
-            const fullName = document.getElementById('fullName').value.trim();
-            const dob = document.getElementById('dob').value;
-            const place = document.getElementById('place').value.trim();
-            const email = document.getElementById('email').value.trim();
-
-            try {
-                // Insert data into Supabase
-                const { data, error } = await supabase
-                    .from('waitlisted_users')
-                    .insert([
-                        { 
-                            full_name: fullName, 
-                            dob: dob, 
-                            place: place, 
-                            email: email 
-                        }
-                    ]);
-
-                if (error) {
-                    throw error;
-                }
-
-                // If successful, simulate a brief delay for the animation, then redirect
-                setTimeout(() => {
-                    window.location.href = 'waitlisted.html';
-                }, 1500);
-
-            } catch (error) {
-                // Hide loader and show error message
-                loader.classList.remove('show');
-                
-                // If it's a unique constraint error (e.g., email already exists)
-                if (error.code === '23505') {
-                    alert('This email is already on the waitlist!');
-                } else {
-                    alert('An error occurred while joining the waitlist. Please try again.');
-                    console.error('Supabase error:', error.message);
-                }
-            }
+            const { error } = await supabase.from('waitlisted_users').insert([{
+                full_name: document.getElementById('fullName').value,
+                dob: document.getElementById('dob').value,
+                email: document.getElementById('email').value,
+                state: document.getElementById('state').value,
+                district: document.getElementById('district').value,
+                city: document.getElementById('city').value
+            }]);
+            if (!error) window.location.href = 'waitlisted.html';
+            else alert('Error: ' + error.message);
         });
     </script>
 </body>
