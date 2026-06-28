@@ -17,6 +17,7 @@
         :root {
             --honey-yellow: #FFC107;
             --honey-dark: #FF6F00;
+            --honey-light: rgba(255, 193, 7, 0.1);
             --white: #FFFFFF;
             --text-dark: #3E2723;
             --text-muted: #5D4037;
@@ -150,6 +151,64 @@
             margin-bottom: 20px; font-weight: 500; 
         }
 
+        /* --- Stats/Waitlist Section --- */
+        .stats-section {
+            background-color: var(--white);
+            padding: 80px 40px;
+            text-align: center;
+            display: flex; justify-content: center;
+        }
+        .stats-container {
+            max-width: 800px; width: 100%;
+        }
+        .stats-container h2 {
+            font-family: 'Montserrat', sans-serif; font-size: 3.2rem; font-weight: 800; 
+            color: var(--text-dark); margin: 0 0 25px 0; line-height: 1.1; letter-spacing: -0.02em;
+        }
+        .stats-container h2 span { color: var(--honey-dark); }
+        .stats-container p {
+            font-size: 1.15rem; line-height: 1.8; color: var(--text-muted); 
+            margin-bottom: 35px; font-weight: 500;
+        }
+
+        /* --- Why Choose Us Section --- */
+        .features-section {
+            background-color: #FDFBF7; /* Soft, warm off-white */
+            padding: 100px 40px;
+            text-align: center;
+        }
+        .features-header {
+            margin-bottom: 60px;
+        }
+        .features-header h2 {
+            font-family: 'Montserrat', sans-serif; font-size: 3.2rem; font-weight: 800;
+            color: var(--text-dark); margin: 0; line-height: 1.1; letter-spacing: -0.02em;
+        }
+        .features-header h2 span { color: var(--honey-dark); }
+        
+        .features-grid {
+            max-width: 1200px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;
+        }
+        .feature-card {
+            background: var(--white); padding: 40px 30px; border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 45px rgba(255,111,0,0.1);
+        }
+        .feature-icon {
+            font-size: 3rem; margin-bottom: 20px;
+        }
+        .feature-card h3 {
+            font-size: 1.4rem; color: var(--text-dark); margin: 0 0 15px 0; font-weight: 700;
+        }
+        .feature-card p {
+            font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin: 0;
+        }
+
         /* --- Footer --- */
         footer {
             background-color: var(--footer-bg); color: var(--footer-text);
@@ -195,6 +254,7 @@
             .hero-title { font-size: 3.5rem; }
             .hero-logo-large { max-width: 350px; }
             .about-container { flex-direction: column; gap: 40px; padding: 40px; }
+            .stats-container h2, .features-header h2 { font-size: 2.6rem; }
         }
 
         @media (max-width: 768px) {
@@ -210,6 +270,9 @@
             .about-section { padding: 60px 15px; }
             .about-container { padding: 30px 20px; border-radius: 25px; }
             .about-content h2 { font-size: 2.4rem; }
+            
+            .stats-section, .features-section { padding: 50px 20px; }
+            .stats-container h2, .features-header h2 { font-size: 2.2rem; }
             
             footer { padding: 50px 20px 20px 20px; }
             .footer-container { grid-template-columns: 1fr; gap: 30px; }
@@ -298,6 +361,50 @@
                     </p>
 
                     <a href="link.html" class="btn btn-small" style="margin-top: 15px;">Know more</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 250+ Bees Waitlist Section -->
+        <section class="stats-section">
+            <div class="stats-container">
+                <h2><span>250+ Bees</span> waitlist till now</h2>
+                <p>
+                    Our hive is growing rapidly! Over 250 amazing individuals have already claimed their spot, eagerly awaiting a community built purely on body positivity and acceptance. Join the early adopters today and secure your place in a swarm where everyone truly belongs before we officially launch.
+                </p>
+                <a href="link.html" class="btn">Join the Swarm</a>
+            </div>
+        </section>
+
+        <!-- Why Choose Us Section -->
+        <section class="features-section">
+            <div class="features-header">
+                <h2>Why <span>choose us?</span></h2>
+            </div>
+            <div class="features-grid">
+                <!-- Feature 1 -->
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <h3>Completely Free</h3>
+                    <p>Now we're completely free for all. Enjoy full access to our community without hidden costs or premium paywalls.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Secure Environment</h3>
+                    <p>Connect with peace of mind. Our platform is built with top-tier privacy and security measures to protect you.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Community Initiative</h3>
+                    <p>Built by us, for us. This isn't just an app; it's a movement dedicated to body positivity and deep connections.</p>
+                </div>
+                <!-- Feature 4 -->
+                <div class="feature-card">
+                    <div class="feature-icon">🦋</div>
+                    <h3>Transformation Kits</h3>
+                    <p>Access powerful transformation kits and resources designed to empower your journey and boost your self-love.</p>
                 </div>
             </div>
         </section>
